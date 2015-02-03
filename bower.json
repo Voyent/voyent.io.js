@@ -2,7 +2,7 @@
 	"name": "bridgeit.io.js",
 	"version": "0.0.1",
 	"main": "lib/bridgeit.io.js",
-	"ignore: [
+	"ignore": [
 		"docs",
 		"bower.json",
 		"LICENCE",
