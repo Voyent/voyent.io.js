@@ -11,7 +11,7 @@
 		".gitignore"
 	],
 	"dependencies":{
-		"bridgeit.js": "#master"
+		"bridgeit.js": "#gh-pages"
 	},
 	"devDependencies":{},
 	"keywords":[
