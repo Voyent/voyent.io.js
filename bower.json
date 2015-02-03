@@ -1,0 +1,23 @@
+{
+	"name": "bridgeit.io.js",
+	"version": "0.0.1",
+	"main": "lib/bridgeit.io.js",
+	"ignore: [
+		"docs",
+		"bower.json",
+		"LICENCE",
+		"README.md",
+		"favicon.ico",
+		".gitignore"
+	],
+	"dependencies":{
+		"bridgeit.js": "1.0.5"
+	},
+	"devDependencies":{},
+	"keywords":[
+		"mobile",
+		"javascript",
+		"services"
+	]
+
+}
