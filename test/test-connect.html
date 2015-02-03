@@ -1,20 +1,20 @@
 <html>
     <head>
         <title> Tests </title>
-        <link rel="stylesheet" href="./node_modules/mocha/mocha.css" />
+        <link rel="stylesheet" href="./lib/mocha/mocha.css" />
     </head>
     <body>
     
         <!-- Promise Support -->
         <script src="../node_modules/es6-promise/dist/es6-promise.js"></script>
-        <script src="./node_modules/require.js/build/require.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.15/require.min.js"></script>
         <script>
              if( !("Promise" in window)){
                 window.Promise = ES6Promise.Promise;
             }
         </script>
-        <script src="../src/bridgeit.js"></script>
-        <script src="../src/bridgeit-services.js"></script>
+        <script src="http://bridgeit.github.io/bridgeit.js/src/bridgeit.js"></script>
+        <script src="../lib/bridgeit.io.js"></script>
 
         <h1>BridgeIt Auth Connect Test</h1>
 
