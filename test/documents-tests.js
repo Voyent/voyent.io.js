@@ -1,17 +1,17 @@
-describe('bridgeit.services.documents', function () {
+describe('bridgeit.io.documents', function () {
 
 	describe('#createDocument()', function(){
 		it('should create a new unnamed document', function (done) {
 
 			var newDoc = {test: true};
 
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.documents.createDocument({
+				return bridgeit.io.documents.createDocument({
 					document: newDoc,
 					realm: realmId
 				});
@@ -30,13 +30,13 @@ describe('bridgeit.services.documents', function () {
 		it('should create a new unnamed document and delete it', function (done) {
 			var newDoc = {test: true};
 			
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.documents.createDocument({
+				return bridgeit.io.documents.createDocument({
 					document: newDoc,
 					realm: realmId
 				});
@@ -44,7 +44,7 @@ describe('bridgeit.services.documents', function () {
 				newDocURI = docURI;
 				var uriParts = docURI.split('/');
 				var docId = uriParts[uriParts.length-1];
-				return bridgeit.services.documents.deleteDocument({
+				return bridgeit.io.documents.deleteDocument({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -65,13 +65,13 @@ describe('bridgeit.services.documents', function () {
 
 			var newDoc = {test: true};
 			
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.documents.createDocument({
+				return bridgeit.io.documents.createDocument({
 					document: newDoc,
 					realm: realmId
 				});
@@ -80,7 +80,7 @@ describe('bridgeit.services.documents', function () {
 				var uriParts = docURI.split('/');
 				var docId = uriParts[uriParts.length-1];
 				newDoc.test = false;
-				return bridgeit.services.documents.updateDocument({
+				return bridgeit.io.documents.updateDocument({
 					id: docId,
 					document: newDoc
 				})
@@ -99,21 +99,21 @@ describe('bridgeit.services.documents', function () {
 
 			var newDoc = {test: true};
 			
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				realm: realmId,
 				username: userId,
 				password: userPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.documents.createDocument({
+				return bridgeit.io.documents.createDocument({
 					document: newDoc
 				});
 			}).then(function(docURI){
 				newDocURI = docURI;
 				var uriParts = docURI.split('/');
 				var docId = uriParts[uriParts.length-1];
-				return bridgeit.services.documents.getDocument({
+				return bridgeit.io.documents.getDocument({
 					id: docId
 				})
 			}).then(function(doc){
@@ -135,14 +135,14 @@ describe('bridgeit.services.documents', function () {
 			var key = new Date().getTime();
 			var newDoc = {key: key, value: true};
 			
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: userId,
 				realm: realmId,
 				password: userPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.documents.createDocument({
+				return bridgeit.io.documents.createDocument({
 					document: newDoc,
 					realm: realmId
 				});
@@ -150,7 +150,7 @@ describe('bridgeit.services.documents', function () {
 				newDocURI = docURI;
 				var uriParts = docURI.split('/');
 				var docId = uriParts[uriParts.length-1];
-				return bridgeit.services.documents.findDocuments({
+				return bridgeit.io.documents.findDocuments({
 					query: {key: key}
 				})
 			}).then(function(results){
@@ -169,14 +169,14 @@ describe('bridgeit.services.documents', function () {
 
 			var key = 'null';
 			
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				realm: realmId,
 				username: userId,
 				password: userPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.services.documents.findDocuments({
+				return bridgeit.io.documents.findDocuments({
 					query: {key: key}
 				})
 			}).then(function(results){

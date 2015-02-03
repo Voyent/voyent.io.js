@@ -1,16 +1,16 @@
-describe('bridgeit.services.admin', function(){
+describe('bridgeit.io.admin', function(){
 
 	describe('#getServiceDefinitions()', function(done){
 
 		it('should return the BridgeIt service definition JSON', function (done) {
 
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 					account: accountId,
 					username: adminId,
 					password: adminPassword,
 					host: host
 				}).then(function(authResponse){
-					return bridgeit.services.admin.getServiceDefinitions();
+					return bridgeit.io.admin.getServiceDefinitions();
 				}).then(function(json){
 					console.log('service defintions: ' + JSON.stringify(json));
 					done();
@@ -25,13 +25,13 @@ describe('bridgeit.services.admin', function(){
 
 		it('should return a list of realm users', function (done) {
 
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 					account: accountId,
 					username: adminId,
 					password: adminPassword,
 					host: host
 				}).then(function(authResponse){
-					return bridgeit.services.admin.getRealmUsers({
+					return bridgeit.io.admin.getRealmUsers({
 						realm: realmId
 					});
 				}).then(function(json){
@@ -48,13 +48,13 @@ describe('bridgeit.services.admin', function(){
 
 		it('should return a single user', function (done) {
 
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 					account: accountId,
 					username: adminId,
 					password: adminPassword,
 					host: host
 				}).then(function(authResponse){
-					return bridgeit.services.admin.getRealmUser({
+					return bridgeit.io.admin.getRealmUser({
 						realm: realmId,
 						username: userId
 					});
@@ -72,13 +72,13 @@ describe('bridgeit.services.admin', function(){
 
 		it('should return a list of realms for the account', function (done) {
 
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 					account: accountId,
 					username: adminId,
 					password: adminPassword,
 					host: host
 				}).then(function(authResponse){
-					return bridgeit.services.admin.getAccountRealms();
+					return bridgeit.io.admin.getAccountRealms();
 				}).then(function(json){
 					console.log('getAccountRealms: ' + JSON.stringify(json));
 					done();
@@ -93,13 +93,13 @@ describe('bridgeit.services.admin', function(){
 
 		it('should return a single realm for the account', function (done) {
 
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 					account: accountId,
 					username: adminId,
 					password: adminPassword,
 					host: host
 				}).then(function(authResponse){
-					return bridgeit.services.admin.getAccountRealm({
+					return bridgeit.io.admin.getAccountRealm({
 						realm: realmId
 					});
 				}).then(function(json){

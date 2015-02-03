@@ -11,7 +11,7 @@
 ### <a name="getServiceDefinitions"></a>executeFlow
 
 ```javascript
-function bridgeit.services.admin.getServiceDefinitions(params)
+function bridgeit.io.admin.getServiceDefinitions(params)
 ```
 
 Get the BridgeIt Service definitions.
@@ -22,7 +22,7 @@ Get the BridgeIt Service definitions.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 
@@ -33,7 +33,7 @@ Promise with a JSON object containing a list of BridgeIt services.
 #### Example
 
 ```javascript
-bridgeit.services.code.getServiceDefinitions({
+bridgeit.io.code.getServiceDefinitions({
 		account: accountId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
 	})
@@ -46,7 +46,7 @@ bridgeit.services.code.getServiceDefinitions({
 ### <a name="getRealmUsers"></a>getRealmUsers
 
 ```javascript
-function bridgeit.services.admin.getRealmUsers(params)
+function bridgeit.io.admin.getRealmUsers(params)
 ```
 
 Get the users for an account realm.
@@ -57,7 +57,7 @@ Get the users for an account realm.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 
@@ -68,7 +68,7 @@ Promise with a JSON object containing a list of realm users.
 #### Example
 
 ```javascript
-bridgeit.services.code.getRealmUsers({
+bridgeit.io.code.getRealmUsers({
 		account: accountId,
 		realm: 'nargles.net'
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -82,7 +82,7 @@ bridgeit.services.code.getRealmUsers({
 ### <a name="getRealmUser"></a>getRealmUser
 
 ```javascript
-function bridgeit.services.admin.getRealmUser(params)
+function bridgeit.io.admin.getRealmUser(params)
 ```
 
 Get a user for an account realm.
@@ -93,7 +93,7 @@ Get a user for an account realm.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | username | The user id | String | | true |
@@ -105,7 +105,7 @@ Promise with a JSON object the user information.
 #### Example
 
 ```javascript
-bridgeit.services.code.getRealmUser({
+bridgeit.io.code.getRealmUser({
 		account: accountId,
 		realm: 'nargles.net'
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
@@ -120,7 +120,7 @@ bridgeit.services.code.getRealmUser({
 ### <a name="getAccountRealms"></a>getAccountRealms
 
 ```javascript
-function bridgeit.services.admin.getAccountRealms(params)
+function bridgeit.io.admin.getAccountRealms(params)
 ```
 
 Get a list of realms for an account.
@@ -130,7 +130,7 @@ Get a list of realms for an account.
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 
@@ -141,7 +141,7 @@ Promise with a JSON object with a list of realm objects.
 #### Example
 
 ```javascript
-bridgeit.services.code.getAccountRealms({
+bridgeit.io.code.getAccountRealms({
 		account: accountId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
 	})
@@ -155,7 +155,7 @@ bridgeit.services.code.getAccountRealms({
 ### <a name="getAccountRealm"></a>getAccountRealm
 
 ```javascript
-function bridgeit.services.admin.getAccountRealm(params)
+function bridgeit.io.admin.getAccountRealm(params)
 ```
 
 Get a list of realms for an account.
@@ -166,7 +166,7 @@ Get a list of realms for an account.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | realm | The realm name | String | | true |
@@ -178,7 +178,7 @@ Promise with a JSON object the realm information.
 #### Example
 
 ```javascript
-bridgeit.services.code.getAccountRealm({
+bridgeit.io.code.getAccountRealm({
 		account: accountId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
 		realm: 'nargles.net'

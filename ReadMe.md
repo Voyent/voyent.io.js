@@ -30,7 +30,7 @@ The BridgeIt Services Client API is written with ECMAScript 6 Promise/A+ support
     }
 </script>
 <script src="bridgeit.js"></script>
-<script src="bridgeit-services.js"></script>
+<script src="bridgeit.io.js"></script>
 ```
 
 ## Tests
@@ -43,7 +43,7 @@ mocha-phantomjs TestRunner.html
 
 Mocha and PhantomJS are both required.
 
-## Global bridgeit.services Functions
+## Global bridgeit.io Functions
 
 * [startTransaction](#startTransaction)
 * [endTransaction](#endTransaction)
@@ -52,7 +52,7 @@ Mocha and PhantomJS are both required.
 ### <a name="startTransaction"></a>startTransaction
 
 ```javascript
-function bridgeit.services.startTransaction()
+function bridgeit.io.startTransaction()
 ```
 
 Start a BridgeIt transaction.
@@ -63,15 +63,15 @@ auditing and diagnosing distributed network calls, especially among different se
 #### Example
 
 ```javascript
-bridgeit.services.startTransaction();
-console.log('started transaction: ' + bridgeit.services.getLastTransactionId());
-bridgeit.services.auth.login({
+bridgeit.io.startTransaction();
+console.log('started transaction: ' + bridgeit.io.getLastTransactionId());
+bridgeit.io.auth.login({
 	account: accountId,
 	username: adminId,
 	password: adminPassword,
 	host: host
 }).then(function(authResponse){
-	return bridgeit.services.documents.createDocument({
+	return bridgeit.io.documents.createDocument({
 		document: newDoc,
 		realm: realmId
 	});
@@ -79,18 +79,18 @@ bridgeit.services.auth.login({
 	newDocURI = docURI;
 	var uriParts = docURI.split('/');
 	var docId = uriParts[uriParts.length-1];
-	return bridgeit.services.documents.deleteDocument({
+	return bridgeit.io.documents.deleteDocument({
 		account: accountId,
 		realm: realmId,
 		host: host,
 		id: docId
 	})
 }).then(function(){
-	console.log('completed transaction: ' + bridgeit.services.getLastTransactionId());
-	bridgeit.services.endTransaction();
+	console.log('completed transaction: ' + bridgeit.io.getLastTransactionId());
+	bridgeit.io.endTransaction();
 }).catch(function(error){
-	console.log('something went wrong with transaction: ' + bridgeit.services.getLastTransactionId());
-	bridgeit.services.endTransaction();
+	console.log('something went wrong with transaction: ' + bridgeit.io.getLastTransactionId());
+	bridgeit.io.endTransaction();
 });
 });
 ```
@@ -98,7 +98,7 @@ bridgeit.services.auth.login({
 ### <a name="endTransaction"></a>endTransaction
 
 ```javascript
-function bridgeit.services.endTransaction()
+function bridgeit.io.endTransaction()
 ```
 
 End a BridgeIt transaction.
@@ -112,7 +112,7 @@ See [startTransaction](#startTransaction).
 ### <a name="getLastTransactionId"></a>getLastTransactionId
 
 ```javascript
-function bridgeit.services.getLastTransactionId()
+function bridgeit.io.getLastTransactionId()
 ```
 
 Return the last stored BridgeIt tranaction id.

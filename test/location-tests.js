@@ -1,4 +1,4 @@
-describe('bridgeit.services.location', function(){
+describe('bridgeit.io.location', function(){
 
 	var newRegion = { 
 				location: {
@@ -79,13 +79,13 @@ describe('bridgeit.services.location', function(){
 	describe('#createRegion()', function(){
 		it('should create a new unnamed region and search for it', function (done) {
 			
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.location.createRegion({
+				return bridgeit.io.location.createRegion({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -103,13 +103,13 @@ describe('bridgeit.services.location', function(){
 	describe('#deleteRegion()', function(){
 		this.timeout(deleteTimeout);
 		it('should create a new unnamed region and then delete it', function (done) {
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.location.createRegion({
+				return bridgeit.io.location.createRegion({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -119,7 +119,7 @@ describe('bridgeit.services.location', function(){
 				console.log('new region URI: ' + uri);
 				var uriParts = uri.split('/');
 				var regionId = uriParts[uriParts.length-1];
-				return bridgeit.services.location.deleteRegion({
+				return bridgeit.io.location.deleteRegion({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -136,13 +136,13 @@ describe('bridgeit.services.location', function(){
 
 	describe('#getAllRegions()', function(){
 		it('should create a new unnamed region and then re-fetch it with getAllRegions()', function (done) {
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.location.createRegion({
+				return bridgeit.io.location.createRegion({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -152,7 +152,7 @@ describe('bridgeit.services.location', function(){
 				console.log('new region URI: ' + uri);
 				var uriParts = uri.split('/');
 				var regionId = uriParts[uriParts.length-1];
-				return bridgeit.services.location.getAllRegions({
+				return bridgeit.io.location.getAllRegions({
 					account: accountId,
 					realm: realmId,
 					host: host
@@ -169,13 +169,13 @@ describe('bridgeit.services.location', function(){
 	describe('#findRegions()', function(){
 		it('should create a new unnamed region and then search for it with findRegions()', function (done) {
 			
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.location.createRegion({
+				return bridgeit.io.location.createRegion({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -185,7 +185,7 @@ describe('bridgeit.services.location', function(){
 				console.log('findRegions new region URI: ' + uri);
 				var uriParts = uri.split('/');
 				var regionId = uriParts[uriParts.length-1];
-				return bridgeit.services.location.findRegions({
+				return bridgeit.io.location.findRegions({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -203,13 +203,13 @@ describe('bridgeit.services.location', function(){
 	describe('#createMonitor()', function(){
 		it('should create a new unnamed monitor and then fetch it with findMonitors()', function (done) {
 			
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.location.createMonitor({
+				return bridgeit.io.location.createMonitor({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -219,7 +219,7 @@ describe('bridgeit.services.location', function(){
 				console.log('new monitor URI: ' + uri);
 				var uriParts = uri.split('/');
 				var regionId = uriParts[uriParts.length-1];
-				return bridgeit.services.location.findMonitors({
+				return bridgeit.io.location.findMonitors({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -236,13 +236,13 @@ describe('bridgeit.services.location', function(){
 
 	describe('#getAllMonitors()', function(){
 		it('should create a new unnamed monitor and then fetch it with getAllMonitors()', function (done) {
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.location.createMonitor({
+				return bridgeit.io.location.createMonitor({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -252,7 +252,7 @@ describe('bridgeit.services.location', function(){
 				console.log('new monitor URI: ' + uri);
 				var uriParts = uri.split('/');
 				var regionId = uriParts[uriParts.length-1];
-				return bridgeit.services.location.getAllMonitors({
+				return bridgeit.io.location.getAllMonitors({
 					account: accountId,
 					realm: realmId,
 					host: host
@@ -269,13 +269,13 @@ describe('bridgeit.services.location', function(){
 	describe('#deleteMonitor()', function(){
 		this.timeout(deleteTimeout);
 		it('should create a new unnamed monitor and then delete it', function (done) {
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.location.createMonitor({
+				return bridgeit.io.location.createMonitor({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -285,7 +285,7 @@ describe('bridgeit.services.location', function(){
 				console.log('new monitor URI: ' + uri);
 				var uriParts = uri.split('/');
 				var monitorId = uriParts[uriParts.length-1];
-				return bridgeit.services.location.deleteMonitor({
+				return bridgeit.io.location.deleteMonitor({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -303,13 +303,13 @@ describe('bridgeit.services.location', function(){
 	describe('#createPOI()', function(){
 		it('should create a new unnamed POI and then fetch it with findPOIs()', function (done) {
 			
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.location.createPOI({
+				return bridgeit.io.location.createPOI({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -319,7 +319,7 @@ describe('bridgeit.services.location', function(){
 				console.log('new POI URI: ' + uri);
 				var uriParts = uri.split('/');
 				var regionId = uriParts[uriParts.length-1];
-				return bridgeit.services.location.findPOIs({
+				return bridgeit.io.location.findPOIs({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -337,13 +337,13 @@ describe('bridgeit.services.location', function(){
 	describe('#deletePOI()', function(){
 		this.timeout(deleteTimeout);
 		it('should create a new unnamed POI and then delete it', function (done) {
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.location.createPOI({
+				return bridgeit.io.location.createPOI({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -353,7 +353,7 @@ describe('bridgeit.services.location', function(){
 				console.log('new POI URI: ' + uri);
 				var uriParts = uri.split('/');
 				var poiId = uriParts[uriParts.length-1];
-				return bridgeit.services.location.deletePOI({
+				return bridgeit.io.location.deletePOI({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -371,13 +371,13 @@ describe('bridgeit.services.location', function(){
 	describe('#getAllPOIs()', function(){
 
 		it('should create a new unnamed POI and then fetch it with getAllPOIs()', function (done) {
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.location.createPOI({
+				return bridgeit.io.location.createPOI({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -387,7 +387,7 @@ describe('bridgeit.services.location', function(){
 				console.log('new monitor URI: ' + uri);
 				var uriParts = uri.split('/');
 				var regionId = uriParts[uriParts.length-1];
-				return bridgeit.services.location.getAllPOIs({
+				return bridgeit.io.location.getAllPOIs({
 					account: accountId,
 					realm: realmId,
 					host: host
@@ -404,18 +404,18 @@ describe('bridgeit.services.location', function(){
 	describe('#getLastUserLocation()', function(){
 
 		it('should return the last know user location', function (done) {
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				realm: realmId,
 				username: userId,
 				password: userPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.location.updateLocation({
+				return bridgeit.io.location.updateLocation({
 					location: validLocationWithoutId
 				});
 			}).then(function(){
-				return bridgeit.services.location.getLastUserLocation({
+				return bridgeit.io.location.getLastUserLocation({
 					username: userId
 				});
 			}).then(function(location){
@@ -429,14 +429,14 @@ describe('bridgeit.services.location', function(){
 
 	describe('#updateLocation()', function(){
 		it('should update the location of the current user', function(done){
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				realm: realmId,
 				username: userId,
 				password: userPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.location.updateLocation({
+				return bridgeit.io.location.updateLocation({
 					location: validLocationWithoutId
 				});
 			}).then(function(json){
@@ -450,14 +450,14 @@ describe('bridgeit.services.location', function(){
 
 	describe('#updateLocationCoordinates()', function(){
 		it('should update the location of the current user', function(done){
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				realm: realmId,
 				username: userId,
 				password: userPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.location.updateLocationCoordinates({
+				return bridgeit.io.location.updateLocationCoordinates({
 					lon: -123.35,
 					lat: 48.43,
 					label: 'test label'

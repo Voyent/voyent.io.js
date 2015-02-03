@@ -1,4 +1,4 @@
-describe('bridgeit.services.metrics', function () {
+describe('bridgeit.io.metrics', function () {
 
 	describe('#findMetrics()', function(){
 
@@ -7,13 +7,13 @@ describe('bridgeit.services.metrics', function () {
 		var limit = 50;
 
 		it('should return a list of metrics for the realm', function (done) {
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.services.metrics.findMetrics({
+				return bridgeit.io.metrics.findMetrics({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -33,13 +33,13 @@ describe('bridgeit.services.metrics', function () {
 	describe('#getClientServerTimeGap()', function(){
 
 		it('should return the client/server time gap in milliseconds', function (done) {
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.services.metrics.getClientServerTimeGap({
+				return bridgeit.io.metrics.getClientServerTimeGap({
 					account: accountId,
 					realm: realmId,
 					host: host
@@ -66,13 +66,13 @@ describe('bridgeit.services.metrics', function () {
 				value: 123,
 				time: now
 			};
-			return bridgeit.services.auth.login({
+			return bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.services.metrics.addCustomMetric({
+				return bridgeit.io.metrics.addCustomMetric({
 					realm: realmId,
 					metric: metric,
 					type: 'test'

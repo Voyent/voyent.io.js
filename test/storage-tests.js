@@ -1,15 +1,15 @@
-describe('bridgeit.services.storage', function () {
+describe('bridgeit.io.storage', function () {
 
 	describe('#getMetaInfo()', function(){
 
 		it('should return the meta info for the blobs in the realm', function (done) {
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.services.storage.getMetaInfo({
+				return bridgeit.io.storage.getMetaInfo({
 					account: accountId,
 					realm: realmId,
 					host: host
@@ -38,20 +38,20 @@ describe('bridgeit.services.storage', function () {
 			//phantomJS may not support Blobs
 			var blob = new Blob([ia], {type:mimeType});
 
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.services.storage.uploadBlob({
+				return bridgeit.io.storage.uploadBlob({
 					account: accountId,
 					realm: realmId,
 					host: host,
 					blob: blob
 				})
 			}).then(function(uri){
-				console.log('createBlob new cat image URI: ' + uri + '?access_token=' + bridgeit.services.auth.getLastAccessToken());
+				console.log('createBlob new cat image URI: ' + uri + '?access_token=' + bridgeit.io.auth.getLastAccessToken());
 				done();
 			}).catch(function(response){
 				console.log('createBlob failed ' + JSON.stringify(response));
@@ -61,19 +61,19 @@ describe('bridgeit.services.storage', function () {
 	});
 });
 
-describe('bridgeit.services', function () {
+describe('bridgeit.io', function () {
 	describe('#startTransaction()', function(){
 		it('should start a transaction, login, create, then delete a document, then end the transaction ', function(done){
 			var newDoc = {test: true};
-			bridgeit.services.startTransaction();
-			console.log('started transaction: ' + bridgeit.services.getLastTransactionId());
-			bridgeit.services.auth.login({
+			bridgeit.io.startTransaction();
+			console.log('started transaction: ' + bridgeit.io.getLastTransactionId());
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.services.documents.createDocument({
+				return bridgeit.io.documents.createDocument({
 					document: newDoc,
 					realm: realmId
 				});
@@ -81,7 +81,7 @@ describe('bridgeit.services', function () {
 				newDocURI = docURI;
 				var uriParts = docURI.split('/');
 				var docId = uriParts[uriParts.length-1];
-				return bridgeit.services.documents.deleteDocument({
+				return bridgeit.io.documents.deleteDocument({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -89,10 +89,10 @@ describe('bridgeit.services', function () {
 				})
 			}).then(function(){
 				console.log('startTransaction() test finished');
-				bridgeit.services.endTransaction();
+				bridgeit.io.endTransaction();
 				done();
 			}).catch(function(error){
-				bridgeit.services.endTransaction();
+				bridgeit.io.endTransaction();
 				console.log('startTransaction failed ' + error);
 			});
 		});

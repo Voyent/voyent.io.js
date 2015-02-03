@@ -9,7 +9,7 @@
 ### <a name="findMetrics"></a>findMetrics
 
 ```javascript
-function bridgeit.services.metrics.findMetrics(params)
+function bridgeit.io.metrics.findMetrics(params)
 ```
 
 Searches for Metrics in a realm based on an expression
@@ -20,7 +20,7 @@ Searches for Metrics in a realm based on an expression
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | expression | The expression for the metrics query TODO document expression format | String |  | false |
@@ -36,7 +36,7 @@ Promise with the query results.
 #### Example
 
 ```javascript
-bridgeit.services.metrics.findMetrics({
+bridgeit.io.metrics.findMetrics({
 		account: accountId,
 		realm: realmId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
@@ -54,7 +54,7 @@ bridgeit.services.metrics.findMetrics({
 ### <a name="getClientServerTimeGap"></a>getClientServerTimeGap
 
 ```javascript
-function bridgeit.services.metrics.getClientServerTimeGap(params)
+function bridgeit.io.metrics.getClientServerTimeGap(params)
 ```
 
 Retrieve the time difference in milliseconds between the provided time and the metrics server time.
@@ -68,7 +68,7 @@ client time - server time.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 
@@ -79,7 +79,7 @@ Promise with the the time difference in milliseconds.
 #### Example
 
 ```javascript
-bridgeit.services.metrics.getClientServerTimeGap({
+bridgeit.io.metrics.getClientServerTimeGap({
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
 	})
 }).then(function(milliseconds){
@@ -92,7 +92,7 @@ bridgeit.services.metrics.getClientServerTimeGap({
 ### <a name="addCustomMetric"></a>addCustomMetric
 
 ```javascript
-function bridgeit.services.metrics.addCustomMetric(params)
+function bridgeit.io.metrics.addCustomMetric(params)
 ```
 
 Store a custom metric in the metrics service.
@@ -103,7 +103,7 @@ Store a custom metric in the metrics service.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | metric | The custom metric that you would like to store, in JSON format. | Object |  | true |
@@ -120,7 +120,7 @@ var metric = {
 	value: 'test',
 	time: now
 };
-bridgeit.services.metrics.addCustomMetric({
+bridgeit.io.metrics.addCustomMetric({
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
 		metric: metric
 	})

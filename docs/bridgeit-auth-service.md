@@ -22,7 +22,7 @@
 ### <a name="getNewAccessToken"></a>getNewAccessToken
 
 ```javascript
-function bridgeit.services.auth.getNewAccessToken(params)
+function bridgeit.io.auth.getNewAccessToken(params)
 ```
 
 Retrieve a new access token from the BridgeIt auth service.. 
@@ -66,7 +66,7 @@ Promise with the access token and expires_in values in the following format:
 ### <a name="login"></a>login
 
 ```javascript
-function bridgeit.services.auth.login(params)
+function bridgeit.io.auth.login(params)
 ```
 
 Login into bridgeit services. 
@@ -110,7 +110,7 @@ Promise with the following argument:
 
 ### <a name="connect"></a>connect
 ```javascript
-function bridgeit.services.auth.connect(params)
+function bridgeit.io.auth.connect(params)
 ```
 
 Connect to bridgeit services. 
@@ -121,7 +121,7 @@ may send and receive push notifications after connecting.
 
 After connecting to BridgeIt Services, any BridgeIt service API may be used without needing to re-authenticate.
 After successfully connecting, an authentication token will be stored in session storage and available through 
-`bridgeit.services.auth.getLastAccessToken()`. This authentication information will automatically be used by other BridgeIt API
+`bridgeit.io.auth.getLastAccessToken()`. This authentication information will automatically be used by other BridgeIt API
 calls, so the token does not be included in subsequent calls, but is available if desired.
 
 A simple example of connecting to the BridgeIt Services and then making a service call is the following:
@@ -169,7 +169,7 @@ Promise with the following argument: TODO
 
 ### <a name="disconnect"></a>disconnect
 ```javascript
-function bridgeit.services.auth.disconnect()
+function bridgeit.io.auth.disconnect()
 ```
 
 Disconnect from BridgeIt Services. 
@@ -187,7 +187,7 @@ Promise with the following argument: TODO
 
 ### <a name="getLastAccessToken"></a>getLastAccessToken
 ```javascript
-function bridgeit.services.auth.getLastAccessToken()
+function bridgeit.io.auth.getLastAccessToken()
 ```
 
 Return the last known Access Token.
@@ -208,7 +208,7 @@ The access token string, eg.:
 
 ### <a name="getExpiresIn"></a>getExpiresIn
 ```javascript
-function bridgeit.services.auth.getExpiresIn()
+function bridgeit.io.auth.getExpiresIn()
 ```
 
 Return the current token expiry period.
@@ -224,7 +224,7 @@ The token expiry period in milliseconds, eg.:
 
 ### <a name="getTokenSetAtTime"></a>getTokenSetAtTime
 ```javascript
-function bridgeit.services.auth.getTokenSetAtTime()
+function bridgeit.io.auth.getTokenSetAtTime()
 ```
 
 Return the time the last access token was retrieved.
@@ -240,7 +240,7 @@ The unix time of the last access token, eg.:
 
 ### <a name="getTimeRemainingBeforeExpiry"></a>getTimeRemainingBeforeExpiry
 ```javascript
-function bridgeit.services.auth.getTimeRemainingBeforeExpiry()
+function bridgeit.io.auth.getTimeRemainingBeforeExpiry()
 ```
 
 Return the time, in milliseconds, before the current token expires.
@@ -256,10 +256,10 @@ The milliseconds before expiry, eg.:
 
 ### <a name="getConnectSettings"></a>getConnectSettings
 ```javascript
-function bridgeit.services.auth.getConnectSettings()
+function bridgeit.io.auth.getConnectSettings()
 ```
 
-Return the current settings used by bridgeit.services.auth.connect()
+Return the current settings used by bridgeit.io.auth.connect()
 
 #### Return value
 
@@ -279,7 +279,7 @@ The configuration settings, eg.:
 
 ### <a name="isLoggedIn"></a>isLoggedIn
 ```javascript
-function bridgeit.services.auth.isLoggedIn()
+function bridgeit.io.auth.isLoggedIn()
 ```
 
 Return whether a current access token exists.
@@ -290,7 +290,7 @@ True or false
 
 ### <a name="getLastKnownAccount"></a>getLastKnownAccount
 ```javascript
-function bridgeit.services.auth.getLastKnownAccount()
+function bridgeit.io.auth.getLastKnownAccount()
 ```
 
 Return the last know account name that was used for the `login` or `connect` functions. 
@@ -304,7 +304,7 @@ A string value or null.
 
 ### <a name="getLastKnownRealm"></a>getLastKnownRealm
 ```javascript
-function bridgeit.services.auth.getLastKnownRealm()
+function bridgeit.io.auth.getLastKnownRealm()
 ```
 
 Return the last know realm name that was used for the `login` or `connect` functions. 
@@ -318,7 +318,7 @@ A string value or null.
 
 ### <a name="registerAsNewUser"></a>registerAsNewUser
 ```javascript
-function bridgeit.services.auth.registerAsNewUser()
+function bridgeit.io.auth.registerAsNewUser()
 ```
 
 Register a new user for a realm that supports open user registrations.
@@ -348,7 +348,7 @@ A Promise with a no arguments when successful.
 #### Example
 
 ```javascript
-bridgeit.services.auth.registerAsNewUser({
+bridgeit.io.auth.registerAsNewUser({
   account: accountId,
   realm: realmId,
   username: newUserId,
@@ -370,7 +370,7 @@ bridgeit.services.auth.registerAsNewUser({
 
 ### <a name="checkUserPermissions"></a>checkUserPermissions
 ```javascript
-function bridgeit.services.auth.checkUserPermissions()
+function bridgeit.io.auth.checkUserPermissions()
 ```
 
 Check if the current user has a set of permissions.
@@ -392,7 +392,7 @@ A Promise with an argument of true, if the user has the permission, or false, if
 #### Example
 
 ```javascript
-bridgeit.services.auth.checkUserPermissions({
+bridgeit.io.auth.checkUserPermissions({
   permissions: 'bridgeit.doc.getDocument bridgeit.doc.saveDocument'
 }).then(function(hasPermission){
   console.log('checkUserPermissions() user has permission: ' + hasPermission);
@@ -404,14 +404,14 @@ bridgeit.services.auth.checkUserPermissions({
 
 ### <a name="updateLastActiveTimestamp"></a>updateLastActiveTimestamp
 ```javascript
-function bridgeit.services.auth.updateLastActiveTimestamp()
+function bridgeit.io.auth.updateLastActiveTimestamp()
 ```
 
 Update the last active timestamp for BridgeIt connect.
 
 ### <a name="getLastActiveTimestamp"></a>getLastActiveTimestamp
 ```javascript
-function bridgeit.services.auth.getLastActiveTimestamp()
+function bridgeit.io.auth.getLastActiveTimestamp()
 ```
 
 Return the last active timestamp in milliseconds.

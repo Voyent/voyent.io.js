@@ -1,4 +1,4 @@
-describe('bridgeit.services.auth', function () {
+describe('bridgeit.io.auth', function () {
 
 	function validateAuthResponse(response){
 		return response.access_token && response.expires_in;
@@ -7,7 +7,7 @@ describe('bridgeit.services.auth', function () {
 	describe('#getNewAcessToken()', function(){
 		
 		it('should retrieve a new access token', function (done) {
-			bridgeit.services.auth.getNewAccessToken({
+			bridgeit.io.auth.getNewAccessToken({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
@@ -29,7 +29,7 @@ describe('bridgeit.services.auth', function () {
 		
 		it('should log in an admin', function (done) {
 
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
@@ -46,7 +46,7 @@ describe('bridgeit.services.auth', function () {
 
 		it('should fail to login in as admin', function (done) {
 
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: userId,
 				password: userPassword,
@@ -62,7 +62,7 @@ describe('bridgeit.services.auth', function () {
 
 		it('should log in a realm user', function (done) {
 
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				realm: realmId,
 				username: userId,
@@ -80,7 +80,7 @@ describe('bridgeit.services.auth', function () {
 
 		it('should fail missing account', function (done) {
 
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				realm: realmId,
 				username: userId,
 				password: userPassword,
@@ -96,7 +96,7 @@ describe('bridgeit.services.auth', function () {
 
 		it('should fail missing username', function (done) {
 
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				realm: realmId,
 				account: accountId,
 				password: userPassword,
@@ -112,7 +112,7 @@ describe('bridgeit.services.auth', function () {
 
 		it('should fail missing password', function (done) {
 
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				realm: realmId,
 				account: accountId,
 				username: userId,
@@ -128,7 +128,7 @@ describe('bridgeit.services.auth', function () {
 
 		it('should log in with SSL', function (done) {
 
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				realm: realmId,
 				username: userId,
@@ -148,7 +148,7 @@ describe('bridgeit.services.auth', function () {
 
 	describe('#connect()', function(){
 		it('should connect as an admin', function (done) {
-			bridgeit.services.auth.connect({
+			bridgeit.io.auth.connect({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
@@ -164,13 +164,13 @@ describe('bridgeit.services.auth', function () {
 
 	describe('#isLoggedIn()', function(){
 		it('should log in as an admin then return true', function (done) {
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				if( bridgeit.services.auth.isLoggedIn()){
+				if( bridgeit.io.auth.isLoggedIn()){
 					done();
 				}
 				else{
@@ -184,18 +184,18 @@ describe('bridgeit.services.auth', function () {
 
 	describe('#disconnect()', function(){
 		it('should log in as an admin then disconnect and return false from isLoggedIn()', function (done) {
-			bridgeit.services.auth.connect({
+			bridgeit.io.auth.connect({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(response){
-				bridgeit.services.auth.disconnect();
+				bridgeit.io.auth.disconnect();
 			}).then(function(response){
-				var isLoggedIn = bridgeit.services.auth.isLoggedIn();
-				var lastAccount = bridgeit.services.auth.getLastKnownAccount();
-				var lastRealm = bridgeit.services.auth.getLastKnownRealm();
-				var lastToken = bridgeit.services.auth.getLastAccessToken();
+				var isLoggedIn = bridgeit.io.auth.isLoggedIn();
+				var lastAccount = bridgeit.io.auth.getLastKnownAccount();
+				var lastRealm = bridgeit.io.auth.getLastKnownRealm();
+				var lastToken = bridgeit.io.auth.getLastAccessToken();
 				if( !isLoggedIn && !lastAccount && !lastRealm && !lastToken ){
 					done();
 				}
@@ -211,13 +211,13 @@ describe('bridgeit.services.auth', function () {
 
 	describe('#getLastAccessToken()', function(){
 		it('should log in as an admin then return the access token', function (done) {
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				if( bridgeit.services.auth.getLastAccessToken() === authResponse.access_token){
+				if( bridgeit.io.auth.getLastAccessToken() === authResponse.access_token){
 					done();
 				}
 			}).catch(function(error){
@@ -229,13 +229,13 @@ describe('bridgeit.services.auth', function () {
 	describe('#getTokenSetAtTime()', function(){
 		it('should log in as an admin then return the time the token was set at', function (done) {
 			var justBeforeLogin = new Date().getTime();
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				var tokenSetAt = bridgeit.services.auth.getTokenSetAtTime();
+				var tokenSetAt = bridgeit.io.auth.getTokenSetAtTime();
 				if( tokenSetAt >= justBeforeLogin){
 					done();
 				}
@@ -250,13 +250,13 @@ describe('bridgeit.services.auth', function () {
 
 	describe('#getExpiresIn()', function(){
 		it('should log in as an admin then return the expires in period', function (done) {
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				var expiresIn = bridgeit.services.auth.getExpiresIn();
+				var expiresIn = bridgeit.io.auth.getExpiresIn();
 				if( typeof expiresIn === 'number' && expiresIn == authResponse.expires_in){
 					done();
 				}
@@ -268,13 +268,13 @@ describe('bridgeit.services.auth', function () {
 
 	describe('#getTimeRemainingBeforeExpiry()', function(){
 		it('should log in as an admin then return a number less than expires_in', function (done) {
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				var timeRemaining = bridgeit.services.auth.getTimeRemainingBeforeExpiry();
+				var timeRemaining = bridgeit.io.auth.getTimeRemainingBeforeExpiry();
 				if( timeRemaining < authResponse.expires_in){
 					done();
 				}
@@ -289,13 +289,13 @@ describe('bridgeit.services.auth', function () {
 
 	describe('#getConnectSettings()', function(){
 		it('should connect in as an admin then return a JSON object of the connect settings', function (done) {
-			bridgeit.services.auth.connect({
+			bridgeit.io.auth.connect({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(response){
-				if( bridgeit.services.auth.getConnectSettings() ){
+				if( bridgeit.io.auth.getConnectSettings() ){
 					done();
 				}
 				else{
@@ -314,13 +314,13 @@ describe('bridgeit.services.auth', function () {
 
 	describe('#getLastKnownAccount()', function(){
 		it('should login as an admin then return the same account name', function (done) {
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				if( bridgeit.services.auth.getLastKnownAccount() === accountId){
+				if( bridgeit.io.auth.getLastKnownAccount() === accountId){
 					done();
 				}
 			}).catch(function(error){
@@ -331,14 +331,14 @@ describe('bridgeit.services.auth', function () {
 
 	describe('#getLastKnownRealm()', function(){
 		it('should login as a realm user then return the same realm name', function (done) {
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				realm: realmId,
 				username: userId,
 				password: userPassword,
 				host: host
 			}).then(function(authResponse){
-				if( bridgeit.services.auth.getLastKnownRealm() === realmId){
+				if( bridgeit.io.auth.getLastKnownRealm() === realmId){
 					done();
 				}
 			}).catch(function(error){
@@ -352,7 +352,7 @@ describe('bridgeit.services.auth', function () {
 
 			var newUserId = 'user' + new Date().getTime();
 
-			bridgeit.services.auth.registerAsNewUser({
+			bridgeit.io.auth.registerAsNewUser({
 				account: accountId,
 				realm: realmId,
 				username: newUserId,
@@ -376,14 +376,14 @@ describe('bridgeit.services.auth', function () {
 	describe('#checkUserPermissions()', function(){
 		it('should return true', function (done) {
 
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				realm: realmId,
 				username: userId,
 				password: userPassword,
 				host: host
 			}).then(function(response){
-				return bridgeit.services.auth.checkUserPermissions({
+				return bridgeit.io.auth.checkUserPermissions({
 					permissions: 'bridgeit.doc.getDocument bridgeit.doc.saveDocument'
 				})
 			}).then(function(hasPermission){
@@ -399,14 +399,14 @@ describe('bridgeit.services.auth', function () {
 
 		it('should return false', function (done) {
 
-			bridgeit.services.auth.login({
+			bridgeit.io.auth.login({
 				account: accountId,
 				realm: realmId,
 				username: userId,
 				password: userPassword,
 				host: host
 			}).then(function(response){
-				return bridgeit.services.auth.checkUserPermissions({
+				return bridgeit.io.auth.checkUserPermissions({
 					permissions: 'permissionDoesntExist'
 				})
 			}).then(function(hasPermission){

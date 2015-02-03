@@ -21,7 +21,7 @@
 ### <a name="createRegion"></a>createRegion
 
 ```javascript
-function bridgeit.services.location.createRegion(params)
+function bridgeit.io.location.createRegion(params)
 ```
 
 Create a new region in the location service.
@@ -32,7 +32,7 @@ Create a new region in the location service.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The region id. If not provided, the service will return a new id. | String |  | false |
@@ -56,7 +56,7 @@ var newRegion = {
 	}
   }
 };
-bridgeit.services.location.createRegion({
+bridgeit.io.location.createRegion({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -72,7 +72,7 @@ bridgeit.services.location.createRegion({
 ### <a name="deleteRegion"></a>deleteRegion
 
 ```javascript
-function bridgeit.services.location.deleteRegion(params)
+function bridgeit.io.location.deleteRegion(params)
 ```
 
 Delete a region in the location service.
@@ -83,7 +83,7 @@ Delete a region in the location service.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The region id. | String |  | true |
@@ -95,7 +95,7 @@ Promise with no arguments.
 #### Example
 
 ```javascript
-bridgeit.services.location.deleteRegion({
+bridgeit.io.location.deleteRegion({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -111,7 +111,7 @@ bridgeit.services.location.deleteRegion({
 ### <a name="getAllRegions"></a>getAllRegions
 
 ```javascript
-function bridgeit.services.location.getAllRegions(params)
+function bridgeit.io.location.getAllRegions(params)
 ```
 
 Fetches all saved regions for the realm from the location service.
@@ -122,7 +122,7 @@ Fetches all saved regions for the realm from the location service.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 
@@ -133,7 +133,7 @@ Promise with a result list of regions.
 #### Example
 
 ```javascript
-bridgeit.services.location.getAllRegions({
+bridgeit.io.location.getAllRegions({
 	account: accountId,
 	realm: realmId,
 	host: host,
@@ -149,7 +149,7 @@ bridgeit.services.location.getAllRegions({
 ### <a name="findRegions"></a>findRegions
 
 ```javascript
-function bridgeit.services.location.findRegions(params)
+function bridgeit.io.location.findRegions(params)
 ```
 
 Searches for regions in a realm based on a Mongo DB query.
@@ -160,7 +160,7 @@ Searches for regions in a realm based on a Mongo DB query.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | query | The Mongo DB query | Object |  | false |
@@ -172,7 +172,7 @@ Promise with a result list of regions.
 #### Example
 
 ```javascript
-bridgeit.services.location.findRegions({
+bridgeit.io.location.findRegions({
 	account: accountId,
 	realm: realmId,
 	host: host,
@@ -195,7 +195,7 @@ bridgeit.services.location.findRegions({
 ### <a name="findMonitors"></a>findMonitors
 
 ```javascript
-function bridgeit.services.location.findMonitors(params)
+function bridgeit.io.location.findMonitors(params)
 ```
 
 Searches for location monitors in a realm based on a Mongo DB query.
@@ -206,7 +206,7 @@ Searches for location monitors in a realm based on a Mongo DB query.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | query | The Mongo DB query | Object |  | false |
@@ -218,7 +218,7 @@ Promise with a result list of monitors.
 #### Example
 
 ```javascript
-bridgeit.services.location.findMonitors({
+bridgeit.io.location.findMonitors({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -240,7 +240,7 @@ bridgeit.services.location.findMonitors({
 ### <a name="createMonitor"></a>createMonitor
 
 ```javascript
-function bridgeit.services.location.createMonitor(params)
+function bridgeit.io.location.createMonitor(params)
 ```
 
 Create a new monitor in the location service.
@@ -251,7 +251,7 @@ Create a new monitor in the location service.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The region id. If not provided, the service will return a new id. | String |  | false |
@@ -297,7 +297,7 @@ var newMonitor = {
 		}
 	  ]
 	};
-bridgeit.services.location.createMonitor({
+bridgeit.io.location.createMonitor({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -313,7 +313,7 @@ bridgeit.services.location.createMonitor({
 ### <a name="deleteMonitor"></a>deleteMonitor
 
 ```javascript
-function bridgeit.services.location.deleteMonitor(params)
+function bridgeit.io.location.deleteMonitor(params)
 ```
 
 Delete a monitor in the location service.
@@ -324,7 +324,7 @@ Delete a monitor in the location service.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The monitor id. | String |  | true |
@@ -336,7 +336,7 @@ Promise with no arguments.
 #### Example
 
 ```javascript
-bridgeit.services.location.deleteMonitor({
+bridgeit.io.location.deleteMonitor({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -352,7 +352,7 @@ bridgeit.services.location.deleteMonitor({
 ### <a name="getAllMonitors"></a>getAllMonitors
 
 ```javascript
-function bridgeit.services.location.getAllMonitors(params)
+function bridgeit.io.location.getAllMonitors(params)
 ```
 
 Fetches all saved monitors for the realm from the location service.
@@ -363,7 +363,7 @@ Fetches all saved monitors for the realm from the location service.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 
@@ -374,7 +374,7 @@ Promise with a result list of monitors.
 #### Example
 
 ```javascript
-bridgeit.services.location.getAllMonitors({
+bridgeit.io.location.getAllMonitors({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -389,7 +389,7 @@ bridgeit.services.location.getAllMonitors({
 ### <a name="createPOI"></a>createPOI
 
 ```javascript
-function bridgeit.services.location.createPOI(params)
+function bridgeit.io.location.createPOI(params)
 ```
 
 Creates a new Point of Interest in the location service.
@@ -400,7 +400,7 @@ Creates a new Point of Interest in the location service.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | poi | A JSON Object describing the Point of Interest. | Boolean | false | false |
@@ -412,7 +412,7 @@ Promise with new resource URI.
 #### Example
 
 ```javascript
-bridgeit.services.location.createPOI({
+bridgeit.io.location.createPOI({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -442,7 +442,7 @@ bridgeit.services.location.createPOI({
 ### <a name="findPOIs"></a>findPOIs
 
 ```javascript
-function bridgeit.services.location.findPOIs(params)
+function bridgeit.io.location.findPOIs(params)
 ```
 
 Searches for Points of Interest in a realm based on a Mongo DB query.
@@ -453,7 +453,7 @@ Searches for Points of Interest in a realm based on a Mongo DB query.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | query | The Mongo DB query | Object |  | false |
@@ -465,7 +465,7 @@ Promise with a result list of Points of Interest.
 #### Example
 
 ```javascript
-bridgeit.services.location.findPOIs({
+bridgeit.io.location.findPOIs({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -487,7 +487,7 @@ bridgeit.services.location.findPOIs({
 ### <a name="deletePOI"></a>deletePOI
 
 ```javascript
-function bridgeit.services.location.deletePOI(params)
+function bridgeit.io.location.deletePOI(params)
 ```
 
 Delete a POI in the location service.
@@ -498,7 +498,7 @@ Delete a POI in the location service.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The POI id. | String |  | true |
@@ -510,7 +510,7 @@ Promise with no arguments.
 #### Example
 
 ```javascript
-bridgeit.services.location.deletePOI({
+bridgeit.io.location.deletePOI({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -526,7 +526,7 @@ bridgeit.services.location.deletePOI({
 ### <a name="getAllPOIs"></a>getAllPOIs
 
 ```javascript
-function bridgeit.services.location.getAllPOIs(params)
+function bridgeit.io.location.getAllPOIs(params)
 ```
 
 Fetches all saved POIs for the realm from the location service.
@@ -537,7 +537,7 @@ Fetches all saved POIs for the realm from the location service.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 
@@ -548,7 +548,7 @@ Promise with a result list of POIs.
 #### Example
 
 ```javascript
-bridgeit.services.location.getAllPOIs({
+bridgeit.io.location.getAllPOIs({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -563,7 +563,7 @@ bridgeit.services.location.getAllPOIs({
 ### <a name="updateLocation"></a>updateLocation
 
 ```javascript
-function bridgeit.services.location.updateLocation(params)
+function bridgeit.io.location.updateLocation(params)
 ```
 
 Update the location of the current user.
@@ -601,7 +601,7 @@ The location document extra properties are optional.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | location | A JSON object describing the location | Object |  | true |
@@ -613,7 +613,7 @@ Promise with a resource URI.
 #### Example
 
 ```javascript
-bridgeit.services.location.updateLocation({
+bridgeit.io.location.updateLocation({
 	location: validLocationWithoutId
 }).then(function(uri){
 	console.log('location URI(): ' + uri);
@@ -625,7 +625,7 @@ bridgeit.services.location.updateLocation({
 ### <a name="updateLocationCoordinates"></a>updateLocationCoordinates
 
 ```javascript
-function bridgeit.services.location.updateLocationCoordinates(params)
+function bridgeit.io.location.updateLocationCoordinates(params)
 ```
 
 Update the location of the current user with a latitude and longitude.
@@ -637,7 +637,7 @@ Update the location of the current user with a latitude and longitude.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | lat | The location latitude | Number |  | true |
@@ -651,7 +651,7 @@ Promise with a resource URI.
 #### Example
 
 ```javascript
-bridgeit.services.location.updateLocationCoordinates({
+bridgeit.io.location.updateLocationCoordinates({
 	lon: -123.35,
 	lat: 48.43,
 	label: 'test label'
@@ -664,7 +664,7 @@ bridgeit.services.location.updateLocationCoordinates({
 ### <a name="getLastUserLocation"></a>getLastUserLocation
 
 ```javascript
-function bridgeit.services.location.getLastUserLocation(params)
+function bridgeit.io.location.getLastUserLocation(params)
 ```
 
 Get the last known user location from the location service.
@@ -675,7 +675,7 @@ Get the last known user location from the location service.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | username | The user id | String | | true |
@@ -687,7 +687,7 @@ Promise with a location JSON object.
 #### Example
 
 ```javascript
-bridgeit.services.location.getLastUserLocation({
+bridgeit.io.location.getLastUserLocation({
 	username: 'jsmith'
 }).then(function(location){
 	console.log('location: ' + JSON.stringify(location));

@@ -9,7 +9,7 @@
 ### <a name="startPushService"></a>startPushService
 
 ```javascript
-function bridgeit.services.push.startPushService(params)
+function bridgeit.io.push.startPushService(params)
 ```
 
 Initialize and start the BridgeIt Push service.
@@ -23,7 +23,7 @@ connection settings for the push server.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 
@@ -34,7 +34,7 @@ Promise with no arguments.
 #### Example
 
 ```javascript
-bridgeit.services.push.startPushService({
+bridgeit.io.push.startPushService({
 		account: accountId,
 		realm: realmId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -49,7 +49,7 @@ bridgeit.services.push.startPushService({
 ### <a name="addPushListener"></a>addPushListener
 
 ```javascript
-function bridgeit.services.push.addPushListener(params)
+function bridgeit.io.push.addPushListener(params)
 ```
 
 Add listener for notifications belonging to the specified group.
@@ -65,7 +65,7 @@ ensure that the BridgeIt Utility app is installed, and register the user for Clo
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | group | The push group name to that will be listened to | String |  | true |
@@ -82,7 +82,7 @@ Promise with no arguments.
 function globalFunction(){
 	alert('push callback fired!');
 }
-bridgeit.services.push.addPushListener({
+bridgeit.io.push.addPushListener({
 		account: accountId,
 		realm: realmId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
@@ -100,7 +100,7 @@ bridgeit.services.push.addPushListener({
 ### <a name="sendPushEvent"></a>sendPushEvent
 
 ```javascript
-function bridgeit.services.push.sendPushEvent(params)
+function bridgeit.io.push.sendPushEvent(params)
 ```
 
 Fire a push event and notify the push group.
@@ -111,7 +111,7 @@ Fire a push event and notify the push group.
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
 | realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.services.auth.connect() will be used | String | | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | group | The push group name to push to | String |  | true |
@@ -125,7 +125,7 @@ Promise with no arguments.
 #### Example
 
 ```javascript
-bridgeit.services.push.sendPushEvent({
+bridgeit.io.push.sendPushEvent({
 		account: accountId,
 		realm: realmId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
