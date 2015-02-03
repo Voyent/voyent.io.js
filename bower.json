@@ -11,7 +11,7 @@
 		".gitignore"
 	],
 	"dependencies":{
-		"bridgeit.js": "1.0.5"
+		"bridgeit.js": "#master"
 	},
 	"devDependencies":{},
 	"keywords":[
