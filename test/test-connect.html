@@ -1,0 +1,143 @@
+<html>
+    <head>
+        <title> Tests </title>
+        <link rel="stylesheet" href="./node_modules/mocha/mocha.css" />
+    </head>
+    <body>
+    
+        <!-- Promise Support -->
+        <script src="../node_modules/es6-promise/dist/es6-promise.js"></script>
+        <script src="./node_modules/require.js/build/require.js"></script>
+        <script>
+             if( !("Promise" in window)){
+                window.Promise = ES6Promise.Promise;
+            }
+        </script>
+        <script src="../src/bridgeit.js"></script>
+        <script src="../src/bridgeit-services.js"></script>
+
+        <h1>BridgeIt Auth Connect Test</h1>
+
+        <h3>Last Active At: <span id="lastActive"></span>
+
+        <h2><a onclick="testConnect()">Connect</a></h2>
+
+        <h3>Connected At: <span id="connectedAt"></span>
+
+        <h2><a onclick="bridget.services.auth.disconnect();">Disconnect</a></h2>
+
+        <h2><a onclick="continueActivity();">Start Continuous Activity</a></h2>
+
+        <h2><a onclick="updateLastActive();">Update Activity</a></h2>
+
+        <h2><a onclick="joinPushGroup();">Join Push Group</a></h2>
+
+        <h2><a onclick="bridgeit.register('testConnect.html', 'registerCloudPushCallback');">Register Cloud Push</a></h2>
+
+        <h2><a onclick="pushMessage();">Push Message</a></h2>
+
+        <script>
+
+        var activityTimeout = 2;
+        var activityTimeoutMillis = activityTimeout*1000*60; //10 minutes 
+
+        //test callback as child object
+        var expiredCallbackHolder = {
+            callback: expiredCallback
+        }
+
+        //test callback as global function
+        function expiredCallback(){
+            return new Promise( function(resolve, reject){
+                //chew up time for 800ms
+                var millis = 8000;
+                var date = new Date();
+                var curDate = null;
+                do { 
+                    curDate = new Date(); 
+                    console.log(curDate);
+                }
+                while(curDate-date < millis);
+                alert('your session has expired');
+                resolve();
+
+            });
+        }
+
+        //test callback as named string
+        var expiredCallbackName = 'expiredCallback';
+
+        function testConnect(){
+            var accountId       = 'bsrtests';
+            var realmId         = 'test';
+            var userId          = 'user';
+            var userPassword    = 'secretest';
+            var host            = 'dev.bridgeit.io';
+
+            var connectedAt = new Date().getTime();
+            bridgeit.services.auth.connect({
+                    account: accountId,
+                    username: userId,
+                    realm: realmId,
+                    password: userPassword,
+                    host: host,
+                    connectionTimeout: activityTimeout,
+                    //onSessionExpiry: expiredCallback
+                    //onSessionExpiry: expiredCallback
+                    onSessionExpiry: expiredCallbackHolder.callback
+                }).then(function(response){
+                    console.log('connect success');
+                    updateLastActive();
+                    updateConnectedAt(connectedAt);
+                    
+                }).catch(function(error){
+                    console.log('login failed ' + error);
+                });
+        }
+
+        function continueActivity(){
+            bridgeit.services.auth.updateLastActiveTimestamp();
+            updateLastActive();
+            setTimeout( continueActivity, activityTimeoutMillis - 200);
+        }
+
+        function updateLastActive(){
+            bridgeit.services.auth.updateLastActiveTimestamp();
+            var lastActive = bridgeit.services.auth.getLastActiveTimestamp();
+            var lastActiveDate = new Date();
+            lastActiveDate.setTime(lastActive);
+            document.getElementById('lastActive').innerHTML = lastActiveDate.toLocaleTimeString();
+        }
+
+        function updateConnectedAt(connectedAt){
+            var connectedAtDate = new Date();
+            connectedAtDate.setTime(connectedAt);
+            document.getElementById('connectedAt').innerHTML = connectedAtDate.toLocaleTimeString();
+        }
+
+        function joinPushGroup(){
+            bridgeit.services.push.addPushListener({
+                group: 'test',
+                callback: 'pushCallback'
+            })
+        }
+
+        function pushCallback(){
+            alert('pushCallback');
+        }
+
+        function registerCloudPushCallback(){
+            console.log('cloud push successfully registered');
+        }
+
+        function pushMessage(){
+            bridgeit.services.push.sendPushEvent({
+                group: 'test',
+                subject: 'test subject header',
+                detail: 'test detail ...'
+            });
+        }
+        </script>
+        
+    </body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "bridgeit.js_tests",
+  "version": "0.0.1",
+  "devDependencies": {
+    "chai": "*",
+    "commonjs": "*",
+    "es6-promise": "*",
+    "mocha": "*",
+    "promise": "^6.0.1",
+    "require.js": "^0.3.97"
+  }
+}

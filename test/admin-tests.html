@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title> Tests </title>
+        <link rel="stylesheet" href="./node_modules/mocha/mocha.css" />
+    </head>
+    <body>
+        <div id="mocha"></div>
+        <script src="./node_modules/mocha/mocha.js"></script>
+        <script src="./node_modules/chai/chai.js"></script>
+        <script>
+            mocha.ui('bdd'); 
+            mocha.reporter('html');
+            var expect = chai.expect;
+        </script>
+
+        <!-- Promise Support -->
+        <script src="../node_modules/es6-promise/dist/es6-promise.js"></script>
+        <!--script src="https://www.promisejs.org/polyfills/promise-4.0.0.js"></script-->
+        <!--script src="https://cdn.jsdelivr.net/polyfills/polyfill.js"></script-->
+        <script src="./node_modules/require.js/build/require.js"></script>
+        <script>
+            //require('es6-promise').polyfill();
+            //window.Promise = require('promise');
+            if( !("Promise" in window)){
+                window.Promise = ES6Promise.Promise;
+            }
+        </script>
+        <script src="../src/bridgeit.js"></script>
+        <script src="../src/bridgeit-services.js"></script>
+
+        <script src="test-settings.js"></script>
+        <script src="admin-tests.js"></script>
+        <script>
+            if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+            else { mocha.run(); }
+        </script>
+    </body>
+</html>
