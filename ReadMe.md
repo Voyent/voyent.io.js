@@ -1,5 +1,7 @@
 #BridgeIt Services Client JavaScript API
 
+An easy-to-use JavaScript API for BridgeIt Services.
+
 ## [Admin Service JavaScript API](docs/bridgeit-admin-service.md)
 
 ## [Auth Service JavaScript API](docs/bridgeit-auth-service.md)
