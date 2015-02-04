@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title> Tests </title>
+        <link rel="stylesheet" href="./lib/mocha/mocha.css" />
+    </head>
+    <body>
+        <!-- Promise Support -->
+        <script src="../lib/es6-promise.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.15/require.min.js"></script>
+        <script>
+            if( !("Promise" in window)){
+                window.Promise = ES6Promise.Promise;
+            }
+        </script>
+        <script src="http://bridgeit.github.io/bridgeit.js/src/bridgeit.js"></script>
+        <script src="../lib/bridgeit.io.js"></script>
+
+        <script src="test-settings.js"></script>
+        <script>
+            function uploadFile(){
+                var file = document.getElementById('fileInput').files[0];
+                if( !file ){
+                    alert('Please select a file');
+                    return;
+                }
+                bridgeit.io.auth.login({
+                    account: accountId,
+                    realm: realmId,
+                    username: userId,
+                    password: userPassword,
+                    host: host
+                }).then(function(){
+                    return bridgeit.io.storage.uploadFile({
+                        account: accountId,
+                        realm: realmId,
+                        host: host,
+                        file: file
+                    })
+                }).then(function(uri){
+                    console.log('uploadFile new URI: ' + uri + '?access_token=' + bridgeit.io.auth.getLastAccessToken());
+                    document.getElementById('result').innerHTML = "File Uploaded: <a href='" + 
+                        uri + '?access_token=' + bridgeit.io.auth.getLastAccessToken() + 
+                        "'>Click Here</a>";
+                    done();
+                }).catch(function(response){
+                    console.log('uploadFile failed ' + JSON.stringify(response));
+                });
+            }
+        </script>
+
+        <h2>bridgeit.io.storage.uploadFile() Test</h2>
+        <input id="fileInput" type="file"/>
+
+        <a onclick="uploadFile()">Upload File</a>
+
+        <div id="result">
+        </div>
+    </body>
+</html>

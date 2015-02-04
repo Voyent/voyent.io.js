@@ -23,7 +23,7 @@ describe('bridgeit.io.storage', function () {
 		});
 	});
 
-	describe('#createBlob()', function(){
+	describe('#uploadBlob()', function(){
 
 		it('should create and store a new blob', function (done) {
 
@@ -51,10 +51,10 @@ describe('bridgeit.io.storage', function () {
 					blob: blob
 				})
 			}).then(function(uri){
-				console.log('createBlob new cat image URI: ' + uri + '?access_token=' + bridgeit.io.auth.getLastAccessToken());
+				console.log('uploadBlob new cat image URI: ' + uri + '?access_token=' + bridgeit.io.auth.getLastAccessToken());
 				done();
 			}).catch(function(response){
-				console.log('createBlob failed ' + JSON.stringify(response));
+				console.log('uploadBlob failed ' + JSON.stringify(response));
 			});
 
 		});
