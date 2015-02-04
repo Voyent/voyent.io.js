@@ -111,4 +111,110 @@ describe('bridgeit.io.admin', function(){
 		});
 
 	});
+
+	describe('#createRealmUser()', function(done){
+		this.timeout(3000);
+		it('should create a new realm user', function (done) {
+
+			var user = {
+				username: 'test_' + new Date().getTime(),
+				firstname: 'test',
+				lastname: 'test',
+				email: 'test@email.com',
+				password: 'password'
+			};
+
+			bridgeit.io.auth.login({
+					account: accountId,
+					username: adminId,
+					password: adminPassword,
+					host: host
+				}).then(function(authResponse){
+					return bridgeit.io.admin.createRealmUser({
+						user: user,
+						realm: realmId
+					});
+				}).then(function(json){
+					console.log('createRealmUser: ' + JSON.stringify(json));
+					done();
+				}).catch(function(error){
+					console.log('createRealmUser failed ' + error);
+				});
+		});
+
+	});	
+
+	describe('#updateRealmUser()', function(done){
+
+		it('should create a new realm user', function (done) {
+
+			var user = {
+				username: 'test_' + new Date().getTime(),
+				firstname: 'test',
+				lastname: 'test',
+				email: 'test@email.com',
+				password: 'password'
+			};
+
+			bridgeit.io.auth.login({
+					account: accountId,
+					username: adminId,
+					password: adminPassword,
+					host: host
+				}).then(function(authResponse){
+					return bridgeit.io.admin.createRealmUser({
+						user: user,
+						realm: realmId
+					});
+				}).then(function(json){
+					user.firstname = 'newtest';
+					return bridgeit.io.admin.updateRealmUser({
+						user: user
+					})
+				}).then(function(json){
+					console.log('updateRealmUser: ' + JSON.stringify(json));
+					done();
+				}).catch(function(error){
+					console.log('updateRealmUser failed ' + error);
+				});
+		});
+
+	});	
+
+	describe('#deleteRealmUser()', function(done){
+
+		it('should delete a new realm user', function (done) {
+
+			var user = {
+				username: 'test_' + new Date().getTime(),
+				firstname: 'test',
+				lastname: 'test',
+				email: 'test@email.com',
+				password: 'password'
+			};
+
+			bridgeit.io.auth.login({
+					account: accountId,
+					username: adminId,
+					password: adminPassword,
+					host: host
+				}).then(function(authResponse){
+					return bridgeit.io.admin.createRealmUser({
+						user: user,
+						realm: realmId
+					});
+				}).then(function(json){
+					user.firstname = 'newtest';
+					return bridgeit.io.admin.deleteRealmUser({
+						username: user.username
+					})
+				}).then(function(json){
+					console.log('deleteRealmUser: ' + JSON.stringify(json));
+					done();
+				}).catch(function(error){
+					console.log('deleteRealmUser failed ' + error);
+				});
+		});
+
+	});	
 });
