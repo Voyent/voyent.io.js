@@ -35,10 +35,10 @@ The BridgeIt Services Client API is written with ECMAScript 6 Promise/A+ support
 
 ## Tests
 
-The BridgetIt JS API Mocha integration tests can be run from the test directory either through the `TestRunner.html` file or with PhantomJS.
+The BridgetIt JS API Mocha integration tests can be run from the test directory either through the HTML files or with PhantomJS.
 
 ```
-mocha-phantomjs TestRunner.html
+mocha-phantomjs all-tests.html
 ```
 
 Mocha and PhantomJS are both required.
