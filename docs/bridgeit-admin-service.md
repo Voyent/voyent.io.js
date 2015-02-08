@@ -14,7 +14,7 @@
 * [updateRealmUser](#updateRealmUser)
 * [deleteRealmUser](#deleteRealmUser)
 
-### <a name="getServiceDefinitions"></a>executeFlow
+### <a name="getServiceDefinitions"></a>getServiceDefinitions
 
 ```javascript
 function bridgeit.io.admin.getServiceDefinitions(params)
