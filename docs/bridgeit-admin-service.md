@@ -39,7 +39,7 @@ Promise with a JSON object containing a list of BridgeIt services.
 #### Example
 
 ```javascript
-bridgeit.io.code.getServiceDefinitions({
+bridgeit.io.admin.getServiceDefinitions({
 		account: accountId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
 	})
@@ -74,7 +74,7 @@ Promise with a JSON object with a list of realm objects.
 #### Example
 
 ```javascript
-bridgeit.io.code.getAccountRealms({
+bridgeit.io.admin.getAccountRealms({
 		account: accountId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
 	})
@@ -111,7 +111,7 @@ Promise with a JSON object the realm information.
 #### Example
 
 ```javascript
-bridgeit.io.code.getAccountRealm({
+bridgeit.io.admin.getAccountRealm({
 		account: accountId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
 		realm: 'nargles.net'
@@ -151,7 +151,7 @@ Promise with a JSON object the user information.
 #### Example
 
 ```javascript
-bridgeit.io.code.getRealmUser({
+bridgeit.io.admin.getRealmUser({
 		account: accountId,
 		realm: 'nargles.net'
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
@@ -189,7 +189,7 @@ Promise with a JSON object containing a list of realm users.
 #### Example
 
 ```javascript
-bridgeit.io.code.getRealmUsers({
+bridgeit.io.admin.getRealmUsers({
 		account: accountId,
 		realm: 'nargles.net'
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -228,7 +228,7 @@ Promise with the new resource URL.
 #### Example
 
 ```javascript
-bridgeit.io.code.createRealmUser({
+bridgeit.io.admin.createRealmUser({
 		account: accountId,
 		realm: 'nargles.net'
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
@@ -273,7 +273,7 @@ Promise with the new resource URL.
 #### Example
 
 ```javascript
-bridgeit.io.code.updateRealmUser({
+bridgeit.io.admin.updateRealmUser({
 		account: accountId,
 		realm: 'nargles.net'
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
@@ -318,7 +318,7 @@ Promise with the new resource URL.
 #### Example
 
 ```javascript
-bridgeit.io.code.deleteRealmUser({
+bridgeit.io.admin.deleteRealmUser({
 		account: accountId,
 		realm: 'nargles.net'
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
