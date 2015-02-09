@@ -18,6 +18,12 @@
 * [checkUserPermissions](#checkUserPermissions)
 * [updateLastActiveTimestamp](#updateLastActiveTimestamp)
 * [getLastActiveTimestamp](#getLastActiveTimestamp)
+* [enableUserStoreCache](#enableUserStoreCache)
+* [disableUserStoreCache](#disableUserStoreCache)
+* [isUserStoreCacheActive](#isUserStoreCacheActive)
+* [setItemInUserStore](#setItemInUserStore)
+* [getItemInUserStore](#getItemInUserStore)
+* [getUserStore](#getUserStore)
 
 ### <a name="getNewAccessToken"></a>getNewAccessToken
 
@@ -416,6 +422,147 @@ function bridgeit.io.auth.getLastActiveTimestamp()
 
 Return the last active timestamp in milliseconds.
 
+### <a name="enableUserStoreCache"></a>enableUserStoreCache
+```javascript
+function bridgeit.io.auth.enableUserStoreCache()
+```
+
+User the browser local storage to cache the user store. This will allow access to the user store 
+when the user is offline or when the server is not accessible.
+
+### <a name="disableUserStoreCache"></a>disableUserStoreCache
+```javascript
+function bridgeit.io.auth.disableUserStoreCache()
+```
+
+Disable the browser local storage to cache the user store. 
+
+### <a name="isUserStoreCacheActive"></a>isUserStoreCacheActive
+```javascript
+function bridgeit.io.auth.isUserStoreCacheActive()
+```
+
+Returns true if enableUserStoreCache() has previously been called and the user store
+cache is active.
+
+### <a name="setItemInUserStore"></a>setItemInUserStore
+```javascript
+function bridgeit.io.auth.setItemInUserStore(key, value)
+```
+
+Set an item by key and value in the user store. The user store is updated
+on the server side user record 'custom' property. 
+  
+If the user store cache is active, the cache will also be updated.
+ 
+The userStore.last_updated property will be updated with the current time.
+When the server side store is updated, this 'last_updated' timestamp will
+be verified. If the server side timestamp is later than the previous 'last_updated'
+timestamp, the operation will be rejected, and the returned promise will reject
+with the current server side userStore value.
+ 
+The key and value must be serializable as JSON strings. 
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| key | The key property | String |  | true |
+| value | The value to set (must be JSON-serializable) | Object |  | false |
+
+#### Return value
+
+A Promise with no argument if successful, or with the server side userStore version if a conflict occurs.
+
+#### Example
+
+```javascript
+bridgeit.io.auth.login({
+  account: accountId,
+  realm: realmId,
+  username: userId,
+  password: userPassword,
+  host: host
+}).then(function(response){
+  return bridgeit.io.auth.setItemInUserStore('key', now);
+}).then(function(){
+  return bridgeit.io.auth.getItemInUserStore('key');
+}).then(function(val){
+  console.log('retrieved user store value: ' + val);
+}).catch(function(error){
+  console.log('setItemInUserStore failed ' + error);
+});
+```
+
+### <a name="getItemInUserStore"></a>getItemInUserStore
+```javascript
+function bridgeit.io.auth.getItemInUserStore(key)
+```
+
+Get an item by key from the user store. The user store is checked
+on the server side user record 'custom' property. 
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| key | The key property | String |  | true |
+
+#### Return value
+
+A Promise with the store value if successful.
+
+#### Example
+
+```javascript
+bridgeit.io.auth.login({
+  account: accountId,
+  realm: realmId,
+  username: userId,
+  password: userPassword,
+  host: host
+}).then(function(response){
+  return bridgeit.io.auth.setItemInUserStore('key', now);
+}).then(function(){
+  return bridgeit.io.auth.getItemInUserStore('key');
+}).then(function(val){
+  console.log('retrieved user store value: ' + val);
+}).catch(function(error){
+  console.log('setItemInUserStore failed ' + error);
+});
+```
+
+### <a name="getUserStore"></a>getUserStore
+```javascript
+function bridgeit.io.auth.getUserStore(key)
+```
+
+Get the user store for the current user. The user must be logged in to 
+access the store. The user store is persisted on the 'custom' property 
+of the user record, and can be used to store any relevant information for 
+user.
+
+#### Return value
+
+A Promise with the user store object.
+
+#### Example
+
+```javascript
+bridgeit.io.auth.login({
+  account: accountId,
+  realm: realmId,
+  username: userId,
+  password: userPassword,
+  host: host
+}).then(function(response){
+  return bridgeit.io.auth.getUserStore()
+}).then(function(userStore){
+  console.log('getUserStore: ' + JSON.stringify(userStore));
+}).catch(function(error){
+  console.log('getUserStore failed ' + error);
+});
+```
 
 
 
