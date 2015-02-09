@@ -421,7 +421,7 @@ describe('bridgeit.io.auth', function () {
 		});
 	});
 
-	describe('#useUserStoreCache()', function(){
+	describe('#enableUserStoreCache()', function(){
 		it('should return true', function (done) {
 			bridgeit.io.auth.login({
 				account: accountId,
@@ -430,16 +430,16 @@ describe('bridgeit.io.auth', function () {
 				password: userPassword,
 				host: host
 			}).then(function(response){
-				return bridgeit.io.auth.useUserStoreCache()
+				return bridgeit.io.auth.enableUserStoreCache()
 			}).then(function(){
-				if( bridgeit.io.auth.userStoreCacheActive ){
+				if( bridgeit.io.auth.isUserStoreCacheActive() ){
 					done();
 				}
 				else{
-					console.log('useUserStoreCache failed, cache not active after setting');
+					console.log('enableUserStoreCache failed, cache not active after setting');
 				}
 			}).catch(function(error){
-				console.log('useUserStoreCache failed ' + error);
+				console.log('enableUserStoreCache failed ' + error);
 			});
 		});
 	});
@@ -474,7 +474,7 @@ describe('bridgeit.io.auth', function () {
 				password: userPassword,
 				host: host
 			}).then(function(response){
-				return bridgeit.io.auth.useUserStoreCache()
+				return bridgeit.io.auth.enableUserStoreCache()
 			}).then(function(response){
 				return bridgeit.io.auth.getUserStore()
 			}).then(function(userStore){
@@ -524,7 +524,7 @@ describe('bridgeit.io.auth', function () {
 				password: userPassword,
 				host: host
 			}).then(function(response){
-				bridgeit.io.auth.useUserStoreCache();
+				bridgeit.io.auth.enableUserStoreCache();
 				return bridgeit.io.auth.setItemInUserStore('key', now);
 			}).then(function(){
 				return bridgeit.io.auth.getItemInUserStore('key');
