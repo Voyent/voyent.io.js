@@ -64,7 +64,6 @@ Get information for the current account, including a list of admins, and realms.
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| String | The last used realm name | false |
 | accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
