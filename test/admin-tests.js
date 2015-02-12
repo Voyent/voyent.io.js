@@ -21,6 +21,27 @@ describe('bridgeit.io.admin', function(){
 
 	});
 
+	describe('#getAccount()', function(done){
+
+		it('should return the account JSON', function (done) {
+
+			bridgeit.io.auth.login({
+					account: accountId,
+					username: adminId,
+					password: adminPassword,
+					host: host
+				}).then(function(authResponse){
+					return bridgeit.io.admin.getAccount();
+				}).then(function(json){
+					console.log('account: ' + JSON.stringify(json));
+					done();
+				}).catch(function(error){
+					console.log('getAccount failed ' + error);
+				});
+		});
+
+	});
+
 	describe('#getRealmUsers()', function(done){
 
 		it('should return a list of realm users', function (done) {
