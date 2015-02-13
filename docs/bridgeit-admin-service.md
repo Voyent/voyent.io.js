@@ -4,10 +4,16 @@
 
 * [getServiceDefinitions](#getServiceDefinitions)
 * [getAccount](#getAccount)
-* [getAccountRealms](#getAccountRealms)
-* [getAccountRealm](#getAccountRealm)
 
-## Realm User Admin API
+## Realm API
+
+* [getRealms](#getRealms)
+* [getRealm](#getRealm)
+* [createRealm](#createRealm)
+* [updateRealm](#updateRealm)
+* [deleteRealm](#deleteRealm)
+
+## User API
 
 * [getRealmUser](#getRealmUser)
 * [getRealmUsers](#getRealmUsers)
@@ -28,7 +34,6 @@ Get the BridgeIt Service definitions.
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
 | accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
@@ -86,10 +91,12 @@ bridgeit.io.admin.getAccount({
 });
 ```
 
-### <a name="getAccountRealms"></a>getAccountRealms
+## Realm Admin Functions
+
+### <a name="getRealms"></a>getRealms
 
 ```javascript
-function bridgeit.io.admin.getAccountRealms(params)
+function bridgeit.io.admin.getRealms(params)
 ```
 
 Get a list of realms for an account.
@@ -110,7 +117,7 @@ Promise with a JSON object with a list of realm objects.
 #### Example
 
 ```javascript
-bridgeit.io.admin.getAccountRealms({
+bridgeit.io.admin.getRealms({
 		account: accountId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
 	})
@@ -121,10 +128,10 @@ bridgeit.io.admin.getAccountRealms({
 });
 ```
 
-### <a name="getAccountRealm"></a>getAccountRealm
+### <a name="getRealm"></a>getRealm
 
 ```javascript
-function bridgeit.io.admin.getAccountRealm(params)
+function bridgeit.io.admin.getRealm(params)
 ```
 
 Get a list of realms for an account.
@@ -134,7 +141,7 @@ Get a list of realms for an account.
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| realmName | The BridgeIt Services realm name. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
 | accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
@@ -147,7 +154,7 @@ Promise with a JSON object the realm information.
 #### Example
 
 ```javascript
-bridgeit.io.admin.getAccountRealm({
+bridgeit.io.admin.getRealm({
 		account: accountId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
 		realm: 'nargles.net'
@@ -159,7 +166,183 @@ bridgeit.io.admin.getAccountRealm({
 });
 ```
 
-## Realm User Admin Functions
+### <a name="createRealm"></a>createRealm
+
+```javascript
+function bridgeit.io.admin.createRealm(params)
+```
+
+Create a new realm for an account.
+
+A realm object should have the following structure:
+
+```
+{
+	name: <string>,
+	disabled: true|false(default),
+	permissions: [], //list of default permissions for all users
+	services: [], //list of provided services for the realm
+	origins: [], //list of host origins who are allowed access to the realm 
+}
+```
+
+An example of a realm definition is:
+
+```
+{
+	"name": "nargles.net"
+	"disabled": false,
+	"permissions": [
+		"bridgeit.metrics.doGet",
+		"bridgeit.metrics.doPut",
+		"bridgeit.metrics.doPost",
+		"bridgeit.push.listen",
+		"bridgeit.media.convert",
+		"bridgeit.locate.saveLocation",
+		"bridgeit.locate.getLocation",
+		"bridgeit.doc.getDocument",
+		"bridgeit.locate.deleteLocation",
+		"bridgeit.locate.saveRegion",
+		"bridgeit.locate.getRegion",
+		"bridgeit.locate.getDevicesInRegion",
+		"bridgeit.locate.deleteRegion",
+		"bridgeit.locate.updateRegion",
+		"bridgeit.locate.saveMonitor",
+		"bridgeit.locate.getMonitor",
+		"bridgeit.locate.deleteMonitor",
+		"bridgeit.locate.updateMonitor",
+		"bridgeit.code.write",
+		"bridgeit.doc.saveDocument"
+	],
+	"services": [
+		"bridgeit.code",
+		"bridgeit.doc",
+		"bridgeit.locate",
+		"bridgeit.media",
+		"bridgeit.metrics",
+		"bridgeit.push",
+		"bridgeit.store"
+	],
+	"origins": ["*"]
+}
+```
+
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| realm | The realm object to create. | Object |  | true |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| realm | The realm name | String | | true |
+
+#### Return value
+
+Promise with a JSON object the realm information.
+
+#### Example
+
+```javascript
+bridgeit.io.admin.createRealm({
+		account: accountId,
+		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
+		realm: {
+			name: 'myNewRealm',
+			origins: ['*'],
+			services: ["bridgeit.doc","bridgeit.locate","bridgeit.store"]
+		}
+	})
+}).then(function(realm){
+	console.log('found the following realm: ' + JSON.stringify(realm));
+}).catch(function(error){
+	console.log('something went wrong: ' + error);
+});
+```
+
+### <a name="updateRealm"></a>updateRealm
+
+```javascript
+function bridgeit.io.admin.updateRealm(params)
+```
+
+Update a realm for an account.
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| realm | The realm object to update. | Object |  | true |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| realm | The realm name | String | | true |
+
+#### Return value
+
+Promise with a JSON object the realm information.
+
+#### Example
+
+```javascript
+bridgeit.io.admin.updateRealm({
+		account: accountId,
+		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
+		realm: {
+			name: 'realmName',
+			origins: ['*'],
+			services: ["bridgeit.doc","bridgeit.locate","bridgeit.store"]
+		}
+	})
+}).then(function(realm){
+	console.log('found the following realm: ' + JSON.stringify(realm));
+}).catch(function(error){
+	console.log('something went wrong: ' + error);
+});
+```
+
+### <a name="deleteRealm"></a>deleteRealm
+
+```javascript
+function bridgeit.io.admin.deleteRealm(params)
+```
+
+Update a realm for an account.
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| realmName | The BridgeIt Services realm name. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| realm | The realm name | String | | true |
+
+#### Return value
+
+Promise with a JSON object the realm information.
+
+#### Example
+
+```javascript
+bridgeit.io.admin.deleteRealm({
+		account: accountId,
+		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
+		realmName: 'nargles.net'
+	})
+}).then(function(realm){
+	console.log('found the following realm: ' + JSON.stringify(realm));
+}).catch(function(error){
+	console.log('something went wrong: ' + error);
+});
+```
+
+## User Admin Functions
 
 ### <a name="getRealmUser"></a>getRealmUser
 
@@ -174,7 +357,7 @@ Get a user for an account realm.
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| realmName | The BridgeIt Services realm name. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
 | accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
@@ -213,7 +396,7 @@ Get the users for an account realm.
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| realmName | The BridgeIt Services realm name. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
 | accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
@@ -251,7 +434,7 @@ Create a new user for an account realm.
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| realmName | The BridgeIt Services realm name. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
 | accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
@@ -296,7 +479,7 @@ Update a user for an account realm.
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| realmName | The BridgeIt Services realm name. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
 | accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
@@ -341,7 +524,7 @@ Delete a realm user for an account.
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
 | account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| realmName | The BridgeIt Services realm name. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
 | accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
