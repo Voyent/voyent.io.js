@@ -182,7 +182,8 @@ A realm object should have the following structure:
 	disabled: true|false(default),
 	permissions: [], //list of default permissions for all users
 	services: [], //list of provided services for the realm
-	origins: [], //list of host origins who are allowed access to the realm 
+	origins: [], //list of host origins who are allowed access to the realm,
+	tsa_enable: true|false(default) //enable or disable two stage authentication
 }
 ```
 
@@ -223,7 +224,8 @@ An example of a realm definition is:
 		"bridgeit.push",
 		"bridgeit.store"
 	],
-	"origins": ["*"]
+	"origins": ["*"],
+	"tsa_enable": true
 }
 ```
 
