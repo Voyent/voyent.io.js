@@ -427,6 +427,30 @@ describe('bridgeit.io.location', function(){
 		})
 	});
 
+	describe('#findLocations()', function(){
+		it('should find some locations', function (done) {
+			
+			bridgeit.io.auth.login({
+				account: accountId,
+				username: adminId,
+				password: adminPassword,
+				host: host
+			}).then(function(authResponse){
+				return bridgeit.io.location.findLocations({
+					account: accountId,
+					realm: realmId,
+					host: host,
+					query: null
+				})
+			}).then(function(results){
+				console.log('findLocations found ' + results.length + ' locations');
+				done();
+			}).catch(function(error){
+				console.log('findLocations failed ' + error);
+			});
+		});
+	});
+
 	describe('#updateLocation()', function(){
 		it('should update the location of the current user', function(done){
 			bridgeit.io.auth.login({

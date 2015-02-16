@@ -1,22 +1,211 @@
 #BridgeIt Location Service JavaScript API
 
-## Location API
+### Location API
+
+* [updateLocation](#updateLocation)
+* [updateLocationCoordinates](#updateLocationCoordinates)
+* [getLastUserLocation](#getLastUserLocation)
+* [findLocations](#findLocations)
+
+### Region API
 
 * [createRegion](#createRegion)
 * [deleteRegion](#deleteRegion)
 * [getAllRegions](#getAllRegions)
 * [findRegions](#findRegions)
+
+### Monitor API
+
 * [findMonitors](#findMonitors)
 * [createMonitor](#createMonitor)
 * [deleteMonitor](#deleteMonitor)
 * [getAllMonitors](#getAllMonitors)
+
+### Point of Interest API
+
 * [createPOI](#createPOI)
 * [findPOIs](#findPOIs)
 * [deletePOI](#deletePOI)
 * [getAllPOIs](#getAllPOIs)
-* [updateLocation](#updateLocation)
-* [updateLocationCoordinates](#updateLocationCoordinates)
-* [getLastUserLocation](#getLastUserLocation)
+
+### <a name="updateLocation"></a>updateLocation
+
+```javascript
+function bridgeit.io.location.updateLocation(params)
+```
+
+Update the location of the current user.
+
+The location is stored in the location service with a location document.
+
+```javascript
+{
+	label: 'My Favourite iPad',
+	location: {
+		geometry: {
+			type: 'Point',
+			coordinates: [ -123.35, 48.43 ]
+		},
+		properties: {
+			label: 'Somewhere interesting in Victoria',
+			accuracy: 50,
+			altitude: 1000,
+			altitudeAccuracy: 5,
+			speed: 3,
+			heading: 90,
+			timestamp: '2014-04-01T11:11:11.11Z',
+			jguid: 'e33f9ce8-b9cc-40ad-8f96-ad32303bc6da'
+		}
+	}
+}
+```
+
+The location document extra properties are optional.
+
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| location | A JSON object describing the location | Object |  | true |
+
+#### Return value
+
+Promise with a resource URI.
+
+#### Example
+
+```javascript
+bridgeit.io.location.updateLocation({
+	location: validLocationWithoutId
+}).then(function(uri){
+	console.log('location URI(): ' + uri);
+}).catch(function(error){
+	console.log('something went wrong: ' + error);
+});
+```
+
+### <a name="updateLocationCoordinates"></a>updateLocationCoordinates
+
+```javascript
+function bridgeit.io.location.updateLocationCoordinates(params)
+```
+
+Update the location of the current user with a latitude and longitude.
+
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| lat | The location latitude | Number |  | true |
+| lon | The location longitude | Number |  | true |
+| label | The location label | String |  | false |
+
+#### Return value
+
+Promise with a resource URI.
+
+#### Example
+
+```javascript
+bridgeit.io.location.updateLocationCoordinates({
+	lon: -123.35,
+	lat: 48.43,
+	label: 'test label'
+}).then(function(uri){
+	console.log('location URI(): ' + uri);
+}).catch(function(error){
+	console.log('something went wrong: ' + error);
+});
+```
+### <a name="getLastUserLocation"></a>getLastUserLocation
+
+```javascript
+function bridgeit.io.location.getLastUserLocation(params)
+```
+
+Get the last known user location from the location service.
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| username | The user id | String | | true |
+
+#### Return value
+
+Promise with a location JSON object.
+
+#### Example
+
+```javascript
+bridgeit.io.location.getLastUserLocation({
+	username: 'jsmith'
+}).then(function(location){
+	console.log('location: ' + JSON.stringify(location));
+}).catch(function(error){
+	console.log('something went wrong: ' + error);
+});
+```
+
+### <a name="findLocations"></a>findLocations
+
+```javascript
+function bridgeit.io.location.findLocations(params)
+```
+
+Searches for locations in a realm based on a Mongo DB query.
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| query | The Mongo DB query | Object |  | false |
+
+#### Return value
+
+Promise with a result list of location updates.
+
+#### Example
+
+```javascript
+bridgeit.io.location.findLocations({
+	account: accountId,
+	realm: realmId,
+	host: host,
+	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
+	query: { 
+		"location.properties.country": "Canada"
+	}
+  })
+}).then(function(results){
+  console.log('found ' + results.length + ' locations');
+}).catch(function(error){
+  console.log('findRegions failed ' + error);
+});
+```
+
 
 ### <a name="createRegion"></a>createRegion
 
@@ -560,138 +749,3 @@ bridgeit.io.location.getAllPOIs({
 });
 ```
 
-### <a name="updateLocation"></a>updateLocation
-
-```javascript
-function bridgeit.io.location.updateLocation(params)
-```
-
-Update the location of the current user.
-
-The location is stored in the location service with a location document.
-
-```javascript
-{
-	label: 'My Favourite iPad',
-	location: {
-		geometry: {
-			type: 'Point',
-			coordinates: [ -123.35, 48.43 ]
-		},
-		properties: {
-			label: 'Somewhere interesting in Victoria',
-			accuracy: 50,
-			altitude: 1000,
-			altitudeAccuracy: 5,
-			speed: 3,
-			heading: 90,
-			timestamp: '2014-04-01T11:11:11.11Z',
-			jguid: 'e33f9ce8-b9cc-40ad-8f96-ad32303bc6da'
-		}
-	}
-}
-```
-
-The location document extra properties are optional.
-
-
-#### Parameters
-
-| Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
-| ssl | Whether to use SSL for network traffic | Boolean | false | false |
-| location | A JSON object describing the location | Object |  | true |
-
-#### Return value
-
-Promise with a resource URI.
-
-#### Example
-
-```javascript
-bridgeit.io.location.updateLocation({
-	location: validLocationWithoutId
-}).then(function(uri){
-	console.log('location URI(): ' + uri);
-}).catch(function(error){
-	console.log('something went wrong: ' + error);
-});
-```
-
-### <a name="updateLocationCoordinates"></a>updateLocationCoordinates
-
-```javascript
-function bridgeit.io.location.updateLocationCoordinates(params)
-```
-
-Update the location of the current user with a latitude and longitude.
-
-
-#### Parameters
-
-| Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
-| ssl | Whether to use SSL for network traffic | Boolean | false | false |
-| lat | The location latitude | Number |  | true |
-| lon | The location longitude | Number |  | true |
-| label | The location label | String |  | false |
-
-#### Return value
-
-Promise with a resource URI.
-
-#### Example
-
-```javascript
-bridgeit.io.location.updateLocationCoordinates({
-	lon: -123.35,
-	lat: 48.43,
-	label: 'test label'
-}).then(function(uri){
-	console.log('location URI(): ' + uri);
-}).catch(function(error){
-	console.log('something went wrong: ' + error);
-});
-```
-### <a name="getLastUserLocation"></a>getLastUserLocation
-
-```javascript
-function bridgeit.io.location.getLastUserLocation(params)
-```
-
-Get the last known user location from the location service.
-
-#### Parameters
-
-| Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
-| ssl | Whether to use SSL for network traffic | Boolean | false | false |
-| username | The user id | String | | true |
-
-#### Return value
-
-Promise with a location JSON object.
-
-#### Example
-
-```javascript
-bridgeit.io.location.getLastUserLocation({
-	username: 'jsmith'
-}).then(function(location){
-	console.log('location: ' + JSON.stringify(location));
-}).catch(function(error){
-	console.log('something went wrong: ' + error);
-});
-```
