@@ -402,7 +402,7 @@ describe('bridgeit.io.location', function(){
 	});
 
 	describe('#getLastUserLocation()', function(){
-
+		this.timeout(3000);
 		it('should return the last know user location', function (done) {
 			bridgeit.io.auth.login({
 				account: accountId,
@@ -419,7 +419,7 @@ describe('bridgeit.io.location', function(){
 					username: userId
 				});
 			}).then(function(location){
-				console.log('getLastUserLocation(): ' + json);
+				console.log('getLastUserLocation(): ' + location);
 				done();
 			}).catch(function(error){
 				console.log('getLastUserLocation() failed ' + error);
