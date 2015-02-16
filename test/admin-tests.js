@@ -102,8 +102,8 @@ describe('bridgeit.io.admin', function(){
 							realmName: newRealmName,
 							realm: newRealm
 						});
-					}).then(function(json){
-						console.log('createRealm: ' + JSON.stringify(json));
+					}).then(function(resp){
+						console.log('createRealm: ' + resp);
 						done();
 					}).catch(function(error){
 						console.log('createRealm failed ' + error);
@@ -124,8 +124,7 @@ describe('bridgeit.io.admin', function(){
 							realmName: newRealmName,
 							realm: newRealm
 						});
-					}).then(function(json){
-						console.log('updateRealm: ' + JSON.stringify(json));
+					}).then(function(){
 						done();
 					}).catch(function(error){
 						console.log('updateRealm failed ' + error);
@@ -145,8 +144,7 @@ describe('bridgeit.io.admin', function(){
 						return bridgeit.io.admin.deleteRealm({
 							realmName: newRealmName
 						});
-					}).then(function(json){
-						console.log('deleteRealm: ' + JSON.stringify(json));
+					}).then(function(){
 						done();
 					}).catch(function(error){
 						console.log('deleteRealm failed ' + error);
@@ -221,8 +219,8 @@ describe('bridgeit.io.admin', function(){
 							user: user,
 							realmName: realmId
 						});
-					}).then(function(json){
-						console.log('createRealmUser: ' + JSON.stringify(json));
+					}).then(function(resp){
+						console.log('createRealmUser: ' + resp);
 						done();
 					}).catch(function(error){
 						console.log('createRealmUser failed ' + error);
@@ -251,13 +249,12 @@ describe('bridgeit.io.admin', function(){
 							user: user,
 							realmName: realmId
 						});
-					}).then(function(json){
+					}).then(function(resp){
 						user.firstname = 'newtest';
 						return bridgeit.io.admin.updateRealmUser({
 							user: user
 						})
-					}).then(function(json){
-						console.log('updateRealmUser: ' + JSON.stringify(json));
+					}).then(function(){
 						done();
 					}).catch(function(error){
 						console.log('updateRealmUser failed ' + error);
@@ -286,13 +283,12 @@ describe('bridgeit.io.admin', function(){
 							user: user,
 							realmName: realmId
 						});
-					}).then(function(json){
+					}).then(function(resp){
 						user.firstname = 'newtest';
 						return bridgeit.io.admin.deleteRealmUser({
 							username: user.username
 						})
-					}).then(function(json){
-						console.log('deleteRealmUser: ' + JSON.stringify(json));
+					}).then(function(){
 						done();
 					}).catch(function(error){
 						console.log('deleteRealmUser failed ' + error);
