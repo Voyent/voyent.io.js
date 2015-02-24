@@ -21,6 +21,14 @@
 * [updateRealmUser](#updateRealmUser)
 * [deleteRealmUser](#deleteRealmUser)
 
+## Role API
+
+* [getRealmRoles](#getRealmRoles)
+* [createRealmRole](#createRealmRole)
+* [updateRealmRole](#updateRealmRole)
+* [updateRealmRole](#updateRealmRole)
+
+
 ### <a name="getServiceDefinitions"></a>getServiceDefinitions
 
 ```javascript
@@ -547,6 +555,180 @@ bridgeit.io.admin.deleteRealmUser({
 	})
 }).then(function(){
 	console.log('deleted the user');
+}).catch(function(error){
+	console.log('something went wrong: ' + error);
+});
+```
+
+### <a name="getRealmRoles"></a>getRealmRoles
+
+```javascript
+function bridgeit.io.admin.getRealmRoles(params)
+```
+
+Retrieve a list of the roles for a realm.
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| realmName | The BridgeIt Services realm name. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+
+#### Return value
+
+Promise with a list of roles.
+
+#### Example
+
+```javascript
+bridgeit.io.admin.getRealmRoles({
+		account: accountId,
+		realm: 'nargles.net'
+		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
+	})
+}).then(function(roles){
+	console.log('found roles: ' + JSON.stringify(roles));
+}).catch(function(error){
+	console.log('something went wrong: ' + error);
+});
+```
+
+### <a name="createRealmRole"></a>createRealmRole
+
+```javascript
+function bridgeit.io.admin.createRealmRole(params)
+```
+
+Create a new role in the realm.
+
+The role object should have the following structure:
+
+```
+{
+	name: 'my_role',
+	permissions: []
+}
+```
+
+The permissions must be an array of valid permission strings that currently exist in the realm.
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| realmName | The BridgeIt Services realm name. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| role | The role to create | Object | | true |
+
+#### Return value
+
+Promise with a resource location url for the new role.
+
+#### Example
+
+```javascript
+bridgeit.io.admin.createRealmRole({
+		account: accountId,
+		realm: 'nargles.net'
+		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
+		role: {
+			name: 'my_role',
+			permissions: ['bridgeit.doc.getDocument']
+		}
+	}
+	})
+}).then(function(uri){
+	console.log('created role: ' + uri);
+}).catch(function(error){
+	console.log('something went wrong: ' + error);
+});
+```
+
+### <a name="updateRealmRole"></a>updateRealmRole
+
+```javascript
+function bridgeit.io.admin.updateRealmRole(params)
+```
+
+Update an existing role in the realm.
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| realmName | The BridgeIt Services realm name. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| role | The role to update | Object | | true |
+
+#### Return value
+
+Promise with an empty response.
+
+#### Example
+
+```javascript
+bridgeit.io.admin.updateRealmRole({
+		account: accountId,
+		realm: 'nargles.net'
+		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
+		role: {
+			name: 'my_role',
+			permissions: ['bridgeit.doc.getDocument', 'bridgeit.doc.saveDocument']
+		}
+	}
+	})
+}).then(function(){
+	console.log('updated role');
+}).catch(function(error){
+	console.log('something went wrong: ' + error);
+});
+```
+
+### <a name="deleteRealmRole"></a>deleteRealmRole
+
+```javascript
+function bridgeit.io.admin.deleteRealmRole(params)
+```
+
+Delete an existing role in the realm.
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| realmName | The BridgeIt Services realm name. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| id | The id of role to delete | String | | true |
+
+#### Return value
+
+Promise with an empty response.
+
+#### Example
+
+```javascript
+bridgeit.io.admin.deleteRealmRole({
+		account: accountId,
+		realm: 'nargles.net'
+		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
+		id: 'my_role'
+	}
+	})
+}).then(function(){
+	console.log('deleted role');
 }).catch(function(error){
 	console.log('something went wrong: ' + error);
 });

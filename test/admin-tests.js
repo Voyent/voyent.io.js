@@ -298,6 +298,92 @@ describe('bridgeit.io.admin', function(){
 		});	
 	});
 
+	describe('Admin Realm Role Functions', function(done){
+		var newRole = {
+			name: 'my_role',
+			permissions: [
+				'bridgeit.doc.saveDocument',
+				'bridgeit.doc.getDocument',
+				'bridgeit.doc.deleteDocument',
+				'bridgeit.doc.updateDocument'
+			]
+		}
+		describe('#createRealmRole()', function(done){
+			it('should create a new role in the realm', function (done) {
+				bridgeit.io.auth.login({
+						account: accountId,
+						username: adminId,
+						password: adminPassword,
+						host: host
+					}).then(function(authResponse){
+						return bridgeit.io.admin.createRealmRole({realmName: realmId, role: newRole});
+					}).then(function(json){
+						console.log('createRealmRole: ' + JSON.stringify(json));
+						done();
+					}).catch(function(error){
+						console.log('createRealmRole failed ' + error);
+					});
+			});
+		})
+		describe('#getRealmRoles()', function(done){
+			it('should return a list of roles for the realm', function (done) {
+
+				bridgeit.io.auth.login({
+						account: accountId,
+						username: adminId,
+						password: adminPassword,
+						host: host
+					}).then(function(authResponse){
+						return bridgeit.io.admin.getRealmRoles({realmName: realmId});
+					}).then(function(json){
+						console.log('getRealmRoles: ' + JSON.stringify(json));
+						done();
+					}).catch(function(error){
+						console.log('getRealmRoles failed ' + error);
+					});
+			});
+		});
+		describe('#updateRealmRole()', function(done){
+			it('should update a realm role', function (done) {
+
+				newRole.permissions.push('bridgeit.metrics.doGet');
+
+				bridgeit.io.auth.login({
+						account: accountId,
+						username: adminId,
+						password: adminPassword,
+						host: host
+					}).then(function(authResponse){
+						return bridgeit.io.admin.updateRealmRole({realmName: realmId, role: newRole});
+					}).then(function(json){
+						console.log('updateRealmRole: ' + JSON.stringify(json));
+						done();
+					}).catch(function(error){
+						console.log('updateRealmRole failed ' + error);
+					});
+			});
+		});
+		describe('#deleteRealmRole()', function(done){
+			it('should delete a realm role', function (done) {
+
+				newRole.permissions.push('bridgeit.metrics.doGet');
+
+				bridgeit.io.auth.login({
+						account: accountId,
+						username: adminId,
+						password: adminPassword,
+						host: host
+					}).then(function(authResponse){
+						return bridgeit.io.admin.deleteRealmRole({realmName: realmId, id: newRole.name});
+					}).then(function(json){
+						done();
+					}).catch(function(error){
+						console.log('deleteRealmRole failed ' + error);
+					});
+			});
+		});
+	})
+
 	
 
 	
