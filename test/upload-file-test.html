@@ -30,11 +30,15 @@
                     password: userPassword,
                     host: host
                 }).then(function(){
+                    var percentCompleteSpan = document.getElementById('percentComplete');
                     return bridgeit.io.storage.uploadFile({
                         account: accountId,
                         realm: realmId,
                         host: host,
-                        file: file
+                        file: file,
+                        progressCallbacK: function(percentComplete){
+                            percentCompleteSpan.innerHTML = percentComplete;
+                        }
                     })
                 }).then(function(uri){
                     console.log('uploadFile new URI: ' + uri + '?access_token=' + bridgeit.io.auth.getLastAccessToken());
@@ -52,6 +56,10 @@
         <input id="fileInput" type="file"/>
 
         <a onclick="uploadFile()">Upload File</a>
+
+        <div>
+            Percent Complete: <span id="percentComplete"></span>
+        </div>
 
         <div id="result">
         </div>
