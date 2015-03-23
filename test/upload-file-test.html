@@ -36,7 +36,7 @@
                         realm: realmId,
                         host: host,
                         file: file,
-                        progressCallbacK: function(percentComplete){
+                        progressCallback: function(percentComplete){
                             percentCompleteSpan.innerHTML = percentComplete;
                         }
                     })
@@ -45,7 +45,6 @@
                     document.getElementById('result').innerHTML = "File Uploaded: <a href='" + 
                         uri + '?access_token=' + bridgeit.io.auth.getLastAccessToken() + 
                         "'>Click Here</a>";
-                    done();
                 }).catch(function(response){
                     console.log('uploadFile failed ' + JSON.stringify(response));
                 });
