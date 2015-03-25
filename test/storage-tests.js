@@ -2,7 +2,28 @@ describe('bridgeit.io.storage', function () {
 
 	describe('#getMetaInfo()', function(){
 
-		it('should return the meta info for the blobs in the realm', function (done) {
+		it('should return the meta info for the blobs in the realm belonging to the user', function (done) {
+			bridgeit.io.auth.login({
+				account: accountId,
+				username: userId,
+				password: userPassword,
+				realm: realmId,
+				host: host
+			}).then(function(){
+				return bridgeit.io.storage.getMetaInfo({
+					account: accountId,
+					realm: realmId,
+					host: host
+				})
+			}).then(function(results){
+				console.log('found ' + results.length + ' meta info documents');
+				done();
+			}).catch(function(error){
+				console.log('getMetaInfo failed ' + error);
+			});
+		});
+
+		it('should return the meta info for the blobs in the realm belonging to the user', function (done) {
 			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
@@ -12,7 +33,29 @@ describe('bridgeit.io.storage', function () {
 				return bridgeit.io.storage.getMetaInfo({
 					account: accountId,
 					realm: realmId,
-					host: host
+					host: host,
+					scope: 'self'
+				})
+			}).then(function(results){
+				console.log('found ' + results.length + ' meta info documents');
+				done();
+			}).catch(function(error){
+				console.log('getMetaInfo failed ' + error);
+			});
+		});
+
+		it('should return the meta info for the blobs in the realm belonging to all users', function (done) {
+			bridgeit.io.auth.login({
+				account: accountId,
+				username: adminId,
+				password: adminPassword,
+				host: host
+			}).then(function(){
+				return bridgeit.io.storage.getMetaInfo({
+					account: accountId,
+					realm: realmId,
+					host: host,
+					scope: 'all'
 				})
 			}).then(function(results){
 				console.log('found ' + results.length + ' meta info documents');
