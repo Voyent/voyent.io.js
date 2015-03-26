@@ -2,21 +2,23 @@
 
 An easy-to-use JavaScript API for BridgeIt Services.
 
-## [Admin Service JavaScript API](docs/bridgeit-admin-service.md)
+## [Admin Service API](docs/bridgeit-admin-service.md)
 
-## [Auth Service JavaScript API](docs/bridgeit-auth-service.md)
+## [Auth Service API](docs/bridgeit-auth-service.md)
 
-## [Code Service JavaScript API](docs/bridgeit-code-service.md)
+## [Code Service API](docs/bridgeit-code-service.md)
 
-## [Context Service JavaScript API](docs/bridgeit-context-service.md)
+## [Context Service API](docs/bridgeit-context-service.md)
 
-## [Document Service JavaScript API](docs/bridgeit-docs-service.md)
+## [Document Service API](docs/bridgeit-docs-service.md)
 
-## [Location Service JavaScript API](docs/bridgeit-location-service.md)
+## [Location Service API](docs/bridgeit-location-service.md)
 
-## [Metrics Service JavaScript API](docs/bridgeit-metrics-service.md)
+## [Metrics Service API](docs/bridgeit-metrics-service.md)
 
-## [Push Service JavaScript API](docs/bridgeit-push-service.md)
+## [Push Service API](docs/bridgeit-push-service.md)
+
+## [Storage Service API](docs/bridgeit-storage-service.md)
 
 ## ES6 Promise Support
 
