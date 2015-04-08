@@ -94,8 +94,10 @@ describe('bridgeit.io.storage', function () {
 					blob: catBlob
 				})
 			}).then(function(uri){
-				console.log('uploadBlob new cat image URI: ' + uri + '?access_token=' + bridgeit.io.auth.getLastAccessToken());
-				done();
+				if( uri ){
+					console.log('uploadBlob new cat image URI: ' + uri + '?access_token=' + bridgeit.io.auth.getLastAccessToken());
+					done();
+				}
 			}).catch(function(response){
 				console.log('uploadBlob failed ' + JSON.stringify(response));
 			});
@@ -138,8 +140,9 @@ describe('bridgeit.io.storage', function () {
 
 			bridgeit.io.auth.login({
 				account: accountId,
-				username: adminId,
-				password: adminPassword,
+				username: userId,
+				password: userPassword,
+				realm: realmId,
 				host: host
 			}).then(function(){
 				return bridgeit.io.storage.uploadBlob({
