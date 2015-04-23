@@ -18,6 +18,8 @@ An easy-to-use JavaScript API for BridgeIt Services.
 
 ## [Push Service API](docs/bridgeit-push-service.md)
 
+## [Query Service API](docs/bridgeit-query-service.md)
+
 ## [Storage Service API](docs/bridgeit-storage-service.md)
 
 ## ES6 Promise Support
