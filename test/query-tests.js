@@ -14,8 +14,8 @@ describe('bridgeit.io.query', function () {
                     query: newQuery,
                     realm: realmId
                 });
-            }).then(function(docURI){
-                console.log('new query URI: ' + docURI);
+            }).then(function(queryURI){
+                console.log('new query URI: ' + queryURI);
                 done();
             }).catch(function(error){
                 console.log('createQuery failed ' + JSON.stringify(error));
@@ -146,7 +146,8 @@ describe('bridgeit.io.query', function () {
                     query: {"properties.key": key}
                 })
             }).then(function(results){
-                if( results && results.length === 1 && results[0].query.$or[0].color == "indigo" && results[0].query.$or[1].color == "violet")
+                    //we expect only one result so it should be an object
+                if( results && results.query.$or[0].color == "indigo" && results.query.$or[1].color == "violet")
                     done();
                 else{
                     console.log('did not receive expected query: ' + JSON.stringify(results));
@@ -156,7 +157,7 @@ describe('bridgeit.io.query', function () {
             });
         });
 
-        it('should search for a non-existent doc and receive an empty array', function (done) {
+        it('should search for a non-existent query and receive an empty array', function (done) {
 
             var key = [];
 

@@ -94,8 +94,8 @@ bridgeit.io.query.updateQuery({
     id: '1234',
     query: newQuery
   })
-}).then(function(){
-  console.log('updated query');
+}).then(function(uri){
+  console.log('updated query: ' + uri);;
 }).catch(function(error){
   console.log('something went wrong: ' + error);
 });
