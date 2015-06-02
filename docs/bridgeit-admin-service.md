@@ -459,7 +459,7 @@ Promise with the new resource URL.
 ```javascript
 bridgeit.io.admin.createRealmUser({
 		account: accountId,
-		realm: 'nargles.net'
+		realmName: 'nargles.net'
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
 		user:  {
 			username: 'test_' + new Date().getTime(),
