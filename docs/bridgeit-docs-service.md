@@ -26,6 +26,7 @@ Create and store a new JSON document in the document service.
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | document | The JSON document to be created | Object |  | false |
+| collection | The name of the document collection. | String | 'documents' | false |
 
 #### Return value
 
@@ -72,6 +73,8 @@ Update a JSON document in the document service.
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The document id | String |  | true |
 | document | The JSON document to be created | Object |  | false |
+| collection | The name of the document collection. | String | 'documents' | false |
+
 
 #### Return value
 
@@ -118,6 +121,8 @@ Fetch a JSON document from the document service.
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The document id | String |  | true |
+| collection | The name of the document collection. | String | 'documents' | false |
+
 
 #### Return value
 
@@ -157,6 +162,8 @@ Create and store a new JSON document in the document service.
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | query | A Mongo DB query for the documents | Object |  | false |
+| collection | The name of the document collection. | String | 'documents' | false |
+
 
 #### Return value
 
@@ -209,6 +216,8 @@ Delete a JSON document in the document service.
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The document id | String |  | true |
+| collection | The name of the document collection. | String | 'documents' | false |
+
 
 #### Return value
 
