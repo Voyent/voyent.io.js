@@ -92,7 +92,7 @@ var blob = new Blob([ia], {type:mimeType});
 bridgeit.io.storage.uploadBlob({
 	blob: blob,
 	realm: 'myrealm',
-	progressCallback: function(progress){
+	progressCallback: function(progress, xhr){
 		console.log('upload ' + (100*progress) + '% complete');
 	}
 }).then(function(uri){
@@ -136,7 +136,7 @@ var file = document.getElementById('fileInput').files[0];
 bridgeit.io.storage.uploadFile({
 	file: file,
 	realm: 'myrealm',
-	progressCallback: function(progress){
+	progressCallback: function(progress, xhr){
 		console.log('upload ' + (100*progress) + '% complete');
 	}
 }).then(function(uri){
