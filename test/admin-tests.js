@@ -42,6 +42,27 @@ describe('bridgeit.io.admin', function(){
 
 	});
 
+	describe('#getLogs()', function(done){
+		this.timeout(4000);
+		it('should return a list of service logs for the account', function (done) {
+
+			bridgeit.io.auth.login({
+				account: accountId,
+				username: adminId,
+				password: adminPassword,
+				host: host
+			}).then(function(authResponse){
+				return bridgeit.io.admin.getLogs();
+			}).then(function(json){
+				console.log('logs: ' + JSON.stringify(json));
+				done();
+			}).catch(function(error){
+				console.log('getLogs failed ', error);
+			});
+		});
+
+	});
+
 	describe('Admin Realm Functions', function(done){
 		describe('#getRealms()', function(done){
 			it('should return a list of realms for the account', function (done) {

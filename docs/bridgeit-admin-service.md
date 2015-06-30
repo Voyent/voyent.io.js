@@ -4,6 +4,7 @@
 
 * [getServiceDefinitions](#getServiceDefinitions)
 * [getAccount](#getAccount)
+* [getLogs](#getLogs)
 
 ## Realm API
 
@@ -94,6 +95,44 @@ bridgeit.io.admin.getAccount({
 	})
 }).then(function(account){
 	console.log('found the following account: ' + JSON.stringify(account));
+}).catch(function(error){
+	console.log('something went wrong: ' + error);
+});
+```
+
+### <a name="getLogs"></a>getLogs
+
+```javascript
+function bridgeit.io.admin.getLogs(params)
+```
+
+Get the BridgeIt Service logs for an account.
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| query | A Mongo DB query for finding log entries matching certain criteria | Object | {} | false |
+| fields | Specify the exclusion of fields to return in the result set | Object | {} | false |
+| options | Additional query options such as limit and sort | Object | {} | false |
+
+#### Return value
+
+Promise with a JSON object with a list of log objects.
+
+#### Example
+
+```javascript
+bridgeit.io.admin.getLogs({
+		account: accountId,
+		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
+	})
+}).then(function(logs){
+	console.log('found the following logs: ' + JSON.stringify(logs));
 }).catch(function(error){
 	console.log('something went wrong: ' + error);
 });
