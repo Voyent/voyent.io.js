@@ -1,31 +1,32 @@
 describe('bridgeit.io.metrics', function () {
 
-	describe('#findMetrics()', function(){
+	describe('#findEvents()', function(){
 
-		var expression = "storage(size)";
-		var start = "2015-01-05T04:00:00.000Z";
-		var limit = 50;
-
-		it('should return a list of metrics for the realm', function (done) {
+		it('should return a list of 100 storage events for the realm', function (done) {
 			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.io.metrics.findMetrics({
+				return bridgeit.io.metrics.findEvents({
 					account: accountId,
 					realm: realmId,
 					host: host,
-					expression: expression,
-					start: start,
-					limit: limit
+                    query: {"service":"storage"},
+                    options: {"limit":100, "sort":{"service":1}}
 				})
 			}).then(function(results){
-				console.log('findMetrics found ' + results.length + ' metrics');
-				done();
+                console.log('findEvents found ' + results.length + ' events');
+                if (results.length === 0 || (results.length <= 100 && results[0].service === 'storage' 
+                    && results[results.length-1].service === 'storage')) {
+                    done();
+                }
+                else {
+                    console.log('findEvents() response was incorrect for the query');
+                }
 			}).catch(function(error){
-				console.log('findMetrics failed ' + error);
+				console.log('findEvents failed',error);
 			});
 		});
 	});
@@ -53,35 +54,39 @@ describe('bridgeit.io.metrics', function () {
 					console.log('getClientServerTimeGap() response was not a number');
 				}
 			}).catch(function(error){
-				console.log('getClientServerTimeGap failed ' + error);
+				console.log('getClientServerTimeGap failed',error);
 			});
 		});
 	});
 
-	describe('#addCustomMetric()', function(){
+	describe('#createCustomEvent()', function(){
 
-		it('should store a custom metric', function (done) {
-			var now = new Date().getTime();
-			var metric = {
-				value: 123,
-				time: now
-			};
-			return bridgeit.io.auth.login({
+		it('should store a custom event', function (done) {
+            var event = {
+                time: new Date().toISOString(),
+                event : "login",
+                username : "johnsmith",
+                data: {
+                    origin: "http://mycustomapp.com/login"
+                }
+            };
+			bridgeit.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.io.metrics.addCustomMetric({
-					realm: realmId,
-					metric: metric,
-					type: 'test'
+				return bridgeit.io.metrics.createCustomEvent({
+                    account: accountId,
+                    realm: realmId,
+                    host: host,
+					event: event
 				})
-			}).then(function(){
-				console.log('addCustomMetric successful ');
+			}).then(function() {
+                console.log('createCustomEvent successful');
 				done();
-			}).catch(function(error){
-				console.log('addCustomMetric failed ' + error);
+			}).catch(function(error) {
+                console.log('createCustomEvent failed',error);
 			});
 		});
 	});

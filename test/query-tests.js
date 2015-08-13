@@ -40,7 +40,6 @@ describe('bridgeit.io.query', function () {
                     realm: realmId
                 });
             }).then(function(queryURI){
-                newQueryURI = queryURI;
                 var uriParts = queryURI.split('/');
                 var queryId = uriParts[uriParts.length-1];
                 return bridgeit.io.query.deleteQuery({
@@ -73,7 +72,6 @@ describe('bridgeit.io.query', function () {
                     realm: realmId
                 });
             }).then(function(queryURI){
-                newQueryURI = queryURI;
                 var uriParts = queryURI.split('/');
                 var queryId = uriParts[uriParts.length-1];
                 newQuery.query.$or[0].color = "green";
@@ -105,7 +103,6 @@ describe('bridgeit.io.query', function () {
                     query: newQuery
                 });
             }).then(function(queryURI){
-                newQueryURI = queryURI;
                 var uriParts = queryURI.split('/');
                 var queryId = uriParts[uriParts.length-1];
                 return bridgeit.io.query.getQuery({
@@ -139,16 +136,13 @@ describe('bridgeit.io.query', function () {
                     query: newQuery
                 });
             }).then(function(queryURI){
-                newQueryURI = queryURI;
-                var uriParts = queryURI.split('/');
-                var queryId = uriParts[uriParts.length-1];
                 return bridgeit.io.query.findQueries({
                     query: {"properties.key": key}
                 })
             }).then(function(results){
-                    //we expect only one result so it should be an object
-                if( results && results.query.$or[0].color == "indigo" && results.query.$or[1].color == "violet")
+                if (results && results.length === 1 && results[0].query.$or[0].color == "indigo" && results[0].query.$or[1].color == "violet") {
                     done();
+                }
                 else{
                     console.log('did not receive expected query: ' + JSON.stringify(results));
                 }
