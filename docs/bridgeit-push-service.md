@@ -97,7 +97,7 @@ bridgeit.io.push.addPushListener({
 });
 ```
 
-### <a name="removePushListener"></a>addPushListener
+### <a name="removePushListener"></a>removePushListener
 
 ```javascript
 function bridgeit.io.push.removePushListener(params)
