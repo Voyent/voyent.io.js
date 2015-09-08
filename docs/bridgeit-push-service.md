@@ -97,6 +97,45 @@ bridgeit.io.push.addPushListener({
 });
 ```
 
+### <a name="removePushListener"></a>addPushListener
+
+```javascript
+function bridgeit.io.push.removePushListener(params)
+```
+
+Remove listeners for notifications belonging to the specified group.
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| group | The push group name to that will be listened to | String |  | true |
+
+#### Return value
+
+Promise with no arguments.
+
+#### Example
+
+```javascript
+bridgeit.io.push.removePushListener({
+		account: accountId,
+		realm: realmId,
+		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
+		group: 'test'
+	})
+}).then(function(){
+	console.log('successfully remove push listeners');
+}).catch(function(error){
+	console.log('something went wrong: ' + error);
+});
+```
+
 ### <a name="sendPushEvent"></a>sendPushEvent
 
 ```javascript
