@@ -1,4 +1,4 @@
-#BridgeIt Services Client JavaScript API
+#BridgeIt Services Client JavaScript API (DEV BRANCH)
 
 An easy-to-use JavaScript API for BridgeIt Services.
 
