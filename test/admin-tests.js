@@ -185,7 +185,7 @@ describe('bridgeit.io.admin', function(){
 						host: host
 					}).then(function(authResponse){
 						return bridgeit.io.admin.getRealmUsers({
-							realm: realmId
+							realmName: realmId
 						});
 					}).then(function(json){
 						console.log('getRealmUsers: ' + JSON.stringify(json));
