@@ -49,6 +49,20 @@ Get the BridgeIt Service definitions.
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 
+#### Example
+
+```javascript
+bridgeit.io.admin.getServiceDefinitions({
+		account: accountId,
+		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
+	})
+}).then(function(services){
+	console.log('found the following bridgeit services: ' + JSON.stringify(services));
+}).catch(function(error){
+	console.log('something went wrong: ' + error);
+});
+```
+
 #### Return value
 
 Promise with a JSON object containing a list of BridgeIt services.
@@ -193,20 +207,6 @@ eg.
 }
 ```
 
-#### Example
-
-```javascript
-bridgeit.io.admin.getServiceDefinitions({
-		account: accountId,
-		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
-	})
-}).then(function(services){
-	console.log('found the following bridgeit services: ' + JSON.stringify(services));
-}).catch(function(error){
-	console.log('something went wrong: ' + error);
-});
-```
-
 ### <a name="getAccount"></a>getAccount
 
 ```javascript
@@ -223,6 +223,20 @@ Get information for the current account, including a list of admins, and realms.
 | accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
+
+#### Example
+
+```javascript
+bridgeit.io.admin.getAccount({
+		account: accountId,
+		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
+	})
+}).then(function(account){
+	console.log('found the following account: ' + JSON.stringify(account));
+}).catch(function(error){
+	console.log('something went wrong: ' + error);
+});
+```
 
 #### Return value
 
@@ -356,20 +370,6 @@ Promise with a JSON object containing a the account.
 }
 ```
 
-#### Example
-
-```javascript
-bridgeit.io.admin.getAccount({
-		account: accountId,
-		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
-	})
-}).then(function(account){
-	console.log('found the following account: ' + JSON.stringify(account));
-}).catch(function(error){
-	console.log('something went wrong: ' + error);
-});
-```
-
 ### <a name="getLogs"></a>getLogs
 
 ```javascript
@@ -389,6 +389,20 @@ Get the BridgeIt Service logs for an account.
 | query | A Mongo DB query for finding log entries matching certain criteria | Object | {} | false |
 | fields | Specify the exclusion of fields to return in the result set | Object | {} | false |
 | options | Additional query options such as limit and sort | Object | {} | false |
+
+#### Example
+
+```javascript
+bridgeit.io.admin.getLogs({
+		account: accountId,
+		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
+	})
+}).then(function(logs){
+	console.log('found the following logs: ' + JSON.stringify(logs));
+}).catch(function(error){
+	console.log('something went wrong: ' + error);
+});
+```
 
 #### Return value
 
@@ -425,20 +439,6 @@ Promise with a JSON object with a list of log objects.
   }
  ]
  ```
-
-#### Example
-
-```javascript
-bridgeit.io.admin.getLogs({
-		account: accountId,
-		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
-	})
-}).then(function(logs){
-	console.log('found the following logs: ' + JSON.stringify(logs));
-}).catch(function(error){
-	console.log('something went wrong: ' + error);
-});
-```
 
 ## Realm Admin Functions
 
@@ -621,7 +621,6 @@ An example of a realm definition is:
 }
 ```
 
-
 #### Parameters
 
 | Name | Description | Type | Default | Required |
@@ -680,10 +679,6 @@ Update a realm for an account.
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | realm | The realm name | String | | true |
 
-#### Return value
-
-Promise with a JSON object the realm information.
-
 #### Example
 
 ```javascript
@@ -703,6 +698,11 @@ bridgeit.io.admin.updateRealm({
 	console.log('something went wrong: ' + error);
 });
 ```
+
+#### Return value
+
+Promise with a JSON object the realm information.
+
 
 ### <a name="deleteRealm"></a>deleteRealm
 
@@ -895,7 +895,6 @@ bridgeit.io.admin.getRealmUsers({
 });
 ```
 
-
 ### <a name="createRealmUser"></a>createRealmUser
 
 ```javascript
@@ -914,10 +913,6 @@ Create a new user for an account realm.
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | user | The user record to create | Object | | true |
-
-#### Return value
-
-Promise with the new resource URL.
 
 #### Example
 
@@ -939,6 +934,18 @@ bridgeit.io.admin.createRealmUser({
 }).catch(function(error){
 	console.log('something went wrong: ' + error);
 });
+```
+
+#### Return value
+
+Promise with the new resource URL.
+
+eg. 
+
+```json
+{
+  "resourceLocation": "http://dev.bridgeit.io/authadmin/bsrtests/realms/test/users/test_1444331522673"
+}
 ```
 
 ### <a name="updateRealmUser"></a>updateRealmUser
@@ -1092,9 +1099,6 @@ The permissions must be an array of valid permission strings that currently exis
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | role | The role to create | Object | | true |
 
-#### Return value
-
-Promise with a resource location url for the new role.
 
 #### Example
 
@@ -1116,6 +1120,17 @@ bridgeit.io.admin.createRealmRole({
 });
 ```
 
+#### Return value
+
+Promise with a resource location url for the new role.
+
+eg.
+```json
+{
+  "resourceLocation": "http://dev.bridgeit.io/authadmin/bsrtests/realms/test/roles/my_role"
+}
+```
+
 ### <a name="updateRealmRole"></a>updateRealmRole
 
 ```javascript
@@ -1134,10 +1149,6 @@ Update an existing role in the realm.
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | role | The role to update | Object | | true |
-
-#### Return value
-
-Promise with an empty response.
 
 #### Example
 
@@ -1159,6 +1170,10 @@ bridgeit.io.admin.updateRealmRole({
 });
 ```
 
+#### Return value
+
+Promise with an empty response.
+
 ### <a name="deleteRealmRole"></a>deleteRealmRole
 
 ```javascript
@@ -1178,10 +1193,6 @@ Delete an existing role in the realm.
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The id of role to delete | String | | true |
 
-#### Return value
-
-Empty response
-
 #### Example
 
 ```javascript
@@ -1198,6 +1209,11 @@ bridgeit.io.admin.deleteRealmRole({
 	console.log('something went wrong: ' + error);
 });
 ```
+
+#### Return value
+
+Empty response
+
 #### <a name="errorCodes"></a>Error Codes
 
 * mismatchedRecordArrayLength
