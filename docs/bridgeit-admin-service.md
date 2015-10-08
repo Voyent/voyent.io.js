@@ -967,10 +967,6 @@ Update a user for an account realm.
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | user | The user record to update | Object | | true |
 
-#### Return value
-
-Promise with the new resource URL.
-
 #### Example
 
 ```javascript
@@ -993,6 +989,11 @@ bridgeit.io.admin.updateRealmUser({
 });
 ```
 
+#### Return value
+
+Empty response.
+
+
 ### <a name="deleteRealmUser"></a>deleteRealmUser
 
 ```javascript
@@ -1012,9 +1013,6 @@ Delete a realm user for an account.
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | username | The user name to delete | String | | true |
 
-#### Return value
-
-Promise with the new resource URL.
 
 #### Example
 
@@ -1031,6 +1029,10 @@ bridgeit.io.admin.deleteRealmUser({
 	console.log('something went wrong: ' + error);
 });
 ```
+
+#### Return value
+
+Empty response.
 
 ### <a name="getRealmRoles"></a>getRealmRoles
 
@@ -1053,6 +1055,24 @@ Retrieve a list of the roles for a realm.
 #### Return value
 
 Promise with a list of roles.
+
+eg.
+
+```json
+{
+  "roles": [
+    {
+      "name": "my_role",
+      "permissions": [
+        "bridgeit.doc.saveDocument",
+        "bridgeit.doc.getDocument",
+        "bridgeit.doc.deleteDocument",
+        "bridgeit.doc.updateDocument"
+      ]
+    }
+  ]
+}
+```
 
 #### Example
 
