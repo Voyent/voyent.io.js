@@ -1200,9 +1200,9 @@ bridgeit.io.admin.deleteRealmRole({
 ```
 #### <a name="errorCodes"></a>Error Codes
 
-mismatchedRecordArrayLength
-duplicateResource
-adminAlreadyExists
-lastAdminError
-adminAlreadyExists
+* mismatchedRecordArrayLength
+* duplicateResource
+* adminAlreadyExists
+* lastAdminError
+* adminAlreadyExists
 
