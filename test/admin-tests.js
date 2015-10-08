@@ -151,6 +151,28 @@ describe('bridgeit.io.admin', function(){
 						console.log('updateRealm failed ' + error);
 					});
 			});
+
+			it('should fail to update an invalid realm and return a 404', function (done) {
+				bridgeit.io.auth.login({
+						account: accountId,
+						username: adminId,
+						password: adminPassword,
+						host: host
+					}).then(function(authResponse){
+						return bridgeit.io.admin.updateRealm({
+							realmName: 'invalid_realm',
+							realm: newRealm
+						});
+					}).catch(function(error){
+						if( error.status === 404 ){
+							console.log('updating invalid realm returned correct 404');
+							done();
+						}
+						else{
+							console.log('error: updating invalid realm returned ' + error);
+						}
+					});
+			});
 		});
 
 		describe('#deleteRealm()', function(done){
@@ -161,7 +183,6 @@ describe('bridgeit.io.admin', function(){
 						password: adminPassword,
 						host: host
 					}).then(function(authResponse){
-						newRealm.services.push("bridgeit.metrics");
 						return bridgeit.io.admin.deleteRealm({
 							realmName: newRealmName
 						});
@@ -171,6 +192,29 @@ describe('bridgeit.io.admin', function(){
 						console.log('deleteRealm failed ' + error);
 					});
 			});
+
+			it('should fail to delete an invalid realm and return a 404', function (done) {
+				bridgeit.io.auth.login({
+						account: accountId,
+						username: adminId,
+						password: adminPassword,
+						host: host
+					}).then(function(authResponse){
+						newRealm.services.push("bridgeit.metrics");
+						return bridgeit.io.admin.deleteRealm({
+							realmName: 'invalid realm'
+						});
+					}).catch(function(error){
+						if( error.status === 404 ){
+							console.log('deleting invalid realm returned correct 404');
+							done();
+						}
+						else{
+							console.log('error: deleting invalid realm returned ' + error);
+						}
+					});
+			});
+
 		});
 	});
 
@@ -396,7 +440,7 @@ describe('bridgeit.io.admin', function(){
 						host: host
 					}).then(function(authResponse){
 						return bridgeit.io.admin.deleteRealmRole({realmName: realmId, id: newRole.name});
-					}).then(function(json){
+					}).then(function(){
 						done();
 					}).catch(function(error){
 						console.log('deleteRealmRole failed ' + error);

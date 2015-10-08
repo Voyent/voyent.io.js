@@ -29,6 +29,8 @@
 * [updateRealmRole](#updateRealmRole)
 * [updateRealmRole](#updateRealmRole)
 
+## [Error Codes](#errorCodes)
+
 
 ### <a name="getServiceDefinitions"></a>getServiceDefinitions
 
@@ -50,6 +52,146 @@ Get the BridgeIt Service definitions.
 #### Return value
 
 Promise with a JSON object containing a list of BridgeIt services.
+
+eg.
+
+```json
+{
+  "services": [
+    {
+      "name": "bridgeit.store",
+      "cost": "Call us for details",
+      "description": "The Bridgeit storage service for all your content storage needs",
+      "permissions": [
+        "bridgeit.store.blob.readSelf",
+        "bridgeit.store.blob.readAll",
+        "bridgeit.store.blob.writeSelf",
+        "bridgeit.store.blob.writeAll"
+      ]
+    },
+    {
+      "name": "bridgeit.metrics",
+      "cost": "Call us for details",
+      "description": "The Bridgeit metrics service measures all your measurable needs",
+      "permissions": [
+        "bridgeit.metrics.doGet",
+        "bridgeit.metrics.doPut",
+        "bridgeit.metrics.doPost",
+        "bridgeit.metrics.doDelete"
+      ]
+    },
+    {
+      "name": "bridgeit.code",
+      "cost": "Call us for details",
+      "description": "The Bridgeit code service allows the creation of user defined linkable code structures",
+      "permissions": [
+        "bridgeit.code.write"
+      ]
+    },
+    {
+      "name": "bridgeit.push",
+      "cost": "Call us for details",
+      "description": "The Bridgeit push service for all your push needs",
+      "permissions": [
+        "bridgeit.push.modifyGroup",
+        "bridgeit.push.pushSelf",
+        "bridgeit.push.pushCloudSelf",
+        "bridgeit.push.adminGroup",
+        "bridgeit.push.pushAll",
+        "bridgeit.push.pushCloudAll",
+        "bridgeit.push.listen",
+        "bridgeit.push.notificationProviderAPNS",
+        "bridgeit.push.notificationProviderAmazonSNS",
+        "bridgeit.push.notificationProviderBPNS",
+        "bridgeit.push.notificationProviderEmail",
+        "bridgeit.push.notificationProviderGCM",
+        "bridgeit.push.notificationProviderTwilioSMS",
+        "bridgeit.push.notificationProviderWNS"
+      ]
+    },
+    {
+      "name": "bridgeit.media",
+      "description": "The Bridgeit media service processes media elements",
+      "permissions": [
+        "bridgeit.media.convert"
+      ]
+    },
+    {
+      "name": "bridgeit.locate",
+      "description": "The Bridgeit family of location services",
+      "cost": "Call us for details",
+      "permissions": [
+        "bridgeit.locate.saveLocation",
+        "bridgeit.locate.getLocation",
+        "bridgeit.locate.deleteLocation",
+        "bridgeit.locate.saveRegion",
+        "bridgeit.locate.getRegion",
+        "bridgeit.locate.getDevicesInRegion",
+        "bridgeit.locate.deleteRegion",
+        "bridgeit.locate.updateRegion",
+        "bridgeit.locate.saveMonitor",
+        "bridgeit.locate.getMonitor",
+        "bridgeit.locate.deleteMonitor",
+        "bridgeit.locate.updateMonitor",
+        "bridgeit.locate.savePointOfInterest",
+        "bridgeit.locate.getPointOfInterest",
+        "bridgeit.locate.deletePointOfInterest",
+        "bridgeit.locate.updatePointOfInterest"
+      ]
+    },
+    {
+      "name": "bridgeit.doc",
+      "description": "The Bridgeit document storage service",
+      "cost": "Call us for details",
+      "permissions": [
+        "bridgeit.doc.saveDocument",
+        "bridgeit.doc.getDocument",
+        "bridgeit.doc.deleteDocument",
+        "bridgeit.doc.updateDocument"
+      ]
+    },
+    {
+      "name": "bridgeit.starter",
+      "description": "The Bridgeit starter service",
+      "cost": "Call us for details",
+      "permissions": [
+        "bridgeit.starter.postMessage",
+        "bridgeit.starter.getMessage",
+        "bridgeit.starter.putMessage",
+        "bridgeit.starter.deleteMessage"
+      ]
+    },
+    {
+      "name": "bridgeit.query",
+      "description": "The Bridgeit query service",
+      "cost": "Call us for details",
+      "permissions": [
+        "bridgeit.query.saveQuery",
+        "bridgeit.query.getQuery",
+        "bridgeit.query.deleteQuery",
+        "bridgeit.query.updateQuery"
+      ]
+    },
+    {
+      "name": "bridgeit.context",
+      "description": "The Bridgeit context service",
+      "cost": "Call us for details",
+      "permissions": [
+        "bridgeit.context.user.readSelf",
+        "bridgeit.context.user.writeSelf",
+        "bridgeit.context.user.readAny",
+        "bridgeit.context.user.writeAny",
+        "bridgeit.context.readSelf",
+        "bridgeit.context.writeSelf",
+        "bridgeit.context.executeSelf",
+        "bridgeit.context.readAny",
+        "bridgeit.context.writeAny",
+        "bridgeit.context.executeAny"
+      ]
+    }
+  ]
+}
+```
 
 #### Example
 
@@ -85,6 +227,134 @@ Get information for the current account, including a list of admins, and realms.
 #### Return value
 
 Promise with a JSON object containing a the account.
+
+```json
+{
+  "account": {
+    "accountname": "bsrtests",
+    "admins": [
+      {
+        "email": "pbreau@icesoft.com",
+        "firstname": "Philip",
+        "lastname": "Breau",
+        "username": "admin",
+        "service": {
+          "permissions": []
+        },
+        "roles": [
+          "admin"
+        ],
+        "permissions": [
+          "bridgeit.auth.viewAccount",
+          "bridgeit.auth.createAccount",
+          "bridgeit.auth.editAccount",
+          "bridgeit.auth.deleteAccount",
+          "bridgeit.auth.createUser",
+          "bridgeit.auth.viewUser",
+          "bridgeit.auth.editUser",
+          "bridgeit.auth.deleteUser",
+          "bridgeit.auth.viewServices",
+          "bridgeit.auth.createApplication",
+          "bridgeit.auth.viewApplication",
+          "bridgeit.auth.editApplication",
+          "bridgeit.auth.deleteApplication",
+          "bridgeit.auth.registerContext",
+          "bridgeit.auth.createContext",
+          "bridgeit.auth.deleteContext",
+          "bridgeit.auth.editContext"
+        ],
+        "disabled": false
+      }
+    ],
+    "description": "bsr test account",
+    "realms": [
+      {
+        "services": [
+          "bridgeit.doc",
+          "bridgeit.locate",
+          "bridgeit.store"
+        ],
+        "origins": [
+          "*"
+        ],
+        "disabled": false,
+        "name": "test_1436189756205"
+      },
+      {
+        "roles": [],
+        "tsa_enable": null,
+        "quick_user": true,
+        "custom": "{}",
+        "services": [
+          "bridgeit.code",
+          "bridgeit.doc",
+          "bridgeit.locate",
+          "bridgeit.media",
+          "bridgeit.metrics",
+          "bridgeit.push",
+          "bridgeit.store"
+        ],
+        "permissions": [
+          "bridgeit.code.write",
+          "bridgeit.doc.saveDocument",
+          "bridgeit.doc.getDocument",
+          "bridgeit.doc.deleteDocument",
+          "bridgeit.doc.updateDocument",
+          "bridgeit.locate.saveLocation",
+          "bridgeit.locate.getLocation",
+          "bridgeit.locate.deleteLocation",
+          "bridgeit.locate.saveRegion",
+          "bridgeit.locate.getRegion",
+          "bridgeit.locate.getDevicesInRegion",
+          "bridgeit.locate.deleteRegion",
+          "bridgeit.locate.updateRegion",
+          "bridgeit.locate.saveMonitor",
+          "bridgeit.locate.getMonitor",
+          "bridgeit.locate.deleteMonitor",
+          "bridgeit.locate.updateMonitor",
+          "bridgeit.locate.savePointOfInterest",
+          "bridgeit.locate.getPointOfInterest",
+          "bridgeit.locate.deletePointOfInterest",
+          "bridgeit.locate.updatePointOfInterest",
+          "bridgeit.media.convert",
+          "bridgeit.metrics.doGet",
+          "bridgeit.metrics.doPut",
+          "bridgeit.metrics.doPost",
+          "bridgeit.metrics.doDelete",
+          "bridgeit.push.modifyGroup",
+          "bridgeit.push.pushSelf",
+          "bridgeit.push.pushCloudSelf",
+          "bridgeit.push.adminGroup",
+          "bridgeit.push.pushAll",
+          "bridgeit.push.pushCloudAll",
+          "bridgeit.push.listen",
+          "bridgeit.push.notificationProviderAPNS",
+          "bridgeit.push.notificationProviderAmazonSNS",
+          "bridgeit.push.notificationProviderBPNS",
+          "bridgeit.push.notificationProviderEmail",
+          "bridgeit.push.notificationProviderGCM",
+          "bridgeit.push.notificationProviderTwilioSMS",
+          "bridgeit.push.notificationProviderWNS",
+          "bridgeit.store.blob.readSelf",
+          "bridgeit.store.blob.readAll",
+          "bridgeit.store.blob.writeSelf",
+          "bridgeit.store.blob.writeAll",
+          "bridgeit.query.saveQuery",
+          "bridgeit.query.getQuery",
+          "bridgeit.query.deleteQuery",
+          "bridgeit.query.updateQuery"
+        ],
+        "origins": [
+          "*"
+        ],
+        "disabled": false,
+        "name": "test"
+      }
+    ],
+    "safeAccountname": "bsrtests"
+  }
+}
+```
 
 #### Example
 
@@ -124,6 +394,38 @@ Get the BridgeIt Service logs for an account.
 
 Promise with a JSON object with a list of log objects.
 
+```json
+[
+  {
+    "accountName": "bsrtests",
+    "realmName": "test",
+    "tx": "0000",
+    "access_token": "a4b2ee47-dbee-4f4a-bea8-12e536faf5fa",
+    "message": "setupModel: User",
+    "level": "debug",
+    "time": "2015-03-27T18:07:41.042Z"
+  },
+  {
+    "accountName": "bsrtests",
+    "realmName": "test",
+    "tx": "0000",
+    "access_token": "a4b2ee47-dbee-4f4a-bea8-12e536faf5fa",
+    "message": "Found entity (via token): user",
+    "level": "debug",
+    "time": "2015-03-27T18:07:41.264Z"
+  },
+  {
+    "accountName": "bsrtests",
+    "realmName": "test",
+    "tx": "0000",
+    "access_token": "a4b2ee47-dbee-4f4a-bea8-12e536faf5fa",
+    "message": "User: user simplest permission check Passed",
+    "level": "debug",
+    "time": "2015-03-27T18:07:41.271Z"
+  }
+ ]
+ ```
+
 #### Example
 
 ```javascript
@@ -161,6 +463,46 @@ Get a list of realms for an account.
 
 Promise with a JSON object with a list of realm objects.
 
+eg.
+```json
+{
+  "realms": [
+    {
+      "name": "test_1436189756205",
+      "disabled": false,
+      "origins": [
+        "*"
+      ],
+      "services": [
+        "bridgeit.doc",
+        "bridgeit.locate",
+        "bridgeit.store"
+      ]
+    },
+    {
+      "name": "test",
+      "disabled": false,
+      "origins": [
+        "*"
+      ],
+      "services": [
+        "bridgeit.code",
+        "bridgeit.doc",
+        "bridgeit.locate",
+        "bridgeit.media",
+        "bridgeit.metrics",
+        "bridgeit.push",
+        "bridgeit.store"
+      ],
+      "custom": "{}",
+      "quick_user": true,
+      "tsa_enable": null,
+      "roles": []
+    }
+  ]
+}
+```
+
 #### Example
 
 ```javascript
@@ -197,6 +539,31 @@ Get a list of realms for an account.
 #### Return value
 
 Promise with a JSON object the realm information.
+
+```json
+{
+  "realm": {
+    "name": "test",
+    "disabled": false,
+    "origins": [
+      "*"
+    ],
+    "services": [
+      "bridgeit.code",
+      "bridgeit.doc",
+      "bridgeit.locate",
+      "bridgeit.media",
+      "bridgeit.metrics",
+      "bridgeit.push",
+      "bridgeit.store"
+    ],
+    "custom": "{}",
+    "quick_user": true,
+    "tsa_enable": null,
+    "roles": []
+  }
+}
+```
 
 #### Example
 
@@ -240,28 +607,6 @@ An example of a realm definition is:
 {
 	"name": "nargles.net"
 	"disabled": false,
-	"permissions": [
-		"bridgeit.metrics.doGet",
-		"bridgeit.metrics.doPut",
-		"bridgeit.metrics.doPost",
-		"bridgeit.push.listen",
-		"bridgeit.media.convert",
-		"bridgeit.locate.saveLocation",
-		"bridgeit.locate.getLocation",
-		"bridgeit.doc.getDocument",
-		"bridgeit.locate.deleteLocation",
-		"bridgeit.locate.saveRegion",
-		"bridgeit.locate.getRegion",
-		"bridgeit.locate.getDevicesInRegion",
-		"bridgeit.locate.deleteRegion",
-		"bridgeit.locate.updateRegion",
-		"bridgeit.locate.saveMonitor",
-		"bridgeit.locate.getMonitor",
-		"bridgeit.locate.deleteMonitor",
-		"bridgeit.locate.updateMonitor",
-		"bridgeit.code.write",
-		"bridgeit.doc.saveDocument"
-	],
 	"services": [
 		"bridgeit.code",
 		"bridgeit.doc",
@@ -290,20 +635,25 @@ An example of a realm definition is:
 
 #### Return value
 
-Promise with a JSON object the realm information.
+Promise with a JSON object with the resource location:
+
+```json
+{
+  "resourceLocation": "http://dev.bridgeit.io/authadmin/bsrtests/realms/test_1444316248473"
+}
+```
 
 #### Example
 
 ```javascript
 bridgeit.io.admin.createRealm({
-		account: accountId,
-		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
-		realm: {
-			name: 'myNewRealm',
-			origins: ['*'],
-			services: ["bridgeit.doc","bridgeit.locate","bridgeit.store"]
-		}
-	})
+	account: accountId,
+	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
+	realm: {
+		name: 'myNewRealm',
+		origins: ['*'],
+		services: ["bridgeit.doc","bridgeit.locate","bridgeit.store"]
+	}
 }).then(function(realm){
 	console.log('found the following realm: ' + JSON.stringify(realm));
 }).catch(function(error){
@@ -340,6 +690,7 @@ Promise with a JSON object the realm information.
 bridgeit.io.admin.updateRealm({
 		account: accountId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
+		realmName: newRealmName,
 		realm: {
 			name: 'realmName',
 			origins: ['*'],
@@ -359,7 +710,7 @@ bridgeit.io.admin.updateRealm({
 function bridgeit.io.admin.deleteRealm(params)
 ```
 
-Update a realm for an account.
+Delete a realm for an account.
 
 #### Parameters
 
@@ -374,7 +725,7 @@ Update a realm for an account.
 
 #### Return value
 
-Promise with a JSON object the realm information.
+Empty response.
 
 #### Example
 
@@ -453,6 +804,81 @@ Get the users for an account realm.
 #### Return value
 
 Promise with a JSON object containing a list of realm users.
+
+eg.
+
+```json
+{
+  "user": {
+    "custom": "",
+    "email": "email@email.com",
+    "firstname": "user",
+    "lastname": "user",
+    "username": "user",
+    "service": {
+      "permissions": []
+    },
+    "roles": [],
+    "disabled": false
+  }
+}
+```
+
+eg.
+```json
+{
+  "users": [
+    {
+      "username": "user1421759831143",
+      "firstname": "First",
+      "lastname": "Last",
+      "email": "user@email.com",
+      "service": {
+        "permissions": []
+      },
+      "roles": [],
+      "permissions": [
+        "bridgeit.user.editUser",
+        "bridgeit.user.viewUser",
+        "bridgeit.user.deleteUser"
+      ],
+      "disabled": false
+    },
+    {
+      "username": "user1421760101882",
+      "firstname": "First",
+      "lastname": "Last",
+      "email": "user@email.com",
+      "service": {
+        "permissions": []
+      },
+      "roles": [],
+      "permissions": [
+        "bridgeit.user.editUser",
+        "bridgeit.user.viewUser",
+        "bridgeit.user.deleteUser"
+      ],
+      "disabled": false
+    },
+    {
+      "username": "user1421766095015",
+      "firstname": "First",
+      "lastname": "Last",
+      "email": "user@email.com",
+      "service": {
+        "permissions": []
+      },
+      "roles": [],
+      "permissions": [
+        "bridgeit.user.editUser",
+        "bridgeit.user.viewUser",
+        "bridgeit.user.deleteUser"
+      ],
+      "disabled": false
+    }
+  ]
+}
+```
 
 #### Example
 
@@ -754,7 +1180,7 @@ Delete an existing role in the realm.
 
 #### Return value
 
-Promise with an empty response.
+Empty response
 
 #### Example
 
@@ -772,4 +1198,11 @@ bridgeit.io.admin.deleteRealmRole({
 	console.log('something went wrong: ' + error);
 });
 ```
+#### <a name="errorCodes"></a>Error Codes
+
+mismatchedRecordArrayLength
+duplicateResource
+adminAlreadyExists
+lastAdminError
+adminAlreadyExists
 
