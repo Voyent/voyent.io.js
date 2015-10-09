@@ -15,9 +15,10 @@
 * [getLastKnownAccount](#getLastKnownAccount)
 * [getLastKnownRealm](#getLastKnownRealm)
 * [registerAsNewUser](#registerAsNewUser)
-* [checkUserPermissions](#checkUserPermissions)
 * [updateLastActiveTimestamp](#updateLastActiveTimestamp)
 * [getLastActiveTimestamp](#getLastActiveTimestamp)
+* [checkUserRole](#checkUserRole)
+* [checkUserRoles](#checkUserRoles)
 
 ### <a name="getNewAccessToken"></a>getNewAccessToken
 
@@ -367,41 +368,6 @@ bridgeit.io.auth.registerAsNewUser({
 });
 ```
 
-
-### <a name="checkUserPermissions"></a>checkUserPermissions
-```javascript
-function bridgeit.io.auth.checkUserPermissions()
-```
-
-Check if the current user has a set of permissions.
-
-#### Parameters
-
-| Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
-| ssl | Whether to use SSL for network traffic | Boolean | false | false |
-| permissions | A space-delimited list of permissions to check. | String |  | true |
-
-#### Return value
-
-A Promise with an argument of true, if the user has the permission, or false, if not.
-
-#### Example
-
-```javascript
-bridgeit.io.auth.checkUserPermissions({
-  permissions: 'bridgeit.doc.getDocument bridgeit.doc.saveDocument'
-}).then(function(hasPermission){
-  console.log('checkUserPermissions() user has permission: ' + hasPermission);
-}).catch(function(error){
-  console.log('something went wrong: ' + error);
-});
-```
-
-
 ### <a name="updateLastActiveTimestamp"></a>updateLastActiveTimestamp
 ```javascript
 function bridgeit.io.auth.updateLastActiveTimestamp()
@@ -415,3 +381,74 @@ function bridgeit.io.auth.getLastActiveTimestamp()
 ```
 
 Return the last active timestamp in milliseconds.
+
+### <a name="checkUserRole"></a>checkUserRole
+```javascript
+function bridgeit.io.auth.checkUserRole()
+```
+
+Check if the current user has a single role.
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| role | The role name to verify | String |  | true |
+
+#### Example
+
+```javascript
+bridgeit.io.auth.checkUserRole({
+  role: 'myrole'
+}).then(function(){
+  //user has 'myrole'
+}).catch(function(error){
+  //user does not have 'myrole'
+});
+```
+
+#### Return value
+
+An empty Promise that will reject if the user does not have the role, or resolve if the user does have the role.
+
+### <a name="checkUserRoles"></a>checkUserRoles
+```javascript
+function bridgeit.io.auth.checkUserRoles()
+```
+
+Check if the current user has a set of roles. The 'op' params can be added to check for 'or' or 'and'.
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| roles | The array of roles to verify | Array |  | true |
+| op | 'or' or 'and' | String |  | false |
+
+#### Example
+
+```javascript
+bridgeit.io.auth.checkUserRoles({
+  roles: ['role1', 'role2'],
+  op: 'or'
+}).then(function(){
+  //user has either role1 or role2
+}).catch(function(error){
+  //user does not have either role1 or role2
+});
+```
+
+#### Return value
+
+An empty Promise that will reject if the user does not have the roles, or resolve if the user does have the roles.
+
+
+
