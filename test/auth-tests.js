@@ -1,6 +1,8 @@
 describe('bridgeit.io.auth', function () {
 	this.timeout(10000);
 
+	var assert = chai.assert;
+
 	function validateAuthResponse(response){
 		return response.access_token && response.expires_in;
 	}
@@ -371,6 +373,64 @@ describe('bridgeit.io.auth', function () {
 			}).catch(function(error){
 				console.log('registerAsNewUser() failed ' + error);
 			});
+		});
+	});	
+
+	describe('#checkUserRole()', function(){
+		it('should check that a user has a valid role', function (done) {
+
+			var newRole = {
+				name: 'my_role_' + new Date().getTime(),
+				permissions: [
+					'bridgeit.doc.saveDocument',
+					'bridgeit.doc.getDocument',
+					'bridgeit.doc.deleteDocument',
+					'bridgeit.doc.updateDocument'
+				]
+			};
+
+			var newUser = {
+				username: 'test_' + new Date().getTime(),
+				firstname: 'test',
+				lastname: 'test',
+				email: 'test@email.com',
+				password: 'password',
+				roles: [newRole.name]
+			};
+
+			//login as admin
+			bridgeit.io.auth.login({
+				account: accountId,
+				username: adminId,
+				password: adminPassword,
+				host: host
+			}).then(function(){
+			//create the test role
+				return bridgeit.io.admin.createRealmRole({role: newRole, realmName: realmId});
+			}).then(function(){
+			//create the test user with the new role
+				return bridgeit.io.admin.createRealmUser({user: newUser, realmName: realmId});
+			}).then(function(){
+			//login as the new user
+				return bridgeit.io.auth.login({
+					account: accountId,
+					realm: realmId,
+					username: newUser.username,
+					password: newUser.password,
+					host: host
+				});
+			}).then(function(authResponse){
+			//check that the new user has the new role
+				return bridgeit.io.auth.checkUserRole({
+					accessToken: authResponse.access_token,
+					role: newRole.name
+				});
+			}).then(function(checkUserRoleResp){
+				done();
+			}).catch(function(error){
+				assert(false, 'checkUserRole failed ' + JSON.stringify(error));
+			});
+
 		});
 	});	
 	
