@@ -1,4 +1,5 @@
 describe('bridgeit.io.admin', function(){
+	this.timeout(10000);
 
 	describe('#getServiceDefinitions()', function(done){
 
@@ -328,6 +329,7 @@ describe('bridgeit.io.admin', function(){
 
 		});	
 		describe('#deleteRealmUser()', function(done){
+			this.timeout(deleteTimeout);
 			it('should delete a new realm user', function (done) {
 
 				var user = {

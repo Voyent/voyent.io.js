@@ -1,5 +1,5 @@
 describe('bridgeit.io.location', function(){
-
+	this.timeout(10000);
 	var newRegion = { 
 				location: {
 					properties: {

@@ -1,4 +1,5 @@
 describe('bridgeit.io.auth', function () {
+	this.timeout(10000);
 
 	function validateAuthResponse(response){
 		return response.access_token && response.expires_in;
@@ -371,60 +372,6 @@ describe('bridgeit.io.auth', function () {
 				console.log('registerAsNewUser() failed ' + error);
 			});
 		});
-	});
-
-	describe('#checkUserPermissions()', function(){
-		it('should return true', function (done) {
-
-			bridgeit.io.auth.login({
-				account: accountId,
-				realm: realmId,
-				username: userId,
-				password: userPassword,
-				host: host
-			}).then(function(response){
-				return bridgeit.io.auth.checkUserPermissions({
-					permissions: 'bridgeit.doc.getDocument bridgeit.doc.saveDocument'
-				})
-			}).then(function(hasPermission){
-				console.log('checkUserPermissions() returned ' + hasPermission);
-				if( hasPermission ){
-					done();
-				}
-			}).catch(function(error){
-				console.log('checkUserPermissions failed ' + error);
-			});
-
-		});
-
-		it('should return false', function (done) {
-
-			bridgeit.io.auth.login({
-				account: accountId,
-				realm: realmId,
-				username: userId,
-				password: userPassword,
-				host: host
-			}).then(function(response){
-				return bridgeit.io.auth.checkUserPermissions({
-					permissions: 'permissionDoesntExist'
-				})
-			}).then(function(hasPermission){
-				console.log('checkUserPermissions() returned ' + hasPermission);
-				if( !hasPermission ){
-					done();
-				}
-			}).catch(function(error){
-				console.log('checkUserPermissions failed ' + error);
-			});
-
-		});
-	});
-
-	
-
-	
-
-	
+	});	
 	
 });

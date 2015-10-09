@@ -1,5 +1,5 @@
 describe('bridgeit.io.metrics', function () {
-
+	this.timeout(10000);
 	describe('#findEvents()', function(){
 
 		it('should return a list of 100 storage events for the realm', function (done) {
