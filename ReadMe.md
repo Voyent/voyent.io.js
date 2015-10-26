@@ -52,6 +52,7 @@ Mocha and PhantomJS are both required.
 * [startTransaction](#startTransaction)
 * [endTransaction](#endTransaction)
 * [getLastTransactionId](#getLastTransactionId)
+* [setCurrentRealm](#setCurrentRealm)
 
 ### <a name="startTransaction"></a>startTransaction
 
@@ -124,4 +125,39 @@ Return the last stored BridgeIt tranaction id.
 #### Example
 
 See [startTransaction](#startTransaction).
+
+### <a name="setCurrentRealm"></a>setCurrentRealm
+
+```javascript
+function bridgeit.io.setCurrentRealm()
+```
+
+Set the current realm for all subsequent operations. This is useful when logging in as an admin, who is not in any realm, but needing to
+ensure that all other operations are done with a particular realm.
+
+#### Example
+
+```javascript
+bridgeit.io.auth.login({
+	account: accountId,
+	username: adminId,
+	password: adminPassword,
+	host: host
+}).then(function(authResponse){
+	bridgeit.io.setCurrentRealm('myRealm');
+	//realm is no longer required for all subsequent operations
+	return bridgeit.io.documents.createDocument({
+		document: newDoc
+	});
+}).then(function(docURI){
+	newDocURI = docURI;
+	var uriParts = docURI.split('/');
+	var docId = uriParts[uriParts.length-1];
+	return bridgeit.io.documents.deleteDocument({
+		account: accountId,
+		host: host,
+		id: docId
+	})
+});
+```
 
