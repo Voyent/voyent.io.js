@@ -375,7 +375,78 @@ describe('bridgeit.io.admin', function(){
 				});
 			});
 		});
-	})
+	});
+
+	describe('Admin Administrator Functions', function(done){
+		describe('#createAdministrator()', function(done){
+			it('should create a new administrator in the account', function (done) {
+				var params = _.clone(adminAuthBlock);
+				params.admin = {
+					username: 'test_admin_' + new Date().getTime(),
+					firstname: 'Test',
+					lastname: 'Admin',
+					password: 'password',
+					email: 'test@test.com'
+				};
+				bridgeit.io.admin.createAdministrator(params).then(function(json){
+					console.log('createAdministrator: ' + JSON.stringify(json));
+					params.username = params.admin.username;
+					bridgeit.io.admin.deleteAdministrator(params); //clean up
+					done();
+				}).catch(function(error){
+					console.log('createAdministrator failed ' + error);
+					assert(false, 'createAdministrator failed ' + error);
+				});
+			});
+		});
+		describe('#updateAdministrator()', function(done){
+			it('should update an existing administrator in the account', function (done) {
+				var params = _.clone(adminAuthBlock);
+				params.admin = {
+					username: 'test_admin_' + new Date().getTime(),
+					firstname: 'Test',
+					lastname: 'Admin',
+					password: 'password',
+					email: 'test@test.com'
+				};
+				bridgeit.io.admin.createAdministrator(params).then(function(json){
+					console.log('createAdministrator: ' + JSON.stringify(json));
+					params.username = params.admin.username;
+					params.admin.lastname = 'Updated';
+					return bridgeit.io.admin.updateAdministrator(params); 
+				}).then(function(response){
+					bridgeit.io.admin.deleteAdministrator(params); //clean up
+					done();
+				}).catch(function(error){
+					console.log('updateAdministrator failed ' + error);
+					assert(false, 'updateAdministrator failed ' + error);
+				});
+			});
+		});
+		describe('#deleteAdministrator()', function(done){
+			it('should delete an existing administrator in the account', function (done) {
+				var params = _.clone(adminAuthBlock);
+				params.admin = {
+					username: 'test_admin_' + new Date().getTime(),
+					firstname: 'Test',
+					lastname: 'Admin',
+					password: 'password',
+					email: 'test@test.com'
+				};
+				bridgeit.io.admin.createAdministrator(params).then(function(json){
+					console.log('deleteAdministrator: ' + JSON.stringify(json));
+					params.username = params.admin.username;
+					delete params.admin;
+					return bridgeit.io.admin.deleteAdministrator(params);
+				}).then(function(response){
+					done();
+				}).catch(function(error){
+					console.log('deleteAdministrator failed ' + error);
+					assert(false, 'deleteAdministrator failed ' + error);
+				});
+			});
+		});
+	});
 
 	
 
