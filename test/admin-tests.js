@@ -411,7 +411,6 @@ describe('bridgeit.io.admin', function(){
 				};
 				bridgeit.io.admin.createAdministrator(params).then(function(json){
 					console.log('createAdministrator: ' + JSON.stringify(json));
-					params.username = params.admin.username;
 					params.admin.lastname = 'Updated';
 					return bridgeit.io.admin.updateAdministrator(params); 
 				}).then(function(response){
