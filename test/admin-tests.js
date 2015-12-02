@@ -139,10 +139,12 @@ describe('bridgeit.io.admin', function(){
 		});
 
 		describe('#updateRealm()', function(done){
+			this.timeout(20000);
 			it('should update the realm', function (done) {
 				var params = _.clone(adminAuthBlock);
 				params.realmName = newRealmName;
 				params.realm = newRealm;
+				newRealm.custom = "{'test':true}";
 				newRealm.services.push("bridgeit.metrics");
 				bridgeit.io.admin.updateRealm(params).then(function(){
 					var params2 = _.clone(adminAuthBlock);
