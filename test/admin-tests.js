@@ -75,7 +75,6 @@ describe('bridgeit.io.admin', function(){
 	});
 
 	describe('#getLogs()', function(done){
-		this.timeout(4000);
 		it('should return a list of service logs for the account', function (done) {
 
 			bridgeit.io.admin.getLogs(adminAuthBlock).then(function(json){
@@ -146,7 +145,26 @@ describe('bridgeit.io.admin', function(){
 				params.realm = newRealm;
 				newRealm.services.push("bridgeit.metrics");
 				bridgeit.io.admin.updateRealm(params).then(function(){
-					done();
+					var params2 = _.clone(adminAuthBlock);
+					params2.realmName = newRealmName;
+					return bridgeit.io.admin.getRealm(params2);
+				}).then(function(realm){
+					if( realm ){
+						if( realm.services.indexOf('bridgeit.metrics') > -1 ){
+							if( realm.custom === "{'test':true}" ){
+								done();
+							}
+							else{
+								console.error('realm custom property not updated');
+							}
+						}
+						else{
+							console.error('realm service not added');
+						}
+					}
+					else{
+						console.error('realm not found after update');
+					}
 				}).catch(function(error){
 					assert(false, 'updateRealm failed ' + error);
 					done(error);
