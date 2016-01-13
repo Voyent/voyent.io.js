@@ -97,6 +97,8 @@ Which contains the access token and the time, in milliseconds that the session w
 | password | User password | String | | true |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| scopeToPath | If set, the authentication token will be restricted to the given path, unless in development mode. | String | '/' | false |
+
 
 #### Return value
 
@@ -162,7 +164,8 @@ In order to automatically reconnect, the `storeCredentials` parameter must be se
 | connectionTimeout | The timeout duration, in minutes, that the BridgeIt login will last during inactivity | Number | 20 | false |
 | storeCredentials | Whether to store encrypted credentials in session storage. If set to false, bridgeit will not attempt to relogin before the session expires. | Boolean | true | false |
 | onSessionExpiry | Function callback to be called on session expiry | Function |  | false |
-
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| scopeToPath | If set, the authentication token will be restricted to the given path, unless in development mode. | String | '/' | false |
 
 #### Return value
 
