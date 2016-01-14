@@ -722,5 +722,42 @@ describe('bridgeit.io.auth', function () {
 
 		});
 	});	
+
+	describe('#forgotPassword()', function(){
+		it('should send the admin password in email', function (done) {
+
+			//login as admin
+			bridgeit.io.auth.forgotPassword({
+				account: accountId,
+				username: adminId,
+				host: host
+			}).then(function(result){
+				assert(result, 'forgotPassword failed, result was false');
+				done();
+			}).catch(function(error){
+				assert(false, 'forgotPassword failed ' + JSON.stringify(error));
+			});
+
+		});
+
+		it('should send the realm user password in email', function (done) {
+
+			//login as admin
+			bridgeit.io.auth.forgotPassword({
+				account: accountId,
+				username: userId,
+				realm: realmId,
+				host: host
+			}).then(function(result){
+				assert(result, 'forgotPassword failed, result was false');
+				done();
+			}).catch(function(error){
+				assert(false, 'forgotPassword failed ' + JSON.stringify(error));
+			});
+
+		});
+
+		
+	});	
 	
 });
