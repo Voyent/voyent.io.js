@@ -19,6 +19,7 @@
 * [getLastActiveTimestamp](#getLastActiveTimestamp)
 * [checkUserRole](#checkUserRole)
 * [checkUserRoles](#checkUserRoles)
+* [forgotPassword](#forgotPassword)
 
 ### <a name="getNewAccessToken"></a>getNewAccessToken
 
@@ -452,6 +453,42 @@ bridgeit.io.auth.checkUserRoles({
 #### Return value
 
 An empty Promise that will reject if the user does not have the roles, or resolve if the user does have the roles.
+
+### <a name="forgotPassword"></a>forgotPassword
+```javascript
+function bridgeit.io.auth.forgotPassword()
+```
+
+Request a forgotten password to be sent by email.
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| username | The BridgeIt Services username. | String | | true |
+| realm | The BridgeIt Services realm. If not provided, the username will be assumed to be an account administrator. | String | | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+
+#### Example
+
+```javascript
+bridgeit.io.auth.forgotPassword({
+  account: 'myaccount',
+  username: 'fred',
+  realm: 'myrealm'
+}).then(function(result){
+  //true if the request succeeded, false otherwise
+}).catch(function(error){
+  //an error occurred
+});
+```
+
+#### Return value
+
+An Promise resolving the value of true, if the request succeeded, or false, if it did not.
+
 
 
 
