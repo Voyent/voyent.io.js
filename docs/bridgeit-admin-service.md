@@ -4,6 +4,7 @@
 
 * [getServiceDefinitions](#getServiceDefinitions)
 * [getAccount](#getAccount)
+* [createAccount](#createAccount)
 * [getLogs](#getLogs)
 
 ## Realm API
@@ -369,6 +370,49 @@ Promise with a JSON object containing a the account.
   }
 }
 ```
+
+### <a name="createAccount"></a>createAccount
+
+```javascript
+function bridgeit.io.admin.createAccount(params)
+```
+
+Create a new BridgeIt account with a new administrator.
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | The name of the new account | String | | true |
+| username | The username for the new administrator | String | | true |
+| email | The email of the new administrator | String | | true |
+| firstname | The first name of the new administrator | String | | true |
+| lastname |The last name of the new administrator | String | | true |
+| password | The password of the new administrator | String | | true |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+
+#### Example
+
+```javascript
+bridgeit.io.admin.createAccount({
+  account: 'my-new-account,
+  description: 'my account',
+  username: 'albert.mccallum',
+  password: 'secretest',
+  firstname: 'Albert',
+  lastname: 'McCallum',
+  email: 'al@mccallum.com'
+}).then(function(token){
+  //now we can use the token to access services as an administrator
+}).catch(function(error){
+  console.log('something went wrong: ' + error);
+});
+```
+
+#### Return value
+
+Promise with an access token for the new administrator.
 
 ### <a name="getLogs"></a>getLogs
 
