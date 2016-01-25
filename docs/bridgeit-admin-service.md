@@ -377,7 +377,7 @@ Promise with a JSON object containing a the account.
 function bridgeit.io.admin.createAccount(params)
 ```
 
-Create a new BridgeIt account with a new administrator.
+Create a new BridgeIt account with a new administrator.  After successfully creating the account, the new administrator will be automatically logged in.
 
 #### Parameters
 

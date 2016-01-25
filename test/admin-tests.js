@@ -94,6 +94,9 @@ describe('bridgeit.io.admin', function(){
 				if( !token ){
 					assert(false, 'createAccount() failed, no token returned');
 				}
+				if( !bridgeit.io.auth.isLoggedIn()){
+					assert(false, 'createAccount() failed, did not automatically log in');
+				}
 				else{
 					done();
 				}
