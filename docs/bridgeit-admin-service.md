@@ -28,7 +28,7 @@
 * [getRealmRoles](#getRealmRoles)
 * [createRealmRole](#createRealmRole)
 * [updateRealmRole](#updateRealmRole)
-* [updateRealmRole](#updateRealmRole)
+* [deleteRealmRole](#deleteRealmRole)
 
 ## [Error Codes](#errorCodes)
 
