@@ -1,5 +1,5 @@
 describe('bridgeit.io.documents', function () {
-
+    this.timeout(10000);
     var otherTestDocCollection = 'otherTestDocCollection';
 
 	describe('#createDocument()', function(){

@@ -1,5 +1,5 @@
 describe('bridgeit.io.query', function () {
-
+    this.timeout(10000);
     describe('#createQuery()', function(){
         it('should create a new unnamed query', function (done) {
             var newQuery = { "query": { "$or": [ {"color": "red"},{"color": "blue"} ] } };

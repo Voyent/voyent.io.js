@@ -15,15 +15,11 @@
 * [getLastKnownAccount](#getLastKnownAccount)
 * [getLastKnownRealm](#getLastKnownRealm)
 * [registerAsNewUser](#registerAsNewUser)
-* [checkUserPermissions](#checkUserPermissions)
 * [updateLastActiveTimestamp](#updateLastActiveTimestamp)
 * [getLastActiveTimestamp](#getLastActiveTimestamp)
-* [enableUserStoreCache](#enableUserStoreCache)
-* [disableUserStoreCache](#disableUserStoreCache)
-* [isUserStoreCacheActive](#isUserStoreCacheActive)
-* [setItemInUserStore](#setItemInUserStore)
-* [getItemInUserStore](#getItemInUserStore)
-* [getUserStore](#getUserStore)
+* [checkUserRole](#checkUserRole)
+* [checkUserRoles](#checkUserRoles)
+* [forgotPassword](#forgotPassword)
 
 ### <a name="getNewAccessToken"></a>getNewAccessToken
 
@@ -102,6 +98,8 @@ Which contains the access token and the time, in milliseconds that the session w
 | password | User password | String | | true |
 | host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| scopeToPath | If set, the authentication token will be restricted to the given path, unless in development mode. | String | '/' | false |
+
 
 #### Return value
 
@@ -167,7 +165,8 @@ In order to automatically reconnect, the `storeCredentials` parameter must be se
 | connectionTimeout | The timeout duration, in minutes, that the BridgeIt login will last during inactivity | Number | 20 | false |
 | storeCredentials | Whether to store encrypted credentials in session storage. If set to false, bridgeit will not attempt to relogin before the session expires. | Boolean | true | false |
 | onSessionExpiry | Function callback to be called on session expiry | Function |  | false |
-
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| scopeToPath | If set, the authentication token will be restricted to the given path, unless in development mode. | String | '/' | false |
 
 #### Return value
 
@@ -373,41 +372,6 @@ bridgeit.io.auth.registerAsNewUser({
 });
 ```
 
-
-### <a name="checkUserPermissions"></a>checkUserPermissions
-```javascript
-function bridgeit.io.auth.checkUserPermissions()
-```
-
-Check if the current user has a set of permissions.
-
-#### Parameters
-
-| Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
-| ssl | Whether to use SSL for network traffic | Boolean | false | false |
-| permissions | A space-delimited list of permissions to check. | String |  | true |
-
-#### Return value
-
-A Promise with an argument of true, if the user has the permission, or false, if not.
-
-#### Example
-
-```javascript
-bridgeit.io.auth.checkUserPermissions({
-  permissions: 'bridgeit.doc.getDocument bridgeit.doc.saveDocument'
-}).then(function(hasPermission){
-  console.log('checkUserPermissions() user has permission: ' + hasPermission);
-}).catch(function(error){
-  console.log('something went wrong: ' + error);
-});
-```
-
-
 ### <a name="updateLastActiveTimestamp"></a>updateLastActiveTimestamp
 ```javascript
 function bridgeit.io.auth.updateLastActiveTimestamp()
@@ -422,147 +386,109 @@ function bridgeit.io.auth.getLastActiveTimestamp()
 
 Return the last active timestamp in milliseconds.
 
-### <a name="enableUserStoreCache"></a>enableUserStoreCache
+### <a name="checkUserRole"></a>checkUserRole
 ```javascript
-function bridgeit.io.auth.enableUserStoreCache()
+function bridgeit.io.auth.checkUserRole()
 ```
 
-User the browser local storage to cache the user store. This will allow access to the user store 
-when the user is offline or when the server is not accessible.
-
-### <a name="disableUserStoreCache"></a>disableUserStoreCache
-```javascript
-function bridgeit.io.auth.disableUserStoreCache()
-```
-
-Disable the browser local storage to cache the user store. 
-
-### <a name="isUserStoreCacheActive"></a>isUserStoreCacheActive
-```javascript
-function bridgeit.io.auth.isUserStoreCacheActive()
-```
-
-Returns true if enableUserStoreCache() has previously been called and the user store
-cache is active.
-
-### <a name="setItemInUserStore"></a>setItemInUserStore
-```javascript
-function bridgeit.io.auth.setItemInUserStore(key, value)
-```
-
-Set an item by key and value in the user store. The user store is updated
-on the server side user record 'custom' property. 
-  
-If the user store cache is active, the cache will also be updated.
- 
-The userStore.last_updated property will be updated with the current time.
-When the server side store is updated, this 'last_updated' timestamp will
-be verified. If the server side timestamp is later than the previous 'last_updated'
-timestamp, the operation will be rejected, and the returned promise will reject
-with the current server side userStore value.
- 
-The key and value must be serializable as JSON strings. 
+Check if the current user has a single role.
 
 #### Parameters
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| key | The key property | String |  | true |
-| value | The value to set (must be JSON-serializable) | Object |  | false |
-
-#### Return value
-
-A Promise with no argument if successful, or with the server side userStore version if a conflict occurs.
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| role | The role name to verify | String |  | true |
 
 #### Example
 
 ```javascript
-bridgeit.io.auth.login({
-  account: accountId,
-  realm: realmId,
-  username: userId,
-  password: userPassword,
-  host: host
-}).then(function(response){
-  return bridgeit.io.auth.setItemInUserStore('key', now);
+bridgeit.io.auth.checkUserRole({
+  role: 'myrole'
 }).then(function(){
-  return bridgeit.io.auth.getItemInUserStore('key');
-}).then(function(val){
-  console.log('retrieved user store value: ' + val);
+  //user has 'myrole'
 }).catch(function(error){
-  console.log('setItemInUserStore failed ' + error);
+  //user does not have 'myrole'
 });
 ```
 
-### <a name="getItemInUserStore"></a>getItemInUserStore
+#### Return value
+
+An empty Promise that will reject if the user does not have the role, or resolve if the user does have the role.
+
+### <a name="checkUserRoles"></a>checkUserRoles
 ```javascript
-function bridgeit.io.auth.getItemInUserStore(key)
+function bridgeit.io.auth.checkUserRoles()
 ```
 
-Get an item by key from the user store. The user store is checked
-on the server side user record 'custom' property. 
+Check if the current user has a set of roles. The 'op' params can be added to check for 'or' or 'and'.
 
 #### Parameters
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| key | The key property | String |  | true |
-
-#### Return value
-
-A Promise with the store value if successful.
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| roles | The array of roles to verify | Array |  | true |
+| op | 'or' or 'and' | String |  | false |
 
 #### Example
 
 ```javascript
-bridgeit.io.auth.login({
-  account: accountId,
-  realm: realmId,
-  username: userId,
-  password: userPassword,
-  host: host
-}).then(function(response){
-  return bridgeit.io.auth.setItemInUserStore('key', now);
+bridgeit.io.auth.checkUserRoles({
+  roles: ['role1', 'role2'],
+  op: 'or'
 }).then(function(){
-  return bridgeit.io.auth.getItemInUserStore('key');
-}).then(function(val){
-  console.log('retrieved user store value: ' + val);
+  //user has either role1 or role2
 }).catch(function(error){
-  console.log('setItemInUserStore failed ' + error);
+  //user does not have either role1 or role2
 });
 ```
 
-### <a name="getUserStore"></a>getUserStore
-```javascript
-function bridgeit.io.auth.getUserStore(key)
-```
-
-Get the user store for the current user. The user must be logged in to 
-access the store. The user store is persisted on the 'custom' property 
-of the user record, and can be used to store any relevant information for 
-user.
-
 #### Return value
 
-A Promise with the user store object.
+An empty Promise that will reject if the user does not have the roles, or resolve if the user does have the roles.
+
+### <a name="forgotPassword"></a>forgotPassword
+```javascript
+function bridgeit.io.auth.forgotPassword()
+```
+
+Request a forgotten password to be sent by email.
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| username | The BridgeIt Services username. | String | | true |
+| realm | The BridgeIt Services realm. If not provided, the username will be assumed to be an account administrator. | String | | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
 
 #### Example
 
 ```javascript
-bridgeit.io.auth.login({
-  account: accountId,
-  realm: realmId,
-  username: userId,
-  password: userPassword,
-  host: host
-}).then(function(response){
-  return bridgeit.io.auth.getUserStore()
-}).then(function(userStore){
-  console.log('getUserStore: ' + JSON.stringify(userStore));
+bridgeit.io.auth.forgotPassword({
+  account: 'myaccount',
+  username: 'fred',
+  realm: 'myrealm'
+}).then(function(result){
+  //true if the request succeeded, false otherwise
 }).catch(function(error){
-  console.log('getUserStore failed ' + error);
+  //an error occurred
 });
 ```
+
+#### Return value
+
+An Promise resolving the value of true, if the request succeeded, or false, if it did not.
+
 
 
 

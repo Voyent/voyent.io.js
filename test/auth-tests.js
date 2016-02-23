@@ -1,4 +1,7 @@
 describe('bridgeit.io.auth', function () {
+	this.timeout(10000);
+
+	var assert = chai.assert;
 
 	function validateAuthResponse(response){
 		return response.access_token && response.expires_in;
@@ -371,174 +374,390 @@ describe('bridgeit.io.auth', function () {
 				console.log('registerAsNewUser() failed ' + error);
 			});
 		});
-	});
+	});	
 
-	describe('#checkUserPermissions()', function(){
-		it('should return true', function (done) {
+	describe('#checkUserRole()', function(){
+		it('should check that a user has a valid role', function (done) {
 
+			var newRole = {
+				name: 'my_role_' + new Date().getTime(),
+				permissions: [
+					'bridgeit.doc.saveDocument',
+					'bridgeit.doc.getDocument',
+					'bridgeit.doc.deleteDocument',
+					'bridgeit.doc.updateDocument'
+				]
+			};
+
+			var newUser = {
+				username: 'test_' + new Date().getTime(),
+				firstname: 'test',
+				lastname: 'test',
+				email: 'test@email.com',
+				password: 'password',
+				roles: [newRole.name]
+			};
+
+			//login as admin
 			bridgeit.io.auth.login({
 				account: accountId,
-				realm: realmId,
-				username: userId,
-				password: userPassword,
+				username: adminId,
+				password: adminPassword,
 				host: host
-			}).then(function(response){
-				return bridgeit.io.auth.checkUserPermissions({
-					permissions: 'bridgeit.doc.getDocument bridgeit.doc.saveDocument'
-				})
-			}).then(function(hasPermission){
-				console.log('checkUserPermissions() returned ' + hasPermission);
-				if( hasPermission ){
-					done();
-				}
-			}).catch(function(error){
-				console.log('checkUserPermissions failed ' + error);
-			});
-
-		});
-
-		it('should return false', function (done) {
-
-			bridgeit.io.auth.login({
-				account: accountId,
-				realm: realmId,
-				username: userId,
-				password: userPassword,
-				host: host
-			}).then(function(response){
-				return bridgeit.io.auth.checkUserPermissions({
-					permissions: 'permissionDoesntExist'
-				})
-			}).then(function(hasPermission){
-				console.log('checkUserPermissions() returned ' + hasPermission);
-				if( !hasPermission ){
-					done();
-				}
-			}).catch(function(error){
-				console.log('checkUserPermissions failed ' + error);
-			});
-
-		});
-	});
-
-	describe('#enableUserStoreCache()', function(){
-		it('should return true', function (done) {
-			bridgeit.io.auth.login({
-				account: accountId,
-				realm: realmId,
-				username: userId,
-				password: userPassword,
-				host: host
-			}).then(function(response){
-				return bridgeit.io.auth.enableUserStoreCache()
 			}).then(function(){
-				if( bridgeit.io.auth.isUserStoreCacheActive() ){
-					done();
-				}
-				else{
-					console.log('enableUserStoreCache failed, cache not active after setting');
-				}
-			}).catch(function(error){
-				console.log('enableUserStoreCache failed ' + error);
-			});
-		});
-	});
-
-	describe('#getUserStore()', function(){
-		it('should return the user store', function (done) {
-			bridgeit.io.auth.login({
-				account: accountId,
-				realm: realmId,
-				username: userId,
-				password: userPassword,
-				host: host
-			}).then(function(response){
-				return bridgeit.io.auth.getUserStore()
-			}).then(function(userStore){
-				if( userStore ){
-					done();
-				}
-				else{
-					console.log('getUserStore failed');
-				}
-			}).catch(function(error){
-				console.log('getUserStore failed ' + error);
-			});
-		});
-
-		it('should return the cached user store', function (done) {
-			bridgeit.io.auth.login({
-				account: accountId,
-				realm: realmId,
-				username: userId,
-				password: userPassword,
-				host: host
-			}).then(function(response){
-				return bridgeit.io.auth.enableUserStoreCache()
-			}).then(function(response){
-				return bridgeit.io.auth.getUserStore()
-			}).then(function(userStore){
-				if( userStore ){
-					done();
-				}
-				else{
-					console.log('getUserStore cache failed');
-				}
-			}).catch(function(error){
-				console.log('getUserStore failed ' + error);
-			});
-		});
-	});
-
-	describe('#setItemInUserStore()', function(){
-		it('should set an item in the user store, then refetch it', function (done) {
-			var now = new Date().getTime();
-			bridgeit.io.auth.login({
-				account: accountId,
-				realm: realmId,
-				username: userId,
-				password: userPassword,
-				host: host
-			}).then(function(response){
-				return bridgeit.io.auth.setItemInUserStore('key', now);
+			//create the test role
+				return bridgeit.io.admin.createRealmRole({role: newRole, realmName: realmId});
 			}).then(function(){
-				return bridgeit.io.auth.getItemInUserStore('key');
-			}).then(function(val){
-				if( val !== now ){
-					console.log('setItemInUserStore failed, getItemInUserStore returned ' + val + ' instead of ' + now);
-				}
-				else{
-					done();
-				}
+			//create the test user with the new role
+				return bridgeit.io.admin.createRealmUser({user: newUser, realmName: realmId});
+			}).then(function(){
+			//login as the new user
+				return bridgeit.io.auth.login({
+					account: accountId,
+					realm: realmId,
+					username: newUser.username,
+					password: newUser.password,
+					host: host
+				});
+			}).then(function(authResponse){
+			//check that the new user has the new role
+				return bridgeit.io.auth.checkUserRole({
+					accessToken: authResponse.access_token,
+					role: newRole.name
+				});
+			}).then(function(checkUserRoleResp){
+				done();
 			}).catch(function(error){
-				console.log('setItemInUserStore failed ' + error);
+				assert(false, 'checkUserRole failed ' + JSON.stringify(error));
 			});
+
 		});
 
-		it('should set an item in the cached user store, then refetch it', function (done) {
-			var now = new Date().getTime();
+		it('should fail with a check on an invalid role', function (done) {
+
+			var newUser = {
+				username: 'test_' + new Date().getTime(),
+				firstname: 'test',
+				lastname: 'test',
+				email: 'test@email.com',
+				password: 'password',
+				roles: [newRole.name]
+			};
+
+			//login as admin
 			bridgeit.io.auth.login({
 				account: accountId,
-				realm: realmId,
-				username: userId,
-				password: userPassword,
+				username: adminId,
+				password: adminPassword,
 				host: host
-			}).then(function(response){
-				bridgeit.io.auth.enableUserStoreCache();
-				return bridgeit.io.auth.setItemInUserStore('key', now);
 			}).then(function(){
-				return bridgeit.io.auth.getItemInUserStore('key');
-			}).then(function(val){
-				if( val !== now ){
-					console.log('setItemInUserStore with cache failed, getItemInUserStore returned ' + val + ' instead of ' + now);
-				}
-				else{
-					done();
-				}
+			//create the test role
+				return bridgeit.io.admin.createRealmRole({role: newRole, realmName: realmId});
+			}).then(function(){
+			//create the test user with the new role
+				return bridgeit.io.admin.createRealmUser({user: newUser, realmName: realmId});
+			}).then(function(){
+			//login as the new user
+				return bridgeit.io.auth.login({
+					account: accountId,
+					realm: realmId,
+					username: newUser.username,
+					password: newUser.password,
+					host: host
+				});
+			}).then(function(authResponse){
+			//check that the new user has the new role
+				return bridgeit.io.auth.checkUserRole({
+					accessToken: authResponse.access_token,
+					role: 'invalid_role'
+				});
+			}).then(function(checkUserRoleResp){
+				assert(false, 'checkUserRole failed ' + JSON.stringify(error));
 			}).catch(function(error){
-				console.log('setItemInUserStore with cache failed ' + error);
+				done();
 			});
+
 		});
-	});
+	});	
+
+	describe('#checkUserRoles()', function(){
+		it('should check that a user has a set of valid roles', function (done) {
+
+			var ts = new Date().getTime();
+
+			var newRole1 = {
+				name: 'my_role_' + ts + '_a',
+				permissions: [
+					'bridgeit.doc.saveDocument'
+				]
+			};
+
+			var newRole2 = {
+				name: 'my_role_' + ts + '_b',
+				permissions: [
+					'bridgeit.doc.saveDocument'
+				]
+			};
+
+			var newUser = {
+				username: 'test_' + ts,
+				firstname: 'test',
+				lastname: 'test',
+				email: 'test@email.com',
+				password: 'password',
+				roles: [newRole1.name, newRole2.name]
+			};
+
+			//login as admin
+			bridgeit.io.auth.login({
+				account: accountId,
+				username: adminId,
+				password: adminPassword,
+				host: host
+			}).then(function(){
+			//create the test role 1
+				return bridgeit.io.admin.createRealmRole({role: newRole1, realmName: realmId});
+			}).then(function(){
+			//create the test role 2
+				return bridgeit.io.admin.createRealmRole({role: newRole2, realmName: realmId});
+			}).then(function(){
+			//create the test user with the new role
+				return bridgeit.io.admin.createRealmUser({user: newUser, realmName: realmId});
+			}).then(function(){
+			//login as the new user
+				return bridgeit.io.auth.login({
+					account: accountId,
+					realm: realmId,
+					username: newUser.username,
+					password: newUser.password,
+					host: host
+				});
+			}).then(function(authResponse){
+			//check that the new user has the new role
+				return bridgeit.io.auth.checkUserRoles({
+					accessToken: authResponse.access_token,
+					roles: [newRole1.name, newRole2.name]
+				});
+			}).then(function(checkUserRolesResp){
+				done();
+			}).catch(function(error){
+				assert(false, 'checkUserRoles failed ' + JSON.stringify(error));
+			});
+
+		});
+
+		it('should check that a user has a set of valid roles with the and op', function (done) {
+
+			var ts = new Date().getTime();
+
+			var newRole1 = {
+				name: 'my_role_' + ts + '_a',
+				permissions: [
+					'bridgeit.doc.saveDocument'
+				]
+			};
+
+			var newRole2 = {
+				name: 'my_role_' + ts + '_b',
+				permissions: [
+					'bridgeit.doc.saveDocument'
+				]
+			};
+
+			var newUser = {
+				username: 'test_' + ts,
+				firstname: 'test',
+				lastname: 'test',
+				email: 'test@email.com',
+				password: 'password',
+				roles: [newRole1.name, newRole2.name]
+			};
+
+			//login as admin
+			bridgeit.io.auth.login({
+				account: accountId,
+				username: adminId,
+				password: adminPassword,
+				host: host
+			}).then(function(){
+			//create the test role 1
+				return bridgeit.io.admin.createRealmRole({role: newRole1, realmName: realmId});
+			}).then(function(){
+			//create the test role 2
+				return bridgeit.io.admin.createRealmRole({role: newRole2, realmName: realmId});
+			}).then(function(){
+			//create the test user with the new role
+				return bridgeit.io.admin.createRealmUser({user: newUser, realmName: realmId});
+			}).then(function(){
+			//login as the new user
+				return bridgeit.io.auth.login({
+					account: accountId,
+					realm: realmId,
+					username: newUser.username,
+					password: newUser.password,
+					host: host
+				});
+			}).then(function(authResponse){
+			//check that the new user has the new role
+				return bridgeit.io.auth.checkUserRoles({
+					accessToken: authResponse.access_token,
+					roles: [newRole1.name, newRole2.name],
+					op: 'and'
+				});
+			}).then(function(checkUserRolesResp){
+				done();
+			}).catch(function(error){
+				assert(false, 'checkUserRoles failed ' + JSON.stringify(error));
+			});
+
+		});
+
+		it('should check that a user has a set of valid and invalid roles with the or op', function (done) {
+
+			var ts = new Date().getTime();
+
+			var newRole1 = {
+				name: 'my_role_' + ts + '_a',
+				permissions: [
+					'bridgeit.doc.saveDocument'
+				]
+			};
+
+			var newRole2 = {
+				name: 'my_role_' + ts + '_b',
+				permissions: [
+					'bridgeit.doc.saveDocument'
+				]
+			};
+
+			var newUser = {
+				username: 'test_' + ts,
+				firstname: 'test',
+				lastname: 'test',
+				email: 'test@email.com',
+				password: 'password',
+				roles: [newRole1.name, newRole2.name]
+			};
+
+			//login as admin
+			bridgeit.io.auth.login({
+				account: accountId,
+				username: adminId,
+				password: adminPassword,
+				host: host
+			}).then(function(){
+			//create the test role 1
+				return bridgeit.io.admin.createRealmRole({role: newRole1, realmName: realmId});
+			}).then(function(){
+			//create the test role 2
+				return bridgeit.io.admin.createRealmRole({role: newRole2, realmName: realmId});
+			}).then(function(){
+			//create the test user with the new role
+				return bridgeit.io.admin.createRealmUser({user: newUser, realmName: realmId});
+			}).then(function(){
+			//login as the new user
+				return bridgeit.io.auth.login({
+					account: accountId,
+					realm: realmId,
+					username: newUser.username,
+					password: newUser.password,
+					host: host
+				});
+			}).then(function(authResponse){
+			//check that the new user has the new role
+				return bridgeit.io.auth.checkUserRoles({
+					accessToken: authResponse.access_token,
+					roles: [newRole1.name, newRole2.name, 'invalid_role'],
+					op: 'or'
+				});
+			}).then(function(checkUserRolesResp){
+				done();
+			}).catch(function(error){
+				assert(false, 'checkUserRoles failed ' + JSON.stringify(error));
+			});
+
+		});
+
+		it('should fail on a check for invalid roles', function (done) {
+
+			var ts = new Date().getTime();
+
+			var newUser = {
+				username: 'test_' + ts,
+				firstname: 'test',
+				lastname: 'test',
+				email: 'test@email.com',
+				password: 'password'
+			};
+
+			//login as admin
+			bridgeit.io.auth.login({
+				account: accountId,
+				username: adminId,
+				password: adminPassword,
+				host: host
+			}).then(function(){
+			//create the test user with the new role
+				return bridgeit.io.admin.createRealmUser({user: newUser, realmName: realmId});
+			}).then(function(){
+			//login as the new user
+				return bridgeit.io.auth.login({
+					account: accountId,
+					realm: realmId,
+					username: newUser.username,
+					password: newUser.password,
+					host: host
+				});
+			}).then(function(authResponse){
+			//check that the new user has the new role
+				return bridgeit.io.auth.checkUserRoles({
+					accessToken: authResponse.access_token,
+					roles: ['invalid_role']
+				});
+			}).then(function(checkUserRolesResp){
+				assert(false, 'checkUserRoles failed ' + JSON.stringify(error));
+			}).catch(function(error){
+				done();
+			});
+
+		});
+	});	
+
+	describe('#forgotPassword()', function(){
+		it('should send the admin password in email', function (done) {
+
+			//login as admin
+			bridgeit.io.auth.forgotPassword({
+				account: accountId,
+				username: adminId,
+				host: host
+			}).then(function(result){
+				assert(result, 'forgotPassword failed, result was false');
+				done();
+			}).catch(function(error){
+				assert(false, 'forgotPassword failed ' + JSON.stringify(error));
+			});
+
+		});
+
+		it('should send the realm user password in email', function (done) {
+
+			//login as admin
+			bridgeit.io.auth.forgotPassword({
+				account: accountId,
+				username: userId,
+				realm: realmId,
+				host: host
+			}).then(function(result){
+				assert(result, 'forgotPassword failed, result was false');
+				done();
+			}).catch(function(error){
+				assert(false, 'forgotPassword failed ' + JSON.stringify(error));
+			});
+
+		});
+
+		
+	});	
 	
 });

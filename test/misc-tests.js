@@ -1,4 +1,5 @@
 describe('bridgeit.io', function () {
+	this.timeout(10000);
 	describe('#startTransaction()', function(){
 		it('should start a transaction, login, create, then delete a document, then end the transaction ', function(done){
 			var newDoc = {test: true};

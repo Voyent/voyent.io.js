@@ -24,7 +24,7 @@
 
         <h3>Connected At: <span id="connectedAt"></span>
 
-        <h2><a onclick="bridget.services.auth.disconnect();">Disconnect</a></h2>
+        <h2><a onclick="bridget.io.auth.disconnect();">Disconnect</a></h2>
 
         <h2><a onclick="continueActivity();">Start Continuous Activity</a></h2>
 
@@ -38,7 +38,7 @@
 
         <script>
 
-        var activityTimeout = 2;
+        var activityTimeout = 40;
         var activityTimeoutMillis = activityTimeout*1000*60; //10 minutes 
 
         //test callback as child object
@@ -68,14 +68,18 @@
         var expiredCallbackName = 'expiredCallback';
 
         function testConnect(){
-            var accountId       = 'bsrtests';
-            var realmId         = 'test';
-            var userId          = 'user';
-            var userPassword    = 'secretest';
+            var accountId       = 'demos';
+            var realmId         = 'starbucks';
+            var userId          = 'admin';
+            var userPassword    = 'password';
             var host            = 'dev.bridgeit.io';
 
+            window.addEventListener("bridgeit-access-token-refreshed", function(e) {
+                alert('Event is: ' + e + ' Custom data is: ' + e.detail);
+            })
+
             var connectedAt = new Date().getTime();
-            bridgeit.services.auth.connect({
+            bridgeit.io.auth.connect({
                     account: accountId,
                     username: userId,
                     realm: realmId,
@@ -96,14 +100,14 @@
         }
 
         function continueActivity(){
-            bridgeit.services.auth.updateLastActiveTimestamp();
+            bridgeit.io.auth.updateLastActiveTimestamp();
             updateLastActive();
             setTimeout( continueActivity, activityTimeoutMillis - 200);
         }
 
         function updateLastActive(){
-            bridgeit.services.auth.updateLastActiveTimestamp();
-            var lastActive = bridgeit.services.auth.getLastActiveTimestamp();
+            bridgeit.io.auth.updateLastActiveTimestamp();
+            var lastActive = bridgeit.io.auth.getLastActiveTimestamp();
             var lastActiveDate = new Date();
             lastActiveDate.setTime(lastActive);
             document.getElementById('lastActive').innerHTML = lastActiveDate.toLocaleTimeString();
@@ -116,7 +120,7 @@
         }
 
         function joinPushGroup(){
-            bridgeit.services.push.addPushListener({
+            bridgeit.io.push.addPushListener({
                 group: 'test',
                 callback: 'pushCallback'
             })
@@ -131,7 +135,7 @@
         }
 
         function pushMessage(){
-            bridgeit.services.push.sendPushEvent({
+            bridgeit.io.push.sendPushEvent({
                 group: 'test',
                 subject: 'test subject header',
                 detail: 'test detail ...'

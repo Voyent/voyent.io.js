@@ -1,22 +1,61 @@
 describe('bridgeit.io.admin', function(){
 
+	var assert = chai.assert;
+
+	this.timeout(10000);
+
+	var adminAuthToken;
+	var userAuthToken;
+	var adminAuthBlock;
+	var userAuthBlock;
+
+	before(function (done) {
+		console.log('********* setting up tests ****************');
+        bridgeit.io.auth.login({
+			account: accountId,
+			username: adminId,
+			password: adminPassword,
+			host: host
+		}).then(function(authResponse){
+			adminAuthToken = authResponse.access_token;
+
+			adminAuthBlock = {
+				account: accountId,
+				username: adminId,
+				host: host,
+				accessToken: adminAuthToken
+			};
+
+			return bridgeit.io.auth.login({
+				account: accountId,
+				username: userId,
+				password: userPassword,
+				realm: realmId,
+				host: host
+			});
+		}).then(function(authResponse){
+			userAuthToken = authResponse.access_token;
+			userAuthBlock = {
+				account: accountId,
+				realm: realmId,
+				username: userId,
+				host: host,
+				accessToken: userAuthToken
+			};
+			done();
+		});
+    });
+
 	describe('#getServiceDefinitions()', function(done){
 
 		it('should return the BridgeIt service definition JSON', function (done) {
 
-			bridgeit.io.auth.login({
-					account: accountId,
-					username: adminId,
-					password: adminPassword,
-					host: host
-				}).then(function(authResponse){
-					return bridgeit.io.admin.getServiceDefinitions();
-				}).then(function(json){
-					console.log('service defintions: ' + JSON.stringify(json));
-					done();
-				}).catch(function(error){
-					console.log('getServiceDefinitions failed ' + error);
-				});
+			bridgeit.io.admin.getServiceDefinitions(adminAuthBlock).then(function(json){
+				console.log('service defintions: ' + JSON.stringify(json));
+				done();
+			}).catch(function(error){
+				assert(false, 'getServiceDefinitions failed ' + error);
+			});
 		});
 
 	});
@@ -25,39 +64,58 @@ describe('bridgeit.io.admin', function(){
 
 		it('should return the account JSON', function (done) {
 
-			bridgeit.io.auth.login({
-					account: accountId,
-					username: adminId,
-					password: adminPassword,
-					host: host
-				}).then(function(authResponse){
-					return bridgeit.io.admin.getAccount();
-				}).then(function(json){
-					console.log('account: ' + JSON.stringify(json));
+			bridgeit.io.admin.getAccount(adminAuthBlock).then(function(json){
+				console.log('account: ' + JSON.stringify(json));
+				done();
+			}).catch(function(error){
+				assert(false, 'getAccount failed ' + error);
+			});
+		});
+
+	});
+
+	describe('#createAccount()', function(done){
+
+		it('should create an account', function (done) {
+
+			var ts =  new Date().getTime();
+			var account = {
+				account: 'test_account_' + ts,
+				description: 'a test account',
+				username: 'test_admin_ts',
+				password: 'secretest',
+				firstname: 'Test',
+				lastname: 'Admin',
+				email: 'test@email.com'
+			};
+
+			bridgeit.io.admin.createAccount(account).then(function(token){
+				console.log('token: ' + JSON.stringify(token));
+				if( !token ){
+					assert(false, 'createAccount() failed, no token returned');
+				}
+				if( !bridgeit.io.auth.isLoggedIn()){
+					assert(false, 'createAccount() failed, did not automatically log in');
+				}
+				else{
 					done();
-				}).catch(function(error){
-					console.log('getAccount failed ' + error);
-				});
+				}
+			}).catch(function(error){
+				assert(false, 'createAccount failed ' + error);
+			});
 		});
 
 	});
 
 	describe('#getLogs()', function(done){
-		this.timeout(4000);
 		it('should return a list of service logs for the account', function (done) {
 
-			bridgeit.io.auth.login({
-				account: accountId,
-				username: adminId,
-				password: adminPassword,
-				host: host
-			}).then(function(authResponse){
-				return bridgeit.io.admin.getLogs();
-			}).then(function(json){
+			bridgeit.io.admin.getLogs(adminAuthBlock).then(function(json){
 				console.log('logs: ' + JSON.stringify(json));
 				done();
 			}).catch(function(error){
 				console.log('getLogs failed ', error);
+				assert(false, 'getAccount failed ' + error);
 			});
 		});
 
@@ -67,39 +125,27 @@ describe('bridgeit.io.admin', function(){
 		describe('#getRealms()', function(done){
 			it('should return a list of realms for the account', function (done) {
 
-				bridgeit.io.auth.login({
-						account: accountId,
-						username: adminId,
-						password: adminPassword,
-						host: host
-					}).then(function(authResponse){
-						return bridgeit.io.admin.getRealms();
-					}).then(function(json){
-						console.log('getRealms: ' + JSON.stringify(json));
-						done();
-					}).catch(function(error){
-						console.log('getRealms failed ' + error);
-					});
+				bridgeit.io.admin.getRealms(adminAuthBlock).then(function(json){
+					console.log('getRealms: ' + JSON.stringify(json));
+					done();
+				}).catch(function(error){
+					console.log('getRealms failed ' + error);
+					assert(false, 'getAccount failed ' + error);
+				});
 			});
 
 		});
 		describe('#getRealm()', function(done){
 			it('should return a single realm for the account', function (done) {
-				bridgeit.io.auth.login({
-						account: accountId,
-						username: adminId,
-						password: adminPassword,
-						host: host
-					}).then(function(authResponse){
-						return bridgeit.io.admin.getRealm({
-							realmName: realmId
-						});
-					}).then(function(json){
-						console.log('getRealm: ' + JSON.stringify(json));
-						done();
-					}).catch(function(error){
-						console.log('getRealm failed ' + error);
-					});
+				var params = _.clone(adminAuthBlock);
+				params.realm = realmId;
+				bridgeit.io.admin.getRealm(params).then(function(json){
+					console.log('getRealm: ' + JSON.stringify(json));
+					done();
+				}).catch(function(error){
+					console.log('getRealm failed ' + error);
+					assert(false, 'getAccount failed ' + error);
+				});
 			});
 
 		});
@@ -113,115 +159,134 @@ describe('bridgeit.io.admin', function(){
 
 		describe('#createRealm()', function(done){
 			it('should create a new realm for the account', function (done) {
-				bridgeit.io.auth.login({
-						account: accountId,
-						username: adminId,
-						password: adminPassword,
-						host: host
-					}).then(function(authResponse){
-						return bridgeit.io.admin.createRealm({
-							realmName: newRealmName,
-							realm: newRealm
-						});
-					}).then(function(resp){
-						console.log('createRealm: ' + resp);
-						done();
-					}).catch(function(error){
-						console.log('createRealm failed ' + error);
-					});
+				var params = _.clone(adminAuthBlock);
+				params.realmName = newRealmName;
+				params.realm = newRealm;
+				bridgeit.io.admin.createRealm(params).then(function(resp){
+					console.log('createRealm: ' + resp);
+					done();
+				}).catch(function(error){
+					assert(false, 'createRealm failed ' + error);
+				});
 			});
 		});
 
 		describe('#updateRealm()', function(done){
+			this.timeout(20000);
 			it('should update the realm', function (done) {
-				bridgeit.io.auth.login({
-						account: accountId,
-						username: adminId,
-						password: adminPassword,
-						host: host
-					}).then(function(authResponse){
-						newRealm.services.push("bridgeit.metrics");
-						return bridgeit.io.admin.updateRealm({
-							realmName: newRealmName,
-							realm: newRealm
-						});
-					}).then(function(){
+				var params = _.clone(adminAuthBlock);
+				params.realmName = newRealmName;
+				params.realm = newRealm;
+				newRealm.custom = "{'test':true}";
+				newRealm.services.push("bridgeit.metrics");
+				bridgeit.io.admin.updateRealm(params).then(function(){
+					var params2 = _.clone(adminAuthBlock);
+					params2.realmName = newRealmName;
+					return bridgeit.io.admin.getRealm(params2);
+				}).then(function(realm){
+					if( realm ){
+						if( realm.services.indexOf('bridgeit.metrics') > -1 ){
+							//http://jira.icesoft.org/browse/NTFY-313
+							if( realm.custom === "{'test':true}" ){
+								done();
+							}
+							else{
+								console.error('realm custom property not updated');
+							}
+						}
+						else{
+							console.error('realm service not added');
+						}
+					}
+					else{
+						console.error('realm not found after update');
+					}
+				}).catch(function(error){
+					assert(false, 'updateRealm failed ' + error);
+					done(error);
+				});
+			});
+
+			it('should fail to update an invalid realm and return a 404', function (done) {
+				var params = _.clone(adminAuthBlock);
+				params.realmName = 'invalid_realm';
+				params.realm = newRealm;
+				bridgeit.io.admin.updateRealm(params).catch(function(error){
+					if( error.status === 404 ){
+						console.log('updating invalid realm returned correct 404');
 						done();
-					}).catch(function(error){
-						console.log('updateRealm failed ' + error);
-					});
+					}
+					else{
+						assert(false, 'error: updating invalid realm returned ' + error);
+						done(error);
+					}
+				});
 			});
 		});
 
 		describe('#deleteRealm()', function(done){
 			it('should delete the new realm', function (done) {
-				bridgeit.io.auth.login({
-						account: accountId,
-						username: adminId,
-						password: adminPassword,
-						host: host
-					}).then(function(authResponse){
-						newRealm.services.push("bridgeit.metrics");
-						return bridgeit.io.admin.deleteRealm({
-							realmName: newRealmName
-						});
-					}).then(function(){
-						done();
-					}).catch(function(error){
-						console.log('deleteRealm failed ' + error);
-					});
+				var params = _.clone(adminAuthBlock);
+				params.realmName = newRealmName;
+				bridgeit.io.admin.deleteRealm(params).then(function(){
+					done();
+				}).catch(function(error){
+					assert(false, 'deleteRealm failed ' + error);
+				});
 			});
+
+			it('should fail to delete an invalid realm and return a 404', function (done) {
+				//http://jira.icesoft.org/browse/NTFY-294
+				newRealm.services.push("bridgeit.metrics");
+				var params = _.clone(adminAuthBlock);
+				params.realmName = 'invalid_realm';
+				bridgeit.io.admin.deleteRealm(params).catch(function(error){
+					if( error.status === 404 ){
+						console.log('deleting invalid realm returned correct 404');
+						done();
+					}
+					else{
+						chai.assert(false, 'error: deleting invalid realm returned  ' + error);
+						done(error);
+					}
+				});
+			});
+
 		});
 	});
 
 	describe('Admin Realm User Functions', function(done){
 		describe('#getRealmUsers()', function(done){
 			it('should return a list of realm users', function (done) {
-
-				bridgeit.io.auth.login({
-						account: accountId,
-						username: adminId,
-						password: adminPassword,
-						host: host
-					}).then(function(authResponse){
-						return bridgeit.io.admin.getRealmUsers({
-							realm: realmId
-						});
-					}).then(function(json){
-						console.log('getRealmUsers: ' + JSON.stringify(json));
-						done();
-					}).catch(function(error){
-						console.log('getRealmUsers failed ' + error);
-					});
+				var params = _.clone(adminAuthBlock);
+				params.realmName = realmId;
+				bridgeit.io.admin.getRealmUsers(params).then(function(json){
+					console.log('getRealmUsers: ' + JSON.stringify(json));
+					done();
+				}).catch(function(error){
+					assert(false, 'getRealmUsers failed ' + error);
+				});
 			});
 
 		});
 		describe('#getRealmUser()', function(done){
 			it('should return a single user', function (done) {
-
-				bridgeit.io.auth.login({
-						account: accountId,
-						username: adminId,
-						password: adminPassword,
-						host: host
-					}).then(function(authResponse){
-						return bridgeit.io.admin.getRealmUser({
-							realmName: realmId,
-							username: userId
-						});
-					}).then(function(json){
-						console.log('getRealmUser: ' + JSON.stringify(json));
-						done();
-					}).catch(function(error){
-						console.log('getRealmUser failed ' + error);
-					});
+				var params = _.clone(adminAuthBlock);
+				params.realmName = realmId;
+				params.username = userId;
+				bridgeit.io.admin.getRealmUser(params).then(function(json){
+					console.log('getRealmUser: ' + JSON.stringify(json));
+					done();
+				}).catch(function(error){
+					assert(false, 'getRealmUser failed ' + error);
+				});
 			});
 
 		});
 		describe('#createRealmUser()', function(done){
 			this.timeout(3000);
 			it('should create a new realm user', function (done) {
-
+				console.log('adminAuthBlock: ' + JSON.stringify(adminAuthBlock));
 				var user = {
 					username: 'test_' + new Date().getTime(),
 					firstname: 'test',
@@ -229,23 +294,16 @@ describe('bridgeit.io.admin', function(){
 					email: 'test@email.com',
 					password: 'password'
 				};
-
-				bridgeit.io.auth.login({
-						account: accountId,
-						username: adminId,
-						password: adminPassword,
-						host: host
-					}).then(function(authResponse){
-						return bridgeit.io.admin.createRealmUser({
-							user: user,
-							realmName: realmId
-						});
-					}).then(function(resp){
-						console.log('createRealmUser: ' + resp);
-						done();
-					}).catch(function(error){
-						console.log('createRealmUser failed ' + error);
-					});
+				var params = _.clone(adminAuthBlock);
+				params.user = user;
+				params.realmName = realmId;
+				console.log('params: ' + JSON.stringify(params));
+				bridgeit.io.admin.createRealmUser(params).then(function(resp){
+					console.log('createRealmUser: ' + resp);
+					done();
+				}).catch(function(error){
+					assert(false, 'createRealmUser failed ' + error);
+				});
 			});
 
 		});	
@@ -259,31 +317,25 @@ describe('bridgeit.io.admin', function(){
 					email: 'test@email.com',
 					password: 'password'
 				};
+				var params = _.clone(adminAuthBlock);
+				params.user = user;
+				params.realmName = realmId;
 
-				bridgeit.io.auth.login({
-						account: accountId,
-						username: adminId,
-						password: adminPassword,
-						host: host
-					}).then(function(authResponse){
-						return bridgeit.io.admin.createRealmUser({
-							user: user,
-							realmName: realmId
-						});
-					}).then(function(resp){
-						user.firstname = 'newtest';
-						return bridgeit.io.admin.updateRealmUser({
-							user: user
-						})
-					}).then(function(){
-						done();
-					}).catch(function(error){
-						console.log('updateRealmUser failed ' + error);
-					});
+				bridgeit.io.admin.createRealmUser(params).then(function(resp){
+					user.firstname = 'newtest';
+					var params2 = _.clone(adminAuthBlock);
+					params2.user = user;
+					return bridgeit.io.admin.updateRealmUser(params2);
+				}).then(function(){
+					done();
+				}).catch(function(error){
+					assert(false, 'updateRealmUser failed ' + error);
+				});
 			});
 
 		});	
 		describe('#deleteRealmUser()', function(done){
+			this.timeout(deleteTimeout);
 			it('should delete a new realm user', function (done) {
 
 				var user = {
@@ -293,27 +345,19 @@ describe('bridgeit.io.admin', function(){
 					email: 'test@email.com',
 					password: 'password'
 				};
+				var params = _.clone(adminAuthBlock);
+				params.user = user;
+				params.realmName = realmId;
 
-				bridgeit.io.auth.login({
-						account: accountId,
-						username: adminId,
-						password: adminPassword,
-						host: host
-					}).then(function(authResponse){
-						return bridgeit.io.admin.createRealmUser({
-							user: user,
-							realmName: realmId
-						});
-					}).then(function(resp){
-						user.firstname = 'newtest';
-						return bridgeit.io.admin.deleteRealmUser({
-							username: user.username
-						})
-					}).then(function(){
-						done();
-					}).catch(function(error){
-						console.log('deleteRealmUser failed ' + error);
-					});
+				bridgeit.io.admin.createRealmUser(params).then(function(resp){
+					var params2 = _.clone(adminAuthBlock);
+					params.username = user.username;
+					return bridgeit.io.admin.deleteRealmUser(params2)
+				}).then(function(){
+					done();
+				}).catch(function(error){
+					assert(false, 'deleteRealmUser failed ' + error);
+				});
 			});
 
 		});	
@@ -331,79 +375,133 @@ describe('bridgeit.io.admin', function(){
 		}
 		describe('#createRealmRole()', function(done){
 			it('should create a new role in the realm', function (done) {
-				bridgeit.io.auth.login({
-						account: accountId,
-						username: adminId,
-						password: adminPassword,
-						host: host
-					}).then(function(authResponse){
-						return bridgeit.io.admin.createRealmRole({realmName: realmId, role: newRole});
-					}).then(function(json){
-						console.log('createRealmRole: ' + JSON.stringify(json));
-						done();
-					}).catch(function(error){
-						console.log('createRealmRole failed ' + error);
-					});
+				var params = _.clone(adminAuthBlock);
+				params.realmName = realmId;
+				params.role = newRole;
+				bridgeit.io.admin.createRealmRole(params).then(function(json){
+					console.log('createRealmRole: ' + JSON.stringify(json));
+					done();
+				}).catch(function(error){
+					console.log('createRealmRole failed ' + error);
+					assert(false, 'getAccount failed ' + error);
+				});
 			});
 		})
 		describe('#getRealmRoles()', function(done){
 			it('should return a list of roles for the realm', function (done) {
-
-				bridgeit.io.auth.login({
-						account: accountId,
-						username: adminId,
-						password: adminPassword,
-						host: host
-					}).then(function(authResponse){
-						return bridgeit.io.admin.getRealmRoles({realmName: realmId});
-					}).then(function(json){
-						console.log('getRealmRoles: ' + JSON.stringify(json));
-						done();
-					}).catch(function(error){
-						console.log('getRealmRoles failed ' + error);
-					});
+				var params = _.clone(adminAuthBlock);
+				params.realmName = realmId;
+				bridgeit.io.admin.getRealmRoles(params).then(function(json){
+					console.log('getRealmRoles: ' + JSON.stringify(json));
+					done();
+				}).catch(function(error){
+					assert(false, 'getRealmRoles failed ' + error);
+				});
 			});
 		});
 		describe('#updateRealmRole()', function(done){
 			it('should update a realm role', function (done) {
 
 				newRole.permissions.push('bridgeit.metrics.doGet');
+				var params = _.clone(adminAuthBlock);
+				params.realmName = realmId;
+				params.role = newRole;
 
-				bridgeit.io.auth.login({
-						account: accountId,
-						username: adminId,
-						password: adminPassword,
-						host: host
-					}).then(function(authResponse){
-						return bridgeit.io.admin.updateRealmRole({realmName: realmId, role: newRole});
-					}).then(function(json){
-						console.log('updateRealmRole: ' + JSON.stringify(json));
-						done();
-					}).catch(function(error){
-						console.log('updateRealmRole failed ' + error);
-					});
+				bridgeit.io.admin.updateRealmRole(params).then(function(json){
+					console.log('updateRealmRole: ' + JSON.stringify(json));
+					done();
+				}).catch(function(error){
+					assert(false, 'updateRealmRole failed ' + error);
+				});
 			});
 		});
 		describe('#deleteRealmRole()', function(done){
 			it('should delete a realm role', function (done) {
 
 				newRole.permissions.push('bridgeit.metrics.doGet');
+				var params = _.clone(adminAuthBlock);
+				params.realmName = realmId;
+				params.id = newRole.name;
 
-				bridgeit.io.auth.login({
-						account: accountId,
-						username: adminId,
-						password: adminPassword,
-						host: host
-					}).then(function(authResponse){
-						return bridgeit.io.admin.deleteRealmRole({realmName: realmId, id: newRole.name});
-					}).then(function(json){
-						done();
-					}).catch(function(error){
-						console.log('deleteRealmRole failed ' + error);
-					});
+				bridgeit.io.admin.deleteRealmRole(params).then(function(){
+					done();
+				}).catch(function(error){
+					assert(false, 'deleteRealmRole failed ' + error);
+				});
 			});
 		});
-	})
+	});
+
+	describe('Admin Administrator Functions', function(done){
+		describe('#createAdministrator()', function(done){
+			it('should create a new administrator in the account', function (done) {
+				var params = _.clone(adminAuthBlock);
+				params.admin = {
+					username: 'test_admin_' + new Date().getTime(),
+					firstname: 'Test',
+					lastname: 'Admin',
+					password: 'password',
+					email: 'test@test.com'
+				};
+				bridgeit.io.admin.createAdministrator(params).then(function(json){
+					console.log('createAdministrator: ' + JSON.stringify(json));
+					params.username = params.admin.username;
+					bridgeit.io.admin.deleteAdministrator(params); //clean up
+					done();
+				}).catch(function(error){
+					console.log('createAdministrator failed ' + error);
+					assert(false, 'createAdministrator failed ' + error);
+				});
+			});
+		});
+		describe('#updateAdministrator()', function(done){
+			it('should update an existing administrator in the account', function (done) {
+				//http://jira.icesoft.org/browse/NTFY-310
+				var params = _.clone(adminAuthBlock);
+				params.admin = {
+					username: 'test_admin_' + new Date().getTime(),
+					firstname: 'Test',
+					lastname: 'Admin',
+					password: 'password',
+					email: 'test@test.com'
+				};
+				bridgeit.io.admin.createAdministrator(params).then(function(json){
+					console.log('createAdministrator: ' + JSON.stringify(json));
+					params.admin.lastname = 'Updated';
+					return bridgeit.io.admin.updateAdministrator(params); 
+				}).then(function(response){
+					bridgeit.io.admin.deleteAdministrator(params); //clean up
+					done();
+				}).catch(function(error){
+					console.log('updateAdministrator failed ' + error);
+					assert(false, 'updateAdministrator failed ' + error);
+				});
+			});
+		});
+		describe('#deleteAdministrator()', function(done){
+			it('should delete an existing administrator in the account', function (done) {
+				var params = _.clone(adminAuthBlock);
+				params.admin = {
+					username: 'test_admin_' + new Date().getTime(),
+					firstname: 'Test',
+					lastname: 'Admin',
+					password: 'password',
+					email: 'test@test.com'
+				};
+				bridgeit.io.admin.createAdministrator(params).then(function(json){
+					console.log('deleteAdministrator: ' + JSON.stringify(json));
+					params.username = params.admin.username;
+					delete params.admin;
+					return bridgeit.io.admin.deleteAdministrator(params);
+				}).then(function(response){
+					done();
+				}).catch(function(error){
+					console.log('deleteAdministrator failed ' + error);
+					assert(false, 'deleteAdministrator failed ' + error);
+				});
+			});
+		});
+	});
 
 	
 

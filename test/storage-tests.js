@@ -10,7 +10,7 @@ for(var i = 0; i < byteString.length ; i++ ){
 var catBlob = new Blob([ia], {type:mimeType});
 
 describe('bridgeit.io.storage', function () {
-
+	this.timeout(10000);
 	describe('#getMetaInfo()', function(){
 
 		it('should return the meta info for the blobs in the realm belonging to the user', function (done) {
