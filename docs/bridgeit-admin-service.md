@@ -85,14 +85,14 @@ eg.
       ]
     },
     {
-      "name": "bridgeit.metrics",
+      "name": "bridgeit.evemt",
       "cost": "Call us for details",
-      "description": "The Bridgeit metrics service measures all your measurable needs",
+      "description": "The Bridgeit event service measures all your measurable needs",
       "permissions": [
-        "bridgeit.metrics.doGet",
-        "bridgeit.metrics.doPut",
-        "bridgeit.metrics.doPost",
-        "bridgeit.metrics.doDelete"
+        "bridgeit.event.doGet",
+        "bridgeit.event.doPut",
+        "bridgeit.event.doPost",
+        "bridgeit.event.doDelete"
       ]
     },
     {
@@ -305,7 +305,7 @@ Promise with a JSON object containing a the account.
           "bridgeit.doc",
           "bridgeit.locate",
           "bridgeit.media",
-          "bridgeit.metrics",
+          "bridgeit.event",
           "bridgeit.push",
           "bridgeit.store"
         ],
@@ -332,10 +332,10 @@ Promise with a JSON object containing a the account.
           "bridgeit.locate.deletePointOfInterest",
           "bridgeit.locate.updatePointOfInterest",
           "bridgeit.media.convert",
-          "bridgeit.metrics.doGet",
-          "bridgeit.metrics.doPut",
-          "bridgeit.metrics.doPost",
-          "bridgeit.metrics.doDelete",
+          "bridgeit.event.doGet",
+          "bridgeit.event.doPut",
+          "bridgeit.event.doPost",
+          "bridgeit.event.doDelete",
           "bridgeit.push.modifyGroup",
           "bridgeit.push.pushSelf",
           "bridgeit.push.pushCloudSelf",
@@ -534,7 +534,7 @@ eg.
         "bridgeit.doc",
         "bridgeit.locate",
         "bridgeit.media",
-        "bridgeit.metrics",
+        "bridgeit.event",
         "bridgeit.push",
         "bridgeit.store"
       ],
@@ -597,7 +597,7 @@ Promise with a JSON object the realm information.
       "bridgeit.doc",
       "bridgeit.locate",
       "bridgeit.media",
-      "bridgeit.metrics",
+      "bridgeit.event",
       "bridgeit.push",
       "bridgeit.store"
     ],
@@ -656,7 +656,7 @@ An example of a realm definition is:
 		"bridgeit.doc",
 		"bridgeit.locate",
 		"bridgeit.media",
-		"bridgeit.metrics",
+		"bridgeit.event",
 		"bridgeit.push",
 		"bridgeit.store"
 	],

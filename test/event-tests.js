@@ -1,4 +1,4 @@
-describe('bridgeit.io.metrics', function () {
+describe('bridgeit.io.event', function () {
 	this.timeout(10000);
 	describe('#findEvents()', function(){
 
@@ -9,7 +9,7 @@ describe('bridgeit.io.metrics', function () {
 				password: adminPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.io.metrics.findEvents({
+				return bridgeit.io.event.findEvents({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -40,7 +40,7 @@ describe('bridgeit.io.metrics', function () {
 				password: adminPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.io.metrics.getClientServerTimeGap({
+				return bridgeit.io.event.getClientServerTimeGap({
 					account: accountId,
 					realm: realmId,
 					host: host
@@ -76,7 +76,7 @@ describe('bridgeit.io.metrics', function () {
 				password: adminPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.io.metrics.createCustomEvent({
+				return bridgeit.io.event.createCustomEvent({
                     account: accountId,
                     realm: realmId,
                     host: host,

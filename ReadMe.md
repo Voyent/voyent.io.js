@@ -14,7 +14,7 @@ An easy-to-use JavaScript API for BridgeIt Services.
 
 ## [Location Service API](docs/bridgeit-location-service.md)
 
-## [Metrics Service API](docs/bridgeit-metrics-service.md)
+## [Event Service API](docs/bridgeit-event-service.md)
 
 ## [Push Service API](docs/bridgeit-push-service.md)
 

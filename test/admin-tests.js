@@ -178,14 +178,14 @@ describe('bridgeit.io.admin', function(){
 				params.realmName = newRealmName;
 				params.realm = newRealm;
 				newRealm.custom = "{'test':true}";
-				newRealm.services.push("bridgeit.metrics");
+				newRealm.services.push("bridgeit.event");
 				bridgeit.io.admin.updateRealm(params).then(function(){
 					var params2 = _.clone(adminAuthBlock);
 					params2.realmName = newRealmName;
 					return bridgeit.io.admin.getRealm(params2);
 				}).then(function(realm){
 					if( realm ){
-						if( realm.services.indexOf('bridgeit.metrics') > -1 ){
+						if( realm.services.indexOf('bridgeit.event') > -1 ){
 							//http://jira.icesoft.org/browse/NTFY-313
 							if( realm.custom === "{'test':true}" ){
 								done();
@@ -237,7 +237,7 @@ describe('bridgeit.io.admin', function(){
 
 			it('should fail to delete an invalid realm and return a 404', function (done) {
 				//http://jira.icesoft.org/browse/NTFY-294
-				newRealm.services.push("bridgeit.metrics");
+				newRealm.services.push("bridgeit.event");
 				var params = _.clone(adminAuthBlock);
 				params.realmName = 'invalid_realm';
 				bridgeit.io.admin.deleteRealm(params).catch(function(error){
@@ -402,7 +402,7 @@ describe('bridgeit.io.admin', function(){
 		describe('#updateRealmRole()', function(done){
 			it('should update a realm role', function (done) {
 
-				newRole.permissions.push('bridgeit.metrics.doGet');
+				newRole.permissions.push('bridgeit.event.doGet');
 				var params = _.clone(adminAuthBlock);
 				params.realmName = realmId;
 				params.role = newRole;
@@ -418,7 +418,7 @@ describe('bridgeit.io.admin', function(){
 		describe('#deleteRealmRole()', function(done){
 			it('should delete a realm role', function (done) {
 
-				newRole.permissions.push('bridgeit.metrics.doGet');
+				newRole.permissions.push('bridgeit.event.doGet');
 				var params = _.clone(adminAuthBlock);
 				params.realmName = realmId;
 				params.id = newRole.name;

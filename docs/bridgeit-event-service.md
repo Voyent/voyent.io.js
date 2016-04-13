@@ -1,6 +1,6 @@
-#BridgeIt Metrics Service JavaScript API
+#BridgeIt Event Service JavaScript API
 
-## Metrics API
+## Event API
 
 * [findEvents](#findEvents)
 * [createCustomEvent](#createCustomEvent)
@@ -9,7 +9,7 @@
 ### <a name="findEvents"></a>findEvents
 
 ```javascript
-function bridgeit.io.metrics.findEvents(params)
+function bridgeit.io.event.findEvents(params)
 ```
 
 Searches for events in a realm based on a query
@@ -36,7 +36,7 @@ Promise with the query results.
 
 ```javascript
 //find events for the storage service
-bridgeit.io.metrics.findEvents({
+bridgeit.io.event.findEvents({
 		account: accountId,
 		realm: realmId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
@@ -52,10 +52,10 @@ bridgeit.io.metrics.findEvents({
 ### <a name="createCustomEvent"></a>createCustomEvent
 
 ```javascript
-function bridgeit.io.metrics.createCustomEvent(params)
+function bridgeit.io.event.createCustomEvent(params)
 ```
 
-Store a custom event in the metrics service.
+Store a custom event in the event service.
 
 #### Parameters
 
@@ -85,7 +85,7 @@ var event = {
     	origin: "http://mycustomapp.com/login"
     }
 };
-bridgeit.io.metrics.createCustomEvent({
+bridgeit.io.event.createCustomEvent({
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
 		event: event
 	})
@@ -99,12 +99,12 @@ bridgeit.io.metrics.createCustomEvent({
 ### <a name="getClientServerTimeGap"></a>getClientServerTimeGap
 
 ```javascript
-function bridgeit.io.metrics.getClientServerTimeGap(params)
+function bridgeit.io.event.getClientServerTimeGap(params)
 ```
 
-Retrieve the time difference in milliseconds between the provided time and the metrics server time.
+Retrieve the time difference in milliseconds between the provided time and the event server time.
 
-Useful for displaying accurate live metrics views. The time difference is returned as 
+Useful for displaying accurate live event views. The time difference is returned as
 client time - server time.
 
 #### Parameters
@@ -124,7 +124,7 @@ Promise with the the time difference in milliseconds.
 #### Example
 
 ```javascript
-bridgeit.io.metrics.getClientServerTimeGap({
+bridgeit.io.event.getClientServerTimeGap({
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
 	})
 }).then(function(milliseconds){
