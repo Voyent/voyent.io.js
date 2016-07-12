@@ -12,6 +12,7 @@
 * [getRealms](#getRealms)
 * [getRealm](#getRealm)
 * [createRealm](#createRealm)
+* [cloneRealm](#cloneRealm)
 * [updateRealm](#updateRealm)
 * [deleteRealm](#deleteRealm)
 
@@ -624,6 +625,51 @@ bridgeit.io.admin.getRealm({
 });
 ```
 
+### <a name="cloneRealm"></a>cloneRealm
+
+```javascript
+function bridgeit.io.admin.cloneRealm(params)
+```
+
+Clone an existing realm.
+
+#### Parameters
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | -------- |
+| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
+| originRealmName | The name of the realm to clone | String |  | true |
+| destRealmName | The name of the new realm | String |  | true |
+| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
+| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| ssl | Whether to use SSL for network traffic | Boolean | false | false |
+| realm | The realm name | String | | true |
+
+#### Return value
+
+Promise with the new realm resource URL.
+
+```json
+{
+  "resourceLocation": "http://dev.bridgeit.io/authadmin/bsrtests/realms/test_1444316248473"
+}
+```
+
+#### Example
+
+```javascript
+bridgeit.io.admin.cloneRealm({
+	account: accountId,
+	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
+	originRealmName: "realmA",
+  destRealmName: "realmA_clone"
+}).then(function(uri){
+	console.log('cloned the new realm: ' + uri);
+}).catch(function(error){
+	console.log('something went wrong: ' + error);
+});
+```
+
 ### <a name="createRealm"></a>createRealm
 
 ```javascript
@@ -636,12 +682,12 @@ A realm object should have the following structure:
 
 ```
 {
-	name: <string>,
-	disabled: true|false(default),
-	permissions: [], //list of default permissions for all users
-	services: [], //list of provided services for the realm
-	origins: [], //list of host origins who are allowed access to the realm,
-	tsa_enable: true|false(default) //enable or disable two stage authentication
+  name: <string>,
+  disabled: true|false(default),
+  permissions: [], //list of default permissions for all users
+  services: [], //list of provided services for the realm
+  origins: [], //list of host origins who are allowed access to the realm,
+  tsa_enable: true|false(default) //enable or disable two stage authentication
 }
 ```
 
@@ -649,19 +695,19 @@ An example of a realm definition is:
 
 ```
 {
-	"name": "nargles.net"
-	"disabled": false,
-	"services": [
-		"bridgeit.code",
-		"bridgeit.doc",
-		"bridgeit.locate",
-		"bridgeit.media",
-		"bridgeit.event",
-		"bridgeit.push",
-		"bridgeit.store"
-	],
-	"origins": ["*"],
-	"tsa_enable": true
+  "name": "nargles.net"
+  "disabled": false,
+  "services": [
+    "bridgeit.code",
+    "bridgeit.doc",
+    "bridgeit.locate",
+    "bridgeit.media",
+    "bridgeit.event",
+    "bridgeit.push",
+    "bridgeit.store"
+  ],
+  "origins": ["*"],
+  "tsa_enable": true
 }
 ```
 
@@ -690,19 +736,20 @@ Promise with a JSON object with the resource location:
 
 ```javascript
 bridgeit.io.admin.createRealm({
-	account: accountId,
-	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
-	realm: {
-		name: 'myNewRealm',
-		origins: ['*'],
-		services: ["bridgeit.doc","bridgeit.locate","bridgeit.store"]
-	}
+  account: accountId,
+  accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
+  realm: {
+    name: 'myNewRealm',
+    origins: ['*'],
+    services: ["bridgeit.doc","bridgeit.locate","bridgeit.store"]
+  }
 }).then(function(realm){
-	console.log('found the following realm: ' + JSON.stringify(realm));
+  console.log('found the following realm: ' + JSON.stringify(realm));
 }).catch(function(error){
-	console.log('something went wrong: ' + error);
+  console.log('something went wrong: ' + error);
 });
 ```
+
 
 ### <a name="updateRealm"></a>updateRealm
 
