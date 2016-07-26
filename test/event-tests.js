@@ -1,15 +1,15 @@
-describe('bridgeit.io.event', function () {
+describe('voyent.io.event', function () {
 	this.timeout(10000);
 	describe('#findEvents()', function(){
 
 		it('should return a list of 100 storage events for the realm', function (done) {
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.io.event.findEvents({
+				return voyent.io.event.findEvents({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -34,13 +34,13 @@ describe('bridgeit.io.event', function () {
 	describe('#getClientServerTimeGap()', function(){
 
 		it('should return the client/server time gap in milliseconds', function (done) {
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.io.event.getClientServerTimeGap({
+				return voyent.io.event.getClientServerTimeGap({
 					account: accountId,
 					realm: realmId,
 					host: host
@@ -70,13 +70,13 @@ describe('bridgeit.io.event', function () {
                     origin: "http://mycustomapp.com/login"
                 }
             };
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.io.event.createCustomEvent({
+				return voyent.io.event.createCustomEvent({
                     account: accountId,
                     realm: realmId,
                     host: host,

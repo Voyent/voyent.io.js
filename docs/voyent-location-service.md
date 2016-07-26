@@ -1,4 +1,4 @@
-#BridgeIt Location Service JavaScript API
+#Voyent Location Service JavaScript API
 
 ### Location API
 
@@ -31,7 +31,7 @@
 ### <a name="updateLocation"></a>updateLocation
 
 ```javascript
-function bridgeit.io.location.updateLocation(params)
+function voyent.io.location.updateLocation(params)
 ```
 
 Update the location of the current user.
@@ -67,10 +67,10 @@ The location document extra properties are optional.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | location | A JSON object describing the location | Object |  | true |
 
@@ -81,7 +81,7 @@ Promise with a resource URI.
 #### Example
 
 ```javascript
-bridgeit.io.location.updateLocation({
+voyent.io.location.updateLocation({
 	location: validLocationWithoutId
 }).then(function(uri){
 	console.log('location URI(): ' + uri);
@@ -93,7 +93,7 @@ bridgeit.io.location.updateLocation({
 ### <a name="updateLocationCoordinates"></a>updateLocationCoordinates
 
 ```javascript
-function bridgeit.io.location.updateLocationCoordinates(params)
+function voyent.io.location.updateLocationCoordinates(params)
 ```
 
 Update the location of the current user with a latitude and longitude.
@@ -103,10 +103,10 @@ Update the location of the current user with a latitude and longitude.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | lat | The location latitude | Number |  | true |
 | lon | The location longitude | Number |  | true |
@@ -119,7 +119,7 @@ Promise with a resource URI.
 #### Example
 
 ```javascript
-bridgeit.io.location.updateLocationCoordinates({
+voyent.io.location.updateLocationCoordinates({
 	lon: -123.35,
 	lat: 48.43,
 	label: 'test label'
@@ -132,7 +132,7 @@ bridgeit.io.location.updateLocationCoordinates({
 ### <a name="getLastUserLocation"></a>getLastUserLocation
 
 ```javascript
-function bridgeit.io.location.getLastUserLocation(params)
+function voyent.io.location.getLastUserLocation(params)
 ```
 
 Get the last known user location from the location service.
@@ -141,10 +141,10 @@ Get the last known user location from the location service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | username | The user id | String | | true |
 
@@ -155,7 +155,7 @@ Promise with a location JSON object.
 #### Example
 
 ```javascript
-bridgeit.io.location.getLastUserLocation({
+voyent.io.location.getLastUserLocation({
 	username: 'jsmith'
 }).then(function(location){
 	console.log('location: ' + JSON.stringify(location));
@@ -167,7 +167,7 @@ bridgeit.io.location.getLastUserLocation({
 ### <a name="findLocations"></a>findLocations
 
 ```javascript
-function bridgeit.io.location.findLocations(params)
+function voyent.io.location.findLocations(params)
 ```
 
 Searches for locations in a realm based on a Mongo DB query.
@@ -176,10 +176,10 @@ Searches for locations in a realm based on a Mongo DB query.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | query | The Mongo DB query | Object |  | false |
 
@@ -190,7 +190,7 @@ Promise with a result list of location updates.
 #### Example
 
 ```javascript
-bridgeit.io.location.findLocations({
+voyent.io.location.findLocations({
 	account: accountId,
 	realm: realmId,
 	host: host,
@@ -210,7 +210,7 @@ bridgeit.io.location.findLocations({
 ### <a name="createRegion"></a>createRegion
 
 ```javascript
-function bridgeit.io.location.createRegion(params)
+function voyent.io.location.createRegion(params)
 ```
 
 Create a new region in the location service.
@@ -219,10 +219,10 @@ Create a new region in the location service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The region id. If not provided, the service will return a new id. | String |  | false |
 | region | The region geoJSON document that describes the region to be created | Object |  | false |
@@ -232,7 +232,7 @@ Create a new region in the location service.
 Promise with the resource URI:
 
 ```javascript
-http://api.bridgeit.io/locate/demox_corporate/realms/nargles.net/regions/88b9a1f3-36f7-4041-b6d2-7d5a21f193c7
+http://api.voyent.io/locate/demox_corporate/realms/nargles.net/regions/88b9a1f3-36f7-4041-b6d2-7d5a21f193c7
 ```
 
 #### Example
@@ -245,7 +245,7 @@ var newRegion = {
 	}
   }
 };
-bridgeit.io.location.createRegion({
+voyent.io.location.createRegion({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -261,7 +261,7 @@ bridgeit.io.location.createRegion({
 ### <a name="deleteRegion"></a>deleteRegion
 
 ```javascript
-function bridgeit.io.location.deleteRegion(params)
+function voyent.io.location.deleteRegion(params)
 ```
 
 Delete a region in the location service.
@@ -270,10 +270,10 @@ Delete a region in the location service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The region id. | String |  | true |
 
@@ -284,7 +284,7 @@ Promise with no arguments.
 #### Example
 
 ```javascript
-bridgeit.io.location.deleteRegion({
+voyent.io.location.deleteRegion({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -300,7 +300,7 @@ bridgeit.io.location.deleteRegion({
 ### <a name="getAllRegions"></a>getAllRegions
 
 ```javascript
-function bridgeit.io.location.getAllRegions(params)
+function voyent.io.location.getAllRegions(params)
 ```
 
 Fetches all saved regions for the realm from the location service.
@@ -309,10 +309,10 @@ Fetches all saved regions for the realm from the location service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 
 #### Return value
@@ -322,7 +322,7 @@ Promise with a result list of regions.
 #### Example
 
 ```javascript
-bridgeit.io.location.getAllRegions({
+voyent.io.location.getAllRegions({
 	account: accountId,
 	realm: realmId,
 	host: host,
@@ -338,7 +338,7 @@ bridgeit.io.location.getAllRegions({
 ### <a name="findRegions"></a>findRegions
 
 ```javascript
-function bridgeit.io.location.findRegions(params)
+function voyent.io.location.findRegions(params)
 ```
 
 Searches for regions in a realm based on a Mongo DB query.
@@ -347,10 +347,10 @@ Searches for regions in a realm based on a Mongo DB query.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | query | The Mongo DB query | Object |  | false |
 
@@ -361,7 +361,7 @@ Promise with a result list of regions.
 #### Example
 
 ```javascript
-bridgeit.io.location.findRegions({
+voyent.io.location.findRegions({
 	account: accountId,
 	realm: realmId,
 	host: host,
@@ -384,7 +384,7 @@ bridgeit.io.location.findRegions({
 ### <a name="findMonitors"></a>findMonitors
 
 ```javascript
-function bridgeit.io.location.findMonitors(params)
+function voyent.io.location.findMonitors(params)
 ```
 
 Searches for location monitors in a realm based on a Mongo DB query.
@@ -393,10 +393,10 @@ Searches for location monitors in a realm based on a Mongo DB query.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | query | The Mongo DB query | Object |  | false |
 
@@ -407,7 +407,7 @@ Promise with a result list of monitors.
 #### Example
 
 ```javascript
-bridgeit.io.location.findMonitors({
+voyent.io.location.findMonitors({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -429,7 +429,7 @@ bridgeit.io.location.findMonitors({
 ### <a name="createMonitor"></a>createMonitor
 
 ```javascript
-function bridgeit.io.location.createMonitor(params)
+function voyent.io.location.createMonitor(params)
 ```
 
 Create a new monitor in the location service.
@@ -438,10 +438,10 @@ Create a new monitor in the location service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The region id. If not provided, the service will return a new id. | String |  | false |
 | monitor | The monitor JSON document that describes the monitor to be created | Object |  | false |
@@ -451,7 +451,7 @@ Create a new monitor in the location service.
 Promise with the resource URI:
 
 ```javascript
-http://api.bridgeit.io/locate/demox_corporate/realms/nargles.net/monitors/88b9a1f3-36f7-4041-b6d2-7d5a21f193c7
+http://api.voyent.io/locate/demox_corporate/realms/nargles.net/monitors/88b9a1f3-36f7-4041-b6d2-7d5a21f193c7
 ```
 
 #### Example
@@ -470,23 +470,23 @@ var newMonitor = {
 		ids: ['statueofliberty'],
 		tags: ['monument']
 	  },
-	  events: ['bridgeit.locate.locationChanged', 'bridgeit.locate.enteredRegion', 'bridgeit.locate.exitedRegion'],
+	  events: ['voyent.locate.locationChanged', 'voyent.locate.enteredRegion', 'voyent.locate.exitedRegion'],
 	  destinations: [
 		{
-		  url: 'http://dev.bridgeit.io/code/bridgeit.test/flows/customflowid',
+		  url: 'http://dev.voyent.io/code/voyent.test/flows/customflowid',
 		  payload: {}
 		},
 		{
-		  url: 'push://bridgeit/studentPushGroup',
+		  url: 'push://voyent/studentPushGroup',
 		  payload: {}
 		},
 		{
-		  url: 'ws://joe:seakret@bridgeit/dummyEntry',
+		  url: 'ws://joe:seakret@voyent/dummyEntry',
 		  payload: {}
 		}
 	  ]
 	};
-bridgeit.io.location.createMonitor({
+voyent.io.location.createMonitor({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -502,7 +502,7 @@ bridgeit.io.location.createMonitor({
 ### <a name="deleteMonitor"></a>deleteMonitor
 
 ```javascript
-function bridgeit.io.location.deleteMonitor(params)
+function voyent.io.location.deleteMonitor(params)
 ```
 
 Delete a monitor in the location service.
@@ -511,10 +511,10 @@ Delete a monitor in the location service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The monitor id. | String |  | true |
 
@@ -525,7 +525,7 @@ Promise with no arguments.
 #### Example
 
 ```javascript
-bridgeit.io.location.deleteMonitor({
+voyent.io.location.deleteMonitor({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -541,7 +541,7 @@ bridgeit.io.location.deleteMonitor({
 ### <a name="getAllMonitors"></a>getAllMonitors
 
 ```javascript
-function bridgeit.io.location.getAllMonitors(params)
+function voyent.io.location.getAllMonitors(params)
 ```
 
 Fetches all saved monitors for the realm from the location service.
@@ -550,10 +550,10 @@ Fetches all saved monitors for the realm from the location service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 
 #### Return value
@@ -563,7 +563,7 @@ Promise with a result list of monitors.
 #### Example
 
 ```javascript
-bridgeit.io.location.getAllMonitors({
+voyent.io.location.getAllMonitors({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -578,7 +578,7 @@ bridgeit.io.location.getAllMonitors({
 ### <a name="createPOI"></a>createPOI
 
 ```javascript
-function bridgeit.io.location.createPOI(params)
+function voyent.io.location.createPOI(params)
 ```
 
 Creates a new Point of Interest in the location service.
@@ -587,10 +587,10 @@ Creates a new Point of Interest in the location service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | poi | A JSON Object describing the Point of Interest. | Boolean | false | false |
 
@@ -601,7 +601,7 @@ Promise with new resource URI.
 #### Example
 
 ```javascript
-bridgeit.io.location.createPOI({
+voyent.io.location.createPOI({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -631,7 +631,7 @@ bridgeit.io.location.createPOI({
 ### <a name="findPOIs"></a>findPOIs
 
 ```javascript
-function bridgeit.io.location.findPOIs(params)
+function voyent.io.location.findPOIs(params)
 ```
 
 Searches for Points of Interest in a realm based on a Mongo DB query.
@@ -640,10 +640,10 @@ Searches for Points of Interest in a realm based on a Mongo DB query.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | query | The Mongo DB query | Object |  | false |
 
@@ -654,7 +654,7 @@ Promise with a result list of Points of Interest.
 #### Example
 
 ```javascript
-bridgeit.io.location.findPOIs({
+voyent.io.location.findPOIs({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -676,7 +676,7 @@ bridgeit.io.location.findPOIs({
 ### <a name="deletePOI"></a>deletePOI
 
 ```javascript
-function bridgeit.io.location.deletePOI(params)
+function voyent.io.location.deletePOI(params)
 ```
 
 Delete a POI in the location service.
@@ -685,10 +685,10 @@ Delete a POI in the location service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The POI id. | String |  | true |
 
@@ -699,7 +699,7 @@ Promise with no arguments.
 #### Example
 
 ```javascript
-bridgeit.io.location.deletePOI({
+voyent.io.location.deletePOI({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -715,7 +715,7 @@ bridgeit.io.location.deletePOI({
 ### <a name="getAllPOIs"></a>getAllPOIs
 
 ```javascript
-function bridgeit.io.location.getAllPOIs(params)
+function voyent.io.location.getAllPOIs(params)
 ```
 
 Fetches all saved POIs for the realm from the location service.
@@ -724,10 +724,10 @@ Fetches all saved POIs for the realm from the location service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 
 #### Return value
@@ -737,7 +737,7 @@ Promise with a result list of POIs.
 #### Example
 
 ```javascript
-bridgeit.io.location.getAllPOIs({
+voyent.io.location.getAllPOIs({
 	account: accountId,
 	realm: realmId,
 	accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"

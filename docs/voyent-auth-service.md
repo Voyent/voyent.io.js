@@ -1,4 +1,4 @@
-#BridgeIt Authentication Service JavaScript API
+#Voyent Authentication Service JavaScript API
 
 ## Auth API
 
@@ -24,10 +24,10 @@
 ### <a name="getNewAccessToken"></a>getNewAccessToken
 
 ```javascript
-function bridgeit.io.auth.getNewAccessToken(params)
+function voyent.io.auth.getNewAccessToken(params)
 ```
 
-Retrieve a new access token from the BridgeIt auth service.. 
+Retrieve a new access token from the Voyent auth service..
 
 The function returns a Promise that, when successful, returns an object with the following structure:
 
@@ -47,11 +47,11 @@ is retrieved.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name | String | | true |
-| realm | BridgeIt Services realm (required only for non-admin logins) | String | | false |
+| account | Voyent Services account name | String | | true |
+| realm | Voyent Services realm (required only for non-admin logins) | String | | false |
 | username | User name | String | | true |
 | password | User password | String | | true |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 
 #### Return value
@@ -68,13 +68,13 @@ Promise with the access token and expires_in values in the following format:
 ### <a name="login"></a>login
 
 ```javascript
-function bridgeit.io.auth.login(params)
+function voyent.io.auth.login(params)
 ```
 
-Login into bridgeit services. 
+Login into voyent services.
 
-This function will login into the BridgeIt auth service and return a user token and expiry timestamp upon 
-successful authentication. This function does not need to be called if bridgeit.connect has already been
+This function will login into the Voyent auth service and return a user token and expiry timestamp upon
+successful authentication. This function does not need to be called if voyent.connect has already been
 called, as that function will automatically extend the user session, unless the timeout has passed. 
 
 The function returns a Promise that, when successful, returns an object with the following structure:
@@ -92,11 +92,11 @@ Which contains the access token and the time, in milliseconds that the session w
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name | String | | true |
-| realm | BridgeIt Services realm (required only for non-admin logins) | String | | false |
+| account | Voyent Services account name | String | | true |
+| realm | Voyent Services realm (required only for non-admin logins) | String | | false |
 | username | User name | String | | true |
 | password | User password | String | | true |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | scopeToPath | If set, the authentication token will be restricted to the given path, unless in development mode. | String | '/' | false |
 
@@ -114,56 +114,56 @@ Promise with the following argument:
 
 ### <a name="connect"></a>connect
 ```javascript
-function bridgeit.io.auth.connect(params)
+function voyent.io.auth.connect(params)
 ```
 
-Connect to bridgeit services. 
+Connect to voyent services.
 
-This function will connect to the BridgeIt services, and maintain the connection for the specified 
-timeout period (default 20 minutes). By default, the BridgeIt push service is also activated, so the client
+This function will connect to the Voyent services, and maintain the connection for the specified
+timeout period (default 20 minutes). By default, the Voyent push service is also activated, so the client
 may send and receive push notifications after connecting.
 
-After connecting to BridgeIt Services, any BridgeIt service API may be used without needing to re-authenticate.
+After connecting to Voyent Services, any Voyent service API may be used without needing to re-authenticate.
 After successfully connecting, an authentication token will be stored in session storage and available through 
-`bridgeit.io.auth.getLastAccessToken()`. This authentication information will automatically be used by other BridgeIt API
+`voyent.io.auth.getLastAccessToken()`. This authentication information will automatically be used by other Voyent API
 calls, so the token does not be included in subsequent calls, but is available if desired.
 
-A simple example of connecting to the BridgeIt Services and then making a service call is the following:
+A simple example of connecting to the Voyent Services and then making a service call is the following:
 
 ```javascript
-bridgeit.connect({
+voyent.connect({
           account: 'my_account', 
           realm: 'realmA', 
           user: 'user', 
           password: 'secret'})
   .then( function(){
-      console.log("successfully connnected to BridgeIt Services");
+      console.log("successfully connnected to Voyent Services");
       //now we can fetch some docs
-      return bridgeit.docService.get('documents');
+      return voyent.docService.get('documents');
    })
    .then( function(docs){
       for( var d in docs ){ ... };
    })
    .catch( function(error){
-      console.log("error connecting to BridgeIt Services: " + error);
+      console.log("error connecting to Voyent Services: " + error);
    });
 ```
 
-In order to automatically reconnect, the `storeCredentials` parameter must be set to true (default), otherwise user credentials will not be available and bridgeit will not be able to reconnect automatically. Credentials are stored in the browser sessionStorage in encoded form for both key and value. These credentials are not easily retrievable from the browser, and will be removed when the browser session expires, although it is possible that credentials, when stored, may be retrieved and decoded without permission. Thus it is recommended that this feature not be used when stricter security measures are required.
+In order to automatically reconnect, the `storeCredentials` parameter must be set to true (default), otherwise user credentials will not be available and voyent will not be able to reconnect automatically. Credentials are stored in the browser sessionStorage in encoded form for both key and value. These credentials are not easily retrievable from the browser, and will be removed when the browser session expires, although it is possible that credentials, when stored, may be retrieved and decoded without permission. Thus it is recommended that this feature not be used when stricter security measures are required.
 
 #### Parameters
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name | String | | true |
-| realm | BridgeIt Services realm (required only for non-admin logins) | String | | false |
+| account | Voyent Services account name | String | | true |
+| realm | Voyent Services realm (required only for non-admin logins) | String | | false |
 | username | User name | String | | true |
 | password | User password | String | | true |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
-| usePushService | Open and connect to the BridgeIt push service TODO | Boolean | true | false |
-| connectionTimeout | The timeout duration, in minutes, that the BridgeIt login will last during inactivity | Number | 20 | false |
-| storeCredentials | Whether to store encrypted credentials in session storage. If set to false, bridgeit will not attempt to relogin before the session expires. | Boolean | true | false |
+| usePushService | Open and connect to the Voyent push service TODO | Boolean | true | false |
+| connectionTimeout | The timeout duration, in minutes, that the Voyent login will last during inactivity | Number | 20 | false |
+| storeCredentials | Whether to store encrypted credentials in session storage. If set to false, voyent will not attempt to relogin before the session expires. | Boolean | true | false |
 | onSessionExpiry | Function callback to be called on session expiry | Function |  | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | scopeToPath | If set, the authentication token will be restricted to the given path, unless in development mode. | String | '/' | false |
@@ -174,12 +174,12 @@ Promise with the following argument: TODO
 
 ### <a name="disconnect"></a>disconnect
 ```javascript
-function bridgeit.io.auth.disconnect()
+function voyent.io.auth.disconnect()
 ```
 
-Disconnect from BridgeIt Services. 
+Disconnect from Voyent Services.
 
-This function will logout from BridgeIt Services and remove all session information from the client.
+This function will logout from Voyent Services and remove all session information from the client.
 
 #### Parameters
 
@@ -192,7 +192,7 @@ Promise with the following argument: TODO
 
 ### <a name="getLastAccessToken"></a>getLastAccessToken
 ```javascript
-function bridgeit.io.auth.getLastAccessToken()
+function voyent.io.auth.getLastAccessToken()
 ```
 
 Return the last known Access Token.
@@ -213,7 +213,7 @@ The access token string, eg.:
 
 ### <a name="getExpiresIn"></a>getExpiresIn
 ```javascript
-function bridgeit.io.auth.getExpiresIn()
+function voyent.io.auth.getExpiresIn()
 ```
 
 Return the current token expiry period.
@@ -229,7 +229,7 @@ The token expiry period in milliseconds, eg.:
 
 ### <a name="getTokenSetAtTime"></a>getTokenSetAtTime
 ```javascript
-function bridgeit.io.auth.getTokenSetAtTime()
+function voyent.io.auth.getTokenSetAtTime()
 ```
 
 Return the time the last access token was retrieved.
@@ -245,7 +245,7 @@ The unix time of the last access token, eg.:
 
 ### <a name="getTimeRemainingBeforeExpiry"></a>getTimeRemainingBeforeExpiry
 ```javascript
-function bridgeit.io.auth.getTimeRemainingBeforeExpiry()
+function voyent.io.auth.getTimeRemainingBeforeExpiry()
 ```
 
 Return the time, in milliseconds, before the current token expires.
@@ -261,10 +261,10 @@ The milliseconds before expiry, eg.:
 
 ### <a name="getConnectSettings"></a>getConnectSettings
 ```javascript
-function bridgeit.io.auth.getConnectSettings()
+function voyent.io.auth.getConnectSettings()
 ```
 
-Return the current settings used by bridgeit.io.auth.connect()
+Return the current settings used by voyent.io.auth.connect()
 
 #### Return value
 
@@ -273,7 +273,7 @@ The configuration settings, eg.:
 
 ```javascript
 {
-  host: 'dev.bridgeit.io',
+  host: 'dev.voyent.io',
   userPushService: true,
   connectionTimeout: 20,
   ssl: true,
@@ -284,7 +284,7 @@ The configuration settings, eg.:
 
 ### <a name="isLoggedIn"></a>isLoggedIn
 ```javascript
-function bridgeit.io.auth.isLoggedIn()
+function voyent.io.auth.isLoggedIn()
 ```
 
 Return whether a current access token exists.
@@ -295,7 +295,7 @@ True or false
 
 ### <a name="getLastKnownAccount"></a>getLastKnownAccount
 ```javascript
-function bridgeit.io.auth.getLastKnownAccount()
+function voyent.io.auth.getLastKnownAccount()
 ```
 
 Return the last know account name that was used for the `login` or `connect` functions. 
@@ -309,7 +309,7 @@ A string value or null.
 
 ### <a name="getLastKnownRealm"></a>getLastKnownRealm
 ```javascript
-function bridgeit.io.auth.getLastKnownRealm()
+function voyent.io.auth.getLastKnownRealm()
 ```
 
 Return the last know realm name that was used for the `login` or `connect` functions. 
@@ -323,23 +323,23 @@ A string value or null.
 
 ### <a name="registerAsNewUser"></a>registerAsNewUser
 ```javascript
-function bridgeit.io.auth.registerAsNewUser()
+function voyent.io.auth.registerAsNewUser()
 ```
 
 Register a new user for a realm that supports open user registrations.
 
-In order to allow open (ie. public) user registrations, the BridgeIt realm must be pre-configured to do so. 
-Please consult the BridgeIt Console for more information.
+In order to allow open (ie. public) user registrations, the Voyent realm must be pre-configured to do so.
+Please consult the Voyent Console for more information.
 
 #### Parameters
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name | String | | true |
-| realm | BridgeIt Services realm | String | | false |
+| account | Voyent Services account name | String | | true |
+| realm | Voyent Services realm | String | | false |
 | username | User name | String | | true |
 | password | User password | String | | true |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | firstname | The user's first name | String |  | false |
 | lastname | The user's last name | String |  | false |
@@ -353,7 +353,7 @@ A Promise with a no arguments when successful.
 #### Example
 
 ```javascript
-bridgeit.io.auth.registerAsNewUser({
+voyent.io.auth.registerAsNewUser({
   account: accountId,
   realm: realmId,
   username: newUserId,
@@ -374,21 +374,21 @@ bridgeit.io.auth.registerAsNewUser({
 
 ### <a name="updateLastActiveTimestamp"></a>updateLastActiveTimestamp
 ```javascript
-function bridgeit.io.auth.updateLastActiveTimestamp()
+function voyent.io.auth.updateLastActiveTimestamp()
 ```
 
-Update the last active timestamp for BridgeIt connect.
+Update the last active timestamp for Voyent connect.
 
 ### <a name="getLastActiveTimestamp"></a>getLastActiveTimestamp
 ```javascript
-function bridgeit.io.auth.getLastActiveTimestamp()
+function voyent.io.auth.getLastActiveTimestamp()
 ```
 
 Return the last active timestamp in milliseconds.
 
 ### <a name="checkUserRole"></a>checkUserRole
 ```javascript
-function bridgeit.io.auth.checkUserRole()
+function voyent.io.auth.checkUserRole()
 ```
 
 Check if the current user has a single role.
@@ -397,16 +397,16 @@ Check if the current user has a single role.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | role | The role name to verify | String |  | true |
 
 #### Example
 
 ```javascript
-bridgeit.io.auth.checkUserRole({
+voyent.io.auth.checkUserRole({
   role: 'myrole'
 }).then(function(){
   //user has 'myrole'
@@ -421,7 +421,7 @@ An empty Promise that will reject if the user does not have the role, or resolve
 
 ### <a name="checkUserRoles"></a>checkUserRoles
 ```javascript
-function bridgeit.io.auth.checkUserRoles()
+function voyent.io.auth.checkUserRoles()
 ```
 
 Check if the current user has a set of roles. The 'op' params can be added to check for 'or' or 'and'.
@@ -430,9 +430,9 @@ Check if the current user has a set of roles. The 'op' params can be added to ch
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | roles | The array of roles to verify | Array |  | true |
 | op | 'or' or 'and' | String |  | false |
@@ -440,7 +440,7 @@ Check if the current user has a set of roles. The 'op' params can be added to ch
 #### Example
 
 ```javascript
-bridgeit.io.auth.checkUserRoles({
+voyent.io.auth.checkUserRoles({
   roles: ['role1', 'role2'],
   op: 'or'
 }).then(function(){
@@ -456,7 +456,7 @@ An empty Promise that will reject if the user does not have the roles, or resolv
 
 ### <a name="forgotPassword"></a>forgotPassword
 ```javascript
-function bridgeit.io.auth.forgotPassword()
+function voyent.io.auth.forgotPassword()
 ```
 
 Request a forgotten password to be sent by email.
@@ -465,16 +465,16 @@ Request a forgotten password to be sent by email.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| username | The BridgeIt Services username. | String | | true |
-| realm | The BridgeIt Services realm. If not provided, the username will be assumed to be an account administrator. | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| username | The Voyent Services username. | String | | true |
+| realm | The Voyent Services realm. If not provided, the username will be assumed to be an account administrator. | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 
 #### Example
 
 ```javascript
-bridgeit.io.auth.forgotPassword({
+voyent.io.auth.forgotPassword({
   account: 'myaccount',
   username: 'fred',
   realm: 'myrealm'

@@ -1,17 +1,17 @@
-describe('bridgeit.io', function () {
+describe('voyent.io', function () {
 	this.timeout(10000);
 	describe('#startTransaction()', function(){
 		it('should start a transaction, login, create, then delete a document, then end the transaction ', function(done){
 			var newDoc = {test: true};
-			bridgeit.io.startTransaction();
-			console.log('started transaction: ' + bridgeit.io.getLastTransactionId());
-			bridgeit.io.auth.login({
+			voyent.io.startTransaction();
+			console.log('started transaction: ' + voyent.io.getLastTransactionId());
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.io.documents.createDocument({
+				return voyent.io.documents.createDocument({
 					document: newDoc,
 					realm: realmId
 				});
@@ -19,7 +19,7 @@ describe('bridgeit.io', function () {
 				newDocURI = docURI;
 				var uriParts = docURI.split('/');
 				var docId = uriParts[uriParts.length-1];
-				return bridgeit.io.documents.deleteDocument({
+				return voyent.io.documents.deleteDocument({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -27,10 +27,10 @@ describe('bridgeit.io', function () {
 				})
 			}).then(function(){
 				console.log('startTransaction() test finished');
-				bridgeit.io.endTransaction();
+				voyent.io.endTransaction();
 				done();
 			}).catch(function(error){
-				bridgeit.io.endTransaction();
+				voyent.io.endTransaction();
 				console.log('startTransaction failed ' + error);
 			});
 		});

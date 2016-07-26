@@ -1,4 +1,4 @@
-#BridgeIt Push Service JavaScript API
+#Voyent Push Service JavaScript API
 
 ## Push API
 
@@ -9,10 +9,10 @@
 ### <a name="startPushService"></a>startPushService
 
 ```javascript
-function bridgeit.io.push.startPushService(params)
+function voyent.io.push.startPushService(params)
 ```
 
-Initialize and start the BridgeIt Push service.
+Initialize and start the Voyent Push service.
 
 This will download the necessary code for the Push service, and set the necessary
 connection settings for the push server.
@@ -21,10 +21,10 @@ connection settings for the push server.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 
 #### Return value
@@ -34,7 +34,7 @@ Promise with no arguments.
 #### Example
 
 ```javascript
-bridgeit.io.push.startPushService({
+voyent.io.push.startPushService({
 		account: accountId,
 		realm: realmId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -49,24 +49,24 @@ bridgeit.io.push.startPushService({
 ### <a name="addPushListener"></a>addPushListener
 
 ```javascript
-function bridgeit.io.push.addPushListener(params)
+function voyent.io.push.addPushListener(params)
 ```
 
 Add listener for notifications belonging to the specified group.
 
 Callbacks must be in global scope for Cloud Push. 
 
-In order to receive a cloud push, the client must also call `bridgeit.register()'. This will 
-ensure that the BridgeIt Utility app is installed, and register the user for Cloud notifications.
+In order to receive a cloud push, the client must also call `voyent.register()'. This will
+ensure that the Voyent Utility app is installed, and register the user for Cloud notifications.
 
 #### Parameters
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | group | The push group name to that will be listened to | String |  | true |
 | callback | The callback to be fired when the push event for the group occurs. | Function or String |  | true |
@@ -82,7 +82,7 @@ Promise with no arguments.
 function globalFunction(){
 	alert('push callback fired!');
 }
-bridgeit.io.push.addPushListener({
+voyent.io.push.addPushListener({
 		account: accountId,
 		realm: realmId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
@@ -100,7 +100,7 @@ bridgeit.io.push.addPushListener({
 ### <a name="removePushListener"></a>removePushListener
 
 ```javascript
-function bridgeit.io.push.removePushListener(params)
+function voyent.io.push.removePushListener(params)
 ```
 
 Remove listeners for notifications belonging to the specified group.
@@ -109,10 +109,10 @@ Remove listeners for notifications belonging to the specified group.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | group | The push group name to that will be listened to | String |  | true |
 
@@ -123,7 +123,7 @@ Promise with no arguments.
 #### Example
 
 ```javascript
-bridgeit.io.push.removePushListener({
+voyent.io.push.removePushListener({
 		account: accountId,
 		realm: realmId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
@@ -139,7 +139,7 @@ bridgeit.io.push.removePushListener({
 ### <a name="sendPushEvent"></a>sendPushEvent
 
 ```javascript
-function bridgeit.io.push.sendPushEvent(params)
+function voyent.io.push.sendPushEvent(params)
 ```
 
 Fire a push event and notify the push group.
@@ -148,10 +148,10 @@ Fire a push event and notify the push group.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | group | The push group name to push to | String |  | true |
 | subject | An optional subject heading for cloud push notifications | String |  | false |
@@ -164,7 +164,7 @@ Promise with no arguments.
 #### Example
 
 ```javascript
-bridgeit.io.push.sendPushEvent({
+voyent.io.push.sendPushEvent({
 		account: accountId,
 		realm: realmId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",

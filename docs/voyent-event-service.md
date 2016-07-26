@@ -1,4 +1,4 @@
-#BridgeIt Event Service JavaScript API
+#Voyent Event Service JavaScript API
 
 ## Event API
 
@@ -9,7 +9,7 @@
 ### <a name="findEvents"></a>findEvents
 
 ```javascript
-function bridgeit.io.event.findEvents(params)
+function voyent.io.event.findEvents(params)
 ```
 
 Searches for events in a realm based on a query
@@ -18,10 +18,10 @@ Searches for events in a realm based on a query
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | query | A Mongo DB query for the events | Object | {} | false |
 | fields | Specify the inclusion or exclusion of fields to return in the result set | Object | {} | false |
@@ -36,7 +36,7 @@ Promise with the query results.
 
 ```javascript
 //find events for the storage service
-bridgeit.io.event.findEvents({
+voyent.io.event.findEvents({
 		account: accountId,
 		realm: realmId,
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
@@ -52,7 +52,7 @@ bridgeit.io.event.findEvents({
 ### <a name="createCustomEvent"></a>createCustomEvent
 
 ```javascript
-function bridgeit.io.event.createCustomEvent(params)
+function voyent.io.event.createCustomEvent(params)
 ```
 
 Store a custom event in the event service.
@@ -61,10 +61,10 @@ Store a custom event in the event service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | event | The custom event that you would like to store, in JSON format. | Object | {} | true |
 
@@ -85,7 +85,7 @@ var event = {
     	origin: "http://mycustomapp.com/login"
     }
 };
-bridgeit.io.event.createCustomEvent({
+voyent.io.event.createCustomEvent({
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02",
 		event: event
 	})
@@ -99,7 +99,7 @@ bridgeit.io.event.createCustomEvent({
 ### <a name="getClientServerTimeGap"></a>getClientServerTimeGap
 
 ```javascript
-function bridgeit.io.event.getClientServerTimeGap(params)
+function voyent.io.event.getClientServerTimeGap(params)
 ```
 
 Retrieve the time difference in milliseconds between the provided time and the event server time.
@@ -111,10 +111,10 @@ client time - server time.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 
 #### Return value
@@ -124,7 +124,7 @@ Promise with the the time difference in milliseconds.
 #### Example
 
 ```javascript
-bridgeit.io.event.getClientServerTimeGap({
+voyent.io.event.getClientServerTimeGap({
 		accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
 	})
 }).then(function(milliseconds){

@@ -1,4 +1,4 @@
-#BridgeIt Documents Service JavaScript API
+#Voyent Documents Service JavaScript API
 
 ## Documents API
 
@@ -11,7 +11,7 @@
 ### <a name="createDocument"></a>createDocument
 
 ```javascript
-function bridgeit.io.documents.createDocument(params)
+function voyent.io.documents.createDocument(params)
 ```
 
 Create and store a new JSON document in the document service.
@@ -20,10 +20,10 @@ Create and store a new JSON document in the document service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | document | The JSON document to be created | Object |  | false |
 | collection | The name of the document collection. | String | 'documents' | false |
@@ -33,7 +33,7 @@ Create and store a new JSON document in the document service.
 Promise with the resource URI:
 
 ```javascript
-http://api.bridgeit.io/docs/demox_corporate/realms/nargles.net/documents/88b9a1f3-36f7-4041-b6d2-7d5a21f193c7
+http://api.voyent.io/docs/demox_corporate/realms/nargles.net/documents/88b9a1f3-36f7-4041-b6d2-7d5a21f193c7
 ```
 
 #### Example
@@ -41,7 +41,7 @@ http://api.bridgeit.io/docs/demox_corporate/realms/nargles.net/documents/88b9a1f
 ```javascript
 var doc = {test: true};
         
-bridgeit.io.documents.createDocument({
+voyent.io.documents.createDocument({
     account: accountId,
     realm: realmId,
     accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -57,7 +57,7 @@ bridgeit.io.documents.createDocument({
 ### <a name="updateDocument"></a>updateDocument
 
 ```javascript
-function bridgeit.io.documents.updateDocument(params)
+function voyent.io.documents.updateDocument(params)
 ```
 
 Update a JSON document in the document service.
@@ -66,10 +66,10 @@ Update a JSON document in the document service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The document id | String |  | true |
 | document | The JSON document to be created | Object |  | false |
@@ -81,7 +81,7 @@ Update a JSON document in the document service.
 Promise with the resource URI:
 
 ```javascript
-http://api.bridgeit.io/docs/demox_corporate/realms/nargles.net/documents/88b9a1f3-36f7-4041-b6d2-7d5a21f193c7
+http://api.voyent.io/docs/demox_corporate/realms/nargles.net/documents/88b9a1f3-36f7-4041-b6d2-7d5a21f193c7
 ```
 
 #### Example
@@ -89,7 +89,7 @@ http://api.bridgeit.io/docs/demox_corporate/realms/nargles.net/documents/88b9a1f
 ```javascript
 var doc = {test: true};
         
-bridgeit.io.documents.updateDocument({
+voyent.io.documents.updateDocument({
     account: accountId,
     realm: realmId,
     accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -106,7 +106,7 @@ bridgeit.io.documents.updateDocument({
 ### <a name="getDocument"></a>getDocument
 
 ```javascript
-function bridgeit.io.documents.getDocument(params)
+function voyent.io.documents.getDocument(params)
 ```
 
 Fetch a JSON document from the document service.
@@ -115,10 +115,10 @@ Fetch a JSON document from the document service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The document id | String |  | true |
 | collection | The name of the document collection. | String | 'documents' | false |
@@ -131,7 +131,7 @@ Promise with the document JSON object.
 #### Example
 
 ```javascript
-bridgeit.io.documents.getDocument({
+voyent.io.documents.getDocument({
     account: accountId,
     realm: realmId,
     accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -147,7 +147,7 @@ bridgeit.io.documents.getDocument({
 ### <a name="findDocuments"></a>findDocuments
 
 ```javascript
-function bridgeit.io.documents.findDocuments(params)
+function voyent.io.documents.findDocuments(params)
 ```
 
 Create and store a new JSON document in the document service.
@@ -156,10 +156,10 @@ Create and store a new JSON document in the document service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | query | A Mongo DB query for the documents | Object |  | false |
 | collection | The name of the document collection. | String | 'documents' | false |
@@ -181,7 +181,7 @@ Promise with the query results
 ```javascript
 var key = new Date().getTime();
 
-bridgeit.io.documents.findDocuments({
+voyent.io.documents.findDocuments({
     account: accountId,
     realm: realmId,
     accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -201,7 +201,7 @@ bridgeit.io.documents.findDocuments({
 ### <a name="deleteDocument"></a>deleteDocument
 
 ```javascript
-function bridgeit.io.documents.deleteDocument(params)
+function voyent.io.documents.deleteDocument(params)
 ```
 
 Delete a JSON document in the document service.
@@ -210,10 +210,10 @@ Delete a JSON document in the document service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The document id | String |  | true |
 | collection | The name of the document collection. | String | 'documents' | false |
@@ -226,7 +226,7 @@ Promise with an empty response
 #### Example
 
 ```javascript
-bridgeit.io.documents.deleteDocument({
+voyent.io.documents.deleteDocument({
     account: accountId,
     realm: realmId,
     accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"

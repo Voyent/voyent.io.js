@@ -13,10 +13,10 @@
                 window.Promise = ES6Promise.Promise;
             }
         </script>
-        <script src="http://bridgeit.github.io/bridgeit.js/src/bridgeit.js"></script>
-        <script src="../lib/bridgeit.io.js"></script>
+        <script src="http://voyent.github.io/voyent.js/src/voyent.js"></script>
+        <script src="../lib/voyent.io.js"></script>
 
-        <h1>BridgeIt Auth Connect Test</h1>
+        <h1>Voyent Auth Connect Test</h1>
 
         <h3>Last Active At: <span id="lastActive"></span>
 
@@ -32,7 +32,7 @@
 
         <h2><a onclick="joinPushGroup();">Join Push Group</a></h2>
 
-        <h2><a onclick="bridgeit.register('testConnect.html', 'registerCloudPushCallback');">Register Cloud Push</a></h2>
+        <h2><a onclick="voyent.register('testConnect.html', 'registerCloudPushCallback');">Register Cloud Push</a></h2>
 
         <h2><a onclick="pushMessage();">Push Message</a></h2>
 
@@ -72,14 +72,14 @@
             var realmId         = 'starbucks';
             var userId          = 'admin';
             var userPassword    = 'password';
-            var host            = 'dev.bridgeit.io';
+            var host            = 'dev.voyent.io';
 
-            window.addEventListener("bridgeit-access-token-refreshed", function(e) {
+            window.addEventListener("voyent-access-token-refreshed", function(e) {
                 alert('Event is: ' + e + ' Custom data is: ' + e.detail);
             })
 
             var connectedAt = new Date().getTime();
-            bridgeit.io.auth.connect({
+            voyent.io.auth.connect({
                     account: accountId,
                     username: userId,
                     realm: realmId,
@@ -100,14 +100,14 @@
         }
 
         function continueActivity(){
-            bridgeit.io.auth.updateLastActiveTimestamp();
+            voyent.io.auth.updateLastActiveTimestamp();
             updateLastActive();
             setTimeout( continueActivity, activityTimeoutMillis - 200);
         }
 
         function updateLastActive(){
-            bridgeit.io.auth.updateLastActiveTimestamp();
-            var lastActive = bridgeit.io.auth.getLastActiveTimestamp();
+            voyent.io.auth.updateLastActiveTimestamp();
+            var lastActive = voyent.io.auth.getLastActiveTimestamp();
             var lastActiveDate = new Date();
             lastActiveDate.setTime(lastActive);
             document.getElementById('lastActive').innerHTML = lastActiveDate.toLocaleTimeString();
@@ -120,7 +120,7 @@
         }
 
         function joinPushGroup(){
-            bridgeit.io.push.addPushListener({
+            voyent.io.push.addPushListener({
                 group: 'test',
                 callback: 'pushCallback'
             })
@@ -135,7 +135,7 @@
         }
 
         function pushMessage(){
-            bridgeit.io.push.sendPushEvent({
+            voyent.io.push.sendPushEvent({
                 group: 'test',
                 subject: 'test subject header',
                 detail: 'test detail ...'

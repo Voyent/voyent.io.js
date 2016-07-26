@@ -1,4 +1,4 @@
-describe('bridgeit.io.documents', function () {
+describe('voyent.io.documents', function () {
     this.timeout(10000);
     var otherTestDocCollection = 'otherTestDocCollection';
 
@@ -7,13 +7,13 @@ describe('bridgeit.io.documents', function () {
 
 			var newDoc = {test: true};
 
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				return bridgeit.io.documents.createDocument({
+				return voyent.io.documents.createDocument({
 					document: newDoc,
 					realm: realmId
 				});
@@ -30,13 +30,13 @@ describe('bridgeit.io.documents', function () {
 
             var newDoc = {test: true};
 
-            bridgeit.io.auth.login({
+            voyent.io.auth.login({
                 account: accountId,
                 username: adminId,
                 password: adminPassword,
                 host: host
             }).then(function(authResponse){
-                return bridgeit.io.documents.createDocument({
+                return voyent.io.documents.createDocument({
                     document: newDoc,
                     realm: realmId,
                     collection: otherTestDocCollection
@@ -56,13 +56,13 @@ describe('bridgeit.io.documents', function () {
         it('should create a new unnamed document and delete it in the default (documents) collection', function (done) {
             var newDoc = {test: true};
 
-            bridgeit.io.auth.login({
+            voyent.io.auth.login({
                 account: accountId,
                 username: adminId,
                 password: adminPassword,
                 host: host
             }).then(function(authResponse){
-                return bridgeit.io.documents.createDocument({
+                return voyent.io.documents.createDocument({
                     document: newDoc,
                     realm: realmId
                 });
@@ -70,7 +70,7 @@ describe('bridgeit.io.documents', function () {
                 newDocURI = docURI;
                 var uriParts = docURI.split('/');
                 var docId = uriParts[uriParts.length-1];
-                return bridgeit.io.documents.deleteDocument({
+                return voyent.io.documents.deleteDocument({
                     account: accountId,
                     realm: realmId,
                     host: host,
@@ -87,13 +87,13 @@ describe('bridgeit.io.documents', function () {
         it('should create a new unnamed document and delete it in a different (' + otherTestDocCollection + ') collection', function (done) {
             var newDoc = {test: true};
 
-            bridgeit.io.auth.login({
+            voyent.io.auth.login({
                 account: accountId,
                 username: adminId,
                 password: adminPassword,
                 host: host
             }).then(function(authResponse){
-                return bridgeit.io.documents.createDocument({
+                return voyent.io.documents.createDocument({
                     document: newDoc,
                     realm: realmId,
                     collection: otherTestDocCollection
@@ -102,7 +102,7 @@ describe('bridgeit.io.documents', function () {
                 newDocURI = docURI;
                 var uriParts = docURI.split('/');
                 var docId = uriParts[uriParts.length-1];
-                return bridgeit.io.documents.deleteDocument({
+                return voyent.io.documents.deleteDocument({
                     account: accountId,
                     realm: realmId,
                     host: host,
@@ -124,13 +124,13 @@ describe('bridgeit.io.documents', function () {
 
             var newDoc = {test: true};
 
-            bridgeit.io.auth.login({
+            voyent.io.auth.login({
                 account: accountId,
                 username: adminId,
                 password: adminPassword,
                 host: host
             }).then(function(authResponse){
-                return bridgeit.io.documents.createDocument({
+                return voyent.io.documents.createDocument({
                     document: newDoc,
                     realm: realmId
                 });
@@ -139,7 +139,7 @@ describe('bridgeit.io.documents', function () {
                 var uriParts = docURI.split('/');
                 var docId = uriParts[uriParts.length-1];
                 newDoc.test = false;
-                return bridgeit.io.documents.updateDocument({
+                return voyent.io.documents.updateDocument({
                     id: docId,
                     document: newDoc
                 })
@@ -155,13 +155,13 @@ describe('bridgeit.io.documents', function () {
 
             var newDoc = {test: true};
 
-            bridgeit.io.auth.login({
+            voyent.io.auth.login({
                 account: accountId,
                 username: adminId,
                 password: adminPassword,
                 host: host
             }).then(function(authResponse){
-                return bridgeit.io.documents.createDocument({
+                return voyent.io.documents.createDocument({
                     document: newDoc,
                     realm: realmId,
                     collection: otherTestDocCollection
@@ -171,7 +171,7 @@ describe('bridgeit.io.documents', function () {
                 var uriParts = docURI.split('/');
                 var docId = uriParts[uriParts.length-1];
                 newDoc.test = false;
-                return bridgeit.io.documents.updateDocument({
+                return voyent.io.documents.updateDocument({
                     id: docId,
                     document: newDoc,
                     collection: otherTestDocCollection
@@ -191,21 +191,21 @@ describe('bridgeit.io.documents', function () {
 
             var newDoc = {test: true};
 
-            bridgeit.io.auth.login({
+            voyent.io.auth.login({
                 account: accountId,
                 realm: realmId,
                 username: userId,
                 password: userPassword,
                 host: host
             }).then(function(authResponse){
-                return bridgeit.io.documents.createDocument({
+                return voyent.io.documents.createDocument({
                     document: newDoc
                 });
             }).then(function(docURI){
                 newDocURI = docURI;
                 var uriParts = docURI.split('/');
                 var docId = uriParts[uriParts.length-1];
-                return bridgeit.io.documents.getDocument({
+                return voyent.io.documents.getDocument({
                     id: docId
                 })
             }).then(function(doc){
@@ -224,14 +224,14 @@ describe('bridgeit.io.documents', function () {
 
             var newDoc = {test: true};
 
-            bridgeit.io.auth.login({
+            voyent.io.auth.login({
                 account: accountId,
                 realm: realmId,
                 username: userId,
                 password: userPassword,
                 host: host
             }).then(function(authResponse){
-                return bridgeit.io.documents.createDocument({
+                return voyent.io.documents.createDocument({
                     document: newDoc,
                     collection: otherTestDocCollection
                 });
@@ -239,7 +239,7 @@ describe('bridgeit.io.documents', function () {
                 newDocURI = docURI;
                 var uriParts = docURI.split('/');
                 var docId = uriParts[uriParts.length-1];
-                return bridgeit.io.documents.getDocument({
+                return voyent.io.documents.getDocument({
                     id: docId,
                     collection: otherTestDocCollection
                 })
@@ -262,14 +262,14 @@ describe('bridgeit.io.documents', function () {
             var key = new Date().getTime();
             var newDoc = {key: key, value: true};
 
-            bridgeit.io.auth.login({
+            voyent.io.auth.login({
                 account: accountId,
                 username: userId,
                 realm: realmId,
                 password: userPassword,
                 host: host
             }).then(function(authResponse){
-                return bridgeit.io.documents.createDocument({
+                return voyent.io.documents.createDocument({
                     document: newDoc,
                     realm: realmId
                 });
@@ -277,7 +277,7 @@ describe('bridgeit.io.documents', function () {
                 newDocURI = docURI;
                 var uriParts = docURI.split('/');
                 var docId = uriParts[uriParts.length-1];
-                return bridgeit.io.documents.findDocuments({
+                return voyent.io.documents.findDocuments({
                     query: {key: key}
                 })
             }).then(function(results){
@@ -297,14 +297,14 @@ describe('bridgeit.io.documents', function () {
             var key = new Date().getTime();
             var newDoc = {key: key, value: true};
 
-            bridgeit.io.auth.login({
+            voyent.io.auth.login({
                 account: accountId,
                 username: userId,
                 realm: realmId,
                 password: userPassword,
                 host: host
             }).then(function(authResponse){
-                return bridgeit.io.documents.createDocument({
+                return voyent.io.documents.createDocument({
                     document: newDoc,
                     realm: realmId,
                     collection: otherTestDocCollection
@@ -313,7 +313,7 @@ describe('bridgeit.io.documents', function () {
                 newDocURI = docURI;
                 var uriParts = docURI.split('/');
                 var docId = uriParts[uriParts.length-1];
-                return bridgeit.io.documents.findDocuments({
+                return voyent.io.documents.findDocuments({
                     query: {key: key},
                     collection: otherTestDocCollection
                 });
@@ -333,14 +333,14 @@ describe('bridgeit.io.documents', function () {
 
 			var key = 'null';
 			
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				realm: realmId,
 				username: userId,
 				password: userPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.io.documents.findDocuments({
+				return voyent.io.documents.findDocuments({
 					query: {key: key},
                     collection: otherTestDocCollection
 				});
@@ -360,14 +360,14 @@ describe('bridgeit.io.documents', function () {
 
             var key = 'null';
 
-            bridgeit.io.auth.login({
+            voyent.io.auth.login({
                 account: accountId,
                 realm: realmId,
                 username: userId,
                 password: userPassword,
                 host: host
             }).then(function(){
-                return bridgeit.io.documents.findDocuments({
+                return voyent.io.documents.findDocuments({
                     query: {key: key},
                     collection: otherTestDocCollection
                 })

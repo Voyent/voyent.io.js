@@ -1,4 +1,4 @@
-describe('bridgeit.io.auth', function () {
+describe('voyent.io.auth', function () {
 	this.timeout(10000);
 
 	var assert = chai.assert;
@@ -10,7 +10,7 @@ describe('bridgeit.io.auth', function () {
 	describe('#getNewAcessToken()', function(){
 		
 		it('should retrieve a new access token', function (done) {
-			bridgeit.io.auth.getNewAccessToken({
+			voyent.io.auth.getNewAccessToken({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
@@ -32,7 +32,7 @@ describe('bridgeit.io.auth', function () {
 		
 		it('should log in an admin', function (done) {
 
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
@@ -49,7 +49,7 @@ describe('bridgeit.io.auth', function () {
 
 		it('should fail to login in as admin', function (done) {
 
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: userId,
 				password: userPassword,
@@ -65,7 +65,7 @@ describe('bridgeit.io.auth', function () {
 
 		it('should log in a realm user', function (done) {
 
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				realm: realmId,
 				username: userId,
@@ -83,7 +83,7 @@ describe('bridgeit.io.auth', function () {
 
 		it('should fail missing account', function (done) {
 
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				realm: realmId,
 				username: userId,
 				password: userPassword,
@@ -99,7 +99,7 @@ describe('bridgeit.io.auth', function () {
 
 		it('should fail missing username', function (done) {
 
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				realm: realmId,
 				account: accountId,
 				password: userPassword,
@@ -115,7 +115,7 @@ describe('bridgeit.io.auth', function () {
 
 		it('should fail missing password', function (done) {
 
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				realm: realmId,
 				account: accountId,
 				username: userId,
@@ -131,7 +131,7 @@ describe('bridgeit.io.auth', function () {
 
 		it('should log in with SSL', function (done) {
 
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				realm: realmId,
 				username: userId,
@@ -151,7 +151,7 @@ describe('bridgeit.io.auth', function () {
 
 	describe('#connect()', function(){
 		it('should connect as an admin', function (done) {
-			bridgeit.io.auth.connect({
+			voyent.io.auth.connect({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
@@ -167,13 +167,13 @@ describe('bridgeit.io.auth', function () {
 
 	describe('#isLoggedIn()', function(){
 		it('should log in as an admin then return true', function (done) {
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				if( bridgeit.io.auth.isLoggedIn()){
+				if( voyent.io.auth.isLoggedIn()){
 					done();
 				}
 				else{
@@ -187,18 +187,18 @@ describe('bridgeit.io.auth', function () {
 
 	describe('#disconnect()', function(){
 		it('should log in as an admin then disconnect and return false from isLoggedIn()', function (done) {
-			bridgeit.io.auth.connect({
+			voyent.io.auth.connect({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(response){
-				bridgeit.io.auth.disconnect();
+				voyent.io.auth.disconnect();
 			}).then(function(response){
-				var isLoggedIn = bridgeit.io.auth.isLoggedIn();
-				var lastAccount = bridgeit.io.auth.getLastKnownAccount();
-				var lastRealm = bridgeit.io.auth.getLastKnownRealm();
-				var lastToken = bridgeit.io.auth.getLastAccessToken();
+				var isLoggedIn = voyent.io.auth.isLoggedIn();
+				var lastAccount = voyent.io.auth.getLastKnownAccount();
+				var lastRealm = voyent.io.auth.getLastKnownRealm();
+				var lastToken = voyent.io.auth.getLastAccessToken();
 				if( !isLoggedIn && !lastAccount && !lastRealm && !lastToken ){
 					done();
 				}
@@ -214,13 +214,13 @@ describe('bridgeit.io.auth', function () {
 
 	describe('#getLastAccessToken()', function(){
 		it('should log in as an admin then return the access token', function (done) {
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				if( bridgeit.io.auth.getLastAccessToken() === authResponse.access_token){
+				if( voyent.io.auth.getLastAccessToken() === authResponse.access_token){
 					done();
 				}
 			}).catch(function(error){
@@ -232,13 +232,13 @@ describe('bridgeit.io.auth', function () {
 	describe('#getTokenSetAtTime()', function(){
 		it('should log in as an admin then return the time the token was set at', function (done) {
 			var justBeforeLogin = new Date().getTime();
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				var tokenSetAt = bridgeit.io.auth.getTokenSetAtTime();
+				var tokenSetAt = voyent.io.auth.getTokenSetAtTime();
 				if( tokenSetAt >= justBeforeLogin){
 					done();
 				}
@@ -253,13 +253,13 @@ describe('bridgeit.io.auth', function () {
 
 	describe('#getExpiresIn()', function(){
 		it('should log in as an admin then return the expires in period', function (done) {
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				var expiresIn = bridgeit.io.auth.getExpiresIn();
+				var expiresIn = voyent.io.auth.getExpiresIn();
 				if( typeof expiresIn === 'number' && expiresIn == authResponse.expires_in){
 					done();
 				}
@@ -271,13 +271,13 @@ describe('bridgeit.io.auth', function () {
 
 	describe('#getTimeRemainingBeforeExpiry()', function(){
 		it('should log in as an admin then return a number less than expires_in', function (done) {
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				var timeRemaining = bridgeit.io.auth.getTimeRemainingBeforeExpiry();
+				var timeRemaining = voyent.io.auth.getTimeRemainingBeforeExpiry();
 				if( timeRemaining < authResponse.expires_in){
 					done();
 				}
@@ -292,13 +292,13 @@ describe('bridgeit.io.auth', function () {
 
 	describe('#getConnectSettings()', function(){
 		it('should connect in as an admin then return a JSON object of the connect settings', function (done) {
-			bridgeit.io.auth.connect({
+			voyent.io.auth.connect({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(response){
-				if( bridgeit.io.auth.getConnectSettings() ){
+				if( voyent.io.auth.getConnectSettings() ){
 					done();
 				}
 				else{
@@ -317,13 +317,13 @@ describe('bridgeit.io.auth', function () {
 
 	describe('#getLastKnownAccount()', function(){
 		it('should login as an admin then return the same account name', function (done) {
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(authResponse){
-				if( bridgeit.io.auth.getLastKnownAccount() === accountId){
+				if( voyent.io.auth.getLastKnownAccount() === accountId){
 					done();
 				}
 			}).catch(function(error){
@@ -334,14 +334,14 @@ describe('bridgeit.io.auth', function () {
 
 	describe('#getLastKnownRealm()', function(){
 		it('should login as a realm user then return the same realm name', function (done) {
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				realm: realmId,
 				username: userId,
 				password: userPassword,
 				host: host
 			}).then(function(authResponse){
-				if( bridgeit.io.auth.getLastKnownRealm() === realmId){
+				if( voyent.io.auth.getLastKnownRealm() === realmId){
 					done();
 				}
 			}).catch(function(error){
@@ -355,7 +355,7 @@ describe('bridgeit.io.auth', function () {
 
 			var newUserId = 'user' + new Date().getTime();
 
-			bridgeit.io.auth.registerAsNewUser({
+			voyent.io.auth.registerAsNewUser({
 				account: accountId,
 				realm: realmId,
 				username: newUserId,
@@ -382,10 +382,10 @@ describe('bridgeit.io.auth', function () {
 			var newRole = {
 				name: 'my_role_' + new Date().getTime(),
 				permissions: [
-					'bridgeit.doc.saveDocument',
-					'bridgeit.doc.getDocument',
-					'bridgeit.doc.deleteDocument',
-					'bridgeit.doc.updateDocument'
+					'services.doc.saveDocument',
+					'services.doc.getDocument',
+					'services.doc.deleteDocument',
+					'services.doc.updateDocument'
 				]
 			};
 
@@ -399,20 +399,20 @@ describe('bridgeit.io.auth', function () {
 			};
 
 			//login as admin
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
 			//create the test role
-				return bridgeit.io.admin.createRealmRole({role: newRole, realmName: realmId});
+				return voyent.io.admin.createRealmRole({role: newRole, realmName: realmId});
 			}).then(function(){
 			//create the test user with the new role
-				return bridgeit.io.admin.createRealmUser({user: newUser, realmName: realmId});
+				return voyent.io.admin.createRealmUser({user: newUser, realmName: realmId});
 			}).then(function(){
 			//login as the new user
-				return bridgeit.io.auth.login({
+				return voyent.io.auth.login({
 					account: accountId,
 					realm: realmId,
 					username: newUser.username,
@@ -421,7 +421,7 @@ describe('bridgeit.io.auth', function () {
 				});
 			}).then(function(authResponse){
 			//check that the new user has the new role
-				return bridgeit.io.auth.checkUserRole({
+				return voyent.io.auth.checkUserRole({
 					accessToken: authResponse.access_token,
 					role: newRole.name
 				});
@@ -445,20 +445,20 @@ describe('bridgeit.io.auth', function () {
 			};
 
 			//login as admin
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
 			//create the test role
-				return bridgeit.io.admin.createRealmRole({role: newRole, realmName: realmId});
+				return voyent.io.admin.createRealmRole({role: newRole, realmName: realmId});
 			}).then(function(){
 			//create the test user with the new role
-				return bridgeit.io.admin.createRealmUser({user: newUser, realmName: realmId});
+				return voyent.io.admin.createRealmUser({user: newUser, realmName: realmId});
 			}).then(function(){
 			//login as the new user
-				return bridgeit.io.auth.login({
+				return voyent.io.auth.login({
 					account: accountId,
 					realm: realmId,
 					username: newUser.username,
@@ -467,7 +467,7 @@ describe('bridgeit.io.auth', function () {
 				});
 			}).then(function(authResponse){
 			//check that the new user has the new role
-				return bridgeit.io.auth.checkUserRole({
+				return voyent.io.auth.checkUserRole({
 					accessToken: authResponse.access_token,
 					role: 'invalid_role'
 				});
@@ -488,14 +488,14 @@ describe('bridgeit.io.auth', function () {
 			var newRole1 = {
 				name: 'my_role_' + ts + '_a',
 				permissions: [
-					'bridgeit.doc.saveDocument'
+					'services.doc.saveDocument'
 				]
 			};
 
 			var newRole2 = {
 				name: 'my_role_' + ts + '_b',
 				permissions: [
-					'bridgeit.doc.saveDocument'
+					'services.doc.saveDocument'
 				]
 			};
 
@@ -509,23 +509,23 @@ describe('bridgeit.io.auth', function () {
 			};
 
 			//login as admin
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
 			//create the test role 1
-				return bridgeit.io.admin.createRealmRole({role: newRole1, realmName: realmId});
+				return voyent.io.admin.createRealmRole({role: newRole1, realmName: realmId});
 			}).then(function(){
 			//create the test role 2
-				return bridgeit.io.admin.createRealmRole({role: newRole2, realmName: realmId});
+				return voyent.io.admin.createRealmRole({role: newRole2, realmName: realmId});
 			}).then(function(){
 			//create the test user with the new role
-				return bridgeit.io.admin.createRealmUser({user: newUser, realmName: realmId});
+				return voyent.io.admin.createRealmUser({user: newUser, realmName: realmId});
 			}).then(function(){
 			//login as the new user
-				return bridgeit.io.auth.login({
+				return voyent.io.auth.login({
 					account: accountId,
 					realm: realmId,
 					username: newUser.username,
@@ -534,7 +534,7 @@ describe('bridgeit.io.auth', function () {
 				});
 			}).then(function(authResponse){
 			//check that the new user has the new role
-				return bridgeit.io.auth.checkUserRoles({
+				return voyent.io.auth.checkUserRoles({
 					accessToken: authResponse.access_token,
 					roles: [newRole1.name, newRole2.name]
 				});
@@ -553,14 +553,14 @@ describe('bridgeit.io.auth', function () {
 			var newRole1 = {
 				name: 'my_role_' + ts + '_a',
 				permissions: [
-					'bridgeit.doc.saveDocument'
+					'services.doc.saveDocument'
 				]
 			};
 
 			var newRole2 = {
 				name: 'my_role_' + ts + '_b',
 				permissions: [
-					'bridgeit.doc.saveDocument'
+					'services.doc.saveDocument'
 				]
 			};
 
@@ -574,23 +574,23 @@ describe('bridgeit.io.auth', function () {
 			};
 
 			//login as admin
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
 			//create the test role 1
-				return bridgeit.io.admin.createRealmRole({role: newRole1, realmName: realmId});
+				return voyent.io.admin.createRealmRole({role: newRole1, realmName: realmId});
 			}).then(function(){
 			//create the test role 2
-				return bridgeit.io.admin.createRealmRole({role: newRole2, realmName: realmId});
+				return voyent.io.admin.createRealmRole({role: newRole2, realmName: realmId});
 			}).then(function(){
 			//create the test user with the new role
-				return bridgeit.io.admin.createRealmUser({user: newUser, realmName: realmId});
+				return voyent.io.admin.createRealmUser({user: newUser, realmName: realmId});
 			}).then(function(){
 			//login as the new user
-				return bridgeit.io.auth.login({
+				return voyent.io.auth.login({
 					account: accountId,
 					realm: realmId,
 					username: newUser.username,
@@ -599,7 +599,7 @@ describe('bridgeit.io.auth', function () {
 				});
 			}).then(function(authResponse){
 			//check that the new user has the new role
-				return bridgeit.io.auth.checkUserRoles({
+				return voyent.io.auth.checkUserRoles({
 					accessToken: authResponse.access_token,
 					roles: [newRole1.name, newRole2.name],
 					op: 'and'
@@ -619,14 +619,14 @@ describe('bridgeit.io.auth', function () {
 			var newRole1 = {
 				name: 'my_role_' + ts + '_a',
 				permissions: [
-					'bridgeit.doc.saveDocument'
+					'services.doc.saveDocument'
 				]
 			};
 
 			var newRole2 = {
 				name: 'my_role_' + ts + '_b',
 				permissions: [
-					'bridgeit.doc.saveDocument'
+					'services.doc.saveDocument'
 				]
 			};
 
@@ -640,23 +640,23 @@ describe('bridgeit.io.auth', function () {
 			};
 
 			//login as admin
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
 			//create the test role 1
-				return bridgeit.io.admin.createRealmRole({role: newRole1, realmName: realmId});
+				return voyent.io.admin.createRealmRole({role: newRole1, realmName: realmId});
 			}).then(function(){
 			//create the test role 2
-				return bridgeit.io.admin.createRealmRole({role: newRole2, realmName: realmId});
+				return voyent.io.admin.createRealmRole({role: newRole2, realmName: realmId});
 			}).then(function(){
 			//create the test user with the new role
-				return bridgeit.io.admin.createRealmUser({user: newUser, realmName: realmId});
+				return voyent.io.admin.createRealmUser({user: newUser, realmName: realmId});
 			}).then(function(){
 			//login as the new user
-				return bridgeit.io.auth.login({
+				return voyent.io.auth.login({
 					account: accountId,
 					realm: realmId,
 					username: newUser.username,
@@ -665,7 +665,7 @@ describe('bridgeit.io.auth', function () {
 				});
 			}).then(function(authResponse){
 			//check that the new user has the new role
-				return bridgeit.io.auth.checkUserRoles({
+				return voyent.io.auth.checkUserRoles({
 					accessToken: authResponse.access_token,
 					roles: [newRole1.name, newRole2.name, 'invalid_role'],
 					op: 'or'
@@ -691,17 +691,17 @@ describe('bridgeit.io.auth', function () {
 			};
 
 			//login as admin
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
 			//create the test user with the new role
-				return bridgeit.io.admin.createRealmUser({user: newUser, realmName: realmId});
+				return voyent.io.admin.createRealmUser({user: newUser, realmName: realmId});
 			}).then(function(){
 			//login as the new user
-				return bridgeit.io.auth.login({
+				return voyent.io.auth.login({
 					account: accountId,
 					realm: realmId,
 					username: newUser.username,
@@ -710,7 +710,7 @@ describe('bridgeit.io.auth', function () {
 				});
 			}).then(function(authResponse){
 			//check that the new user has the new role
-				return bridgeit.io.auth.checkUserRoles({
+				return voyent.io.auth.checkUserRoles({
 					accessToken: authResponse.access_token,
 					roles: ['invalid_role']
 				});
@@ -727,7 +727,7 @@ describe('bridgeit.io.auth', function () {
 		it('should send the admin password in email', function (done) {
 
 			//login as admin
-			bridgeit.io.auth.forgotPassword({
+			voyent.io.auth.forgotPassword({
 				account: accountId,
 				username: adminId,
 				host: host
@@ -743,7 +743,7 @@ describe('bridgeit.io.auth', function () {
 		it('should send the realm user password in email', function (done) {
 
 			//login as admin
-			bridgeit.io.auth.forgotPassword({
+			voyent.io.auth.forgotPassword({
 				account: accountId,
 				username: userId,
 				realm: realmId,

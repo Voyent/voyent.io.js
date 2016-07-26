@@ -1,4 +1,4 @@
-#BridgeIt Query Service JavaScript API
+#Voyent Query Service JavaScript API
 
 ## Queries API
 
@@ -11,7 +11,7 @@
 ### <a name="createQuery"></a>createQuery
 
 ```javascript
-function bridgeit.io.query.createQuery(params)
+function voyent.io.query.createQuery(params)
 ```
 
 Create and store a new query in the query service.
@@ -20,10 +20,10 @@ Create and store a new query in the query service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | query | The query to be created | Object |  | false |
 | id | The query id. If not provided, the service will return a new id | String |  | false |
@@ -33,7 +33,7 @@ Create and store a new query in the query service.
 Promise with the query URI:
 
 ```javascript
-http://api.bridgeit.io/query/demox_corporate/realms/nargles.net/queries/88b9a1f3-36f7-4041-b6d2-7d5a21f193c7
+http://api.voyent.io/query/demox_corporate/realms/nargles.net/queries/88b9a1f3-36f7-4041-b6d2-7d5a21f193c7
 ```
 
 #### Example
@@ -41,7 +41,7 @@ http://api.bridgeit.io/query/demox_corporate/realms/nargles.net/queries/88b9a1f3
 ```javascript
 var newQuery = { "query": { "$or": [ {"color": "red"},{"color": "blue"} ] } };
 
-bridgeit.io.query.createQuery({
+voyent.io.query.createQuery({
     account: accountId,
     realm: realmId,
     accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -57,7 +57,7 @@ bridgeit.io.query.createQuery({
 ### <a name="updateQuery"></a>updateQuery
 
 ```javascript
-function bridgeit.io.query.updateQuery(params)
+function voyent.io.query.updateQuery(params)
 ```
 
 Update a query in the query service.
@@ -66,10 +66,10 @@ Update a query in the query service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | query | The query to be created | Object |  | false |
 | id | The query id, the query to be updated | String |  | true |
@@ -79,7 +79,7 @@ Update a query in the query service.
 Promise with the resource URI:
 
 ```javascript
-http://api.bridgeit.io/query/demox_corporate/realms/nargles.net/queries/1234
+http://api.voyent.io/query/demox_corporate/realms/nargles.net/queries/1234
 ```
 
 #### Example
@@ -87,7 +87,7 @@ http://api.bridgeit.io/query/demox_corporate/realms/nargles.net/queries/1234
 ```javascript
 var newQuery = { "query": { "$or": [ {"color": "red"},{"color": "blue"} ] } };
 
-bridgeit.io.query.updateQuery({
+voyent.io.query.updateQuery({
     account: accountId,
     realm: realmId,
     accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -104,7 +104,7 @@ bridgeit.io.query.updateQuery({
 ### <a name="getQuery"></a>getQuery
 
 ```javascript
-function bridgeit.io.query.getQuery(params)
+function voyent.io.query.getQuery(params)
 ```
 
 Fetch a query from the query service.
@@ -113,10 +113,10 @@ Fetch a query from the query service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The query id, the query to fetch | String |  | true |
 
@@ -127,7 +127,7 @@ Promise with the query object.
 #### Example
 
 ```javascript
-bridgeit.io.query.getQuery({
+voyent.io.query.getQuery({
     account: accountId,
     realm: realmId,
     accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -143,7 +143,7 @@ bridgeit.io.query.getQuery({
 ### <a name="findQueries"></a>findQueries
 
 ```javascript
-function bridgeit.io.query.findQueries(params)
+function voyent.io.query.findQueries(params)
 ```
 
 Return queries matching specific search criteria.
@@ -152,10 +152,10 @@ Return queries matching specific search criteria.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | query | A Mongo DB query for the queries | Object |  | false |
 | fields | Specify the inclusion or exclusion of fields to return in the result set | Object |  | false |
@@ -177,7 +177,7 @@ Promise with the query results
 var key = new Date().getTime();
 var storedQuery = { "query": { "$or": [ {"color": "red"},{"color": "blue"} ] }, "properties": { "key": key } };
 
-bridgeit.io.query.findQueries({
+voyent.io.query.findQueries({
     account: accountId,
     realm: realmId,
     accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"
@@ -195,7 +195,7 @@ bridgeit.io.query.findQueries({
 ### <a name="deleteQuery"></a>deleteQuery
 
 ```javascript
-function bridgeit.io.query.deleteQuery(params)
+function voyent.io.query.deleteQuery(params)
 ```
 
 Delete a query in the query service.
@@ -204,10 +204,10 @@ Delete a query in the query service.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id | The query id, the query to be deleted | String |  | true |
 
@@ -218,7 +218,7 @@ Promise with an empty response
 #### Example
 
 ```javascript
-bridgeit.io.query.deleteQuery({
+voyent.io.query.deleteQuery({
     account: accountId,
     realm: realmId,
     accessToken: "d9f7463d-d100-42b6-aecd-ae21e38e5d02"

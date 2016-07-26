@@ -1,16 +1,16 @@
-describe('bridgeit.io.query', function () {
+describe('voyent.io.query', function () {
     this.timeout(10000);
     describe('#createQuery()', function(){
         it('should create a new unnamed query', function (done) {
             var newQuery = { "query": { "$or": [ {"color": "red"},{"color": "blue"} ] } };
 
-            bridgeit.io.auth.login({
+            voyent.io.auth.login({
                 account: accountId,
                 username: adminId,
                 password: adminPassword,
                 host: host
             }).then(function(authResponse){
-                return bridgeit.io.query.createQuery({
+                return voyent.io.query.createQuery({
                     query: newQuery,
                     realm: realmId
                 });
@@ -29,20 +29,20 @@ describe('bridgeit.io.query', function () {
         it('should create a new unnamed query and delete it', function (done) {
             var newQuery = { "query": { "$or": [ {"color": "red"},{"color": "blue"} ] } };
 
-            bridgeit.io.auth.login({
+            voyent.io.auth.login({
                 account: accountId,
                 username: adminId,
                 password: adminPassword,
                 host: host
             }).then(function(authResponse){
-                return bridgeit.io.query.createQuery({
+                return voyent.io.query.createQuery({
                     query: newQuery,
                     realm: realmId
                 });
             }).then(function(queryURI){
                 var uriParts = queryURI.split('/');
                 var queryId = uriParts[uriParts.length-1];
-                return bridgeit.io.query.deleteQuery({
+                return voyent.io.query.deleteQuery({
                     account: accountId,
                     realm: realmId,
                     host: host,
@@ -61,13 +61,13 @@ describe('bridgeit.io.query', function () {
         it('should create a new unnamed query and update it', function (done) {
             var newQuery = { "query": { "$or": [ {"color": "red"},{"color": "blue"} ] } };
 
-            bridgeit.io.auth.login({
+            voyent.io.auth.login({
                 account: accountId,
                 username: adminId,
                 password: adminPassword,
                 host: host
             }).then(function(authResponse){
-                return bridgeit.io.query.createQuery({
+                return voyent.io.query.createQuery({
                     query: newQuery,
                     realm: realmId
                 });
@@ -75,7 +75,7 @@ describe('bridgeit.io.query', function () {
                 var uriParts = queryURI.split('/');
                 var queryId = uriParts[uriParts.length-1];
                 newQuery.query.$or[0].color = "green";
-                return bridgeit.io.query.updateQuery({
+                return voyent.io.query.updateQuery({
                     id: queryId,
                     query: newQuery
                 })
@@ -92,20 +92,20 @@ describe('bridgeit.io.query', function () {
         it('should create a new unnamed query and re-fetch it', function (done) {
             var newQuery = { "query": { "$or": [ {"color": "orange"},{"color": "yellow"} ] } };
 
-            bridgeit.io.auth.login({
+            voyent.io.auth.login({
                 account: accountId,
                 username: userId,
                 password: userPassword,
                 host: host,
                 realm: realmId
             }).then(function(authResponse){
-                return bridgeit.io.query.createQuery({
+                return voyent.io.query.createQuery({
                     query: newQuery
                 });
             }).then(function(queryURI){
                 var uriParts = queryURI.split('/');
                 var queryId = uriParts[uriParts.length-1];
-                return bridgeit.io.query.getQuery({
+                return voyent.io.query.getQuery({
                     id: queryId
                 })
             }).then(function(query){
@@ -125,18 +125,18 @@ describe('bridgeit.io.query', function () {
             var key = new Date().getTime();
             var newQuery = { "query": { "$or": [ {"color": "indigo"},{"color": "violet"} ] }, "properties": { "key": key } };
 
-            bridgeit.io.auth.login({
+            voyent.io.auth.login({
                 account: accountId,
                 username: userId,
                 realm: realmId,
                 password: userPassword,
                 host: host
             }).then(function(authResponse){
-                return bridgeit.io.query.createQuery({
+                return voyent.io.query.createQuery({
                     query: newQuery
                 });
             }).then(function(queryURI){
-                return bridgeit.io.query.findQueries({
+                return voyent.io.query.findQueries({
                     query: {"properties.key": key}
                 })
             }).then(function(results){
@@ -155,14 +155,14 @@ describe('bridgeit.io.query', function () {
 
             var key = [];
 
-            bridgeit.io.auth.login({
+            voyent.io.auth.login({
                 account: accountId,
                 realm: realmId,
                 username: userId,
                 password: userPassword,
                 host: host
             }).then(function(){
-                return bridgeit.io.query.findQueries({
+                return voyent.io.query.findQueries({
                     query: {"properties.services": key}
                 })
             }).then(function(results){

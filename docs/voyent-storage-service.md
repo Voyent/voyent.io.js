@@ -1,4 +1,4 @@
-#BridgeIt Storage Service JavaScript API
+#Voyent Storage Service JavaScript API
 
 ## Storage API
 
@@ -11,23 +11,23 @@
 ### <a name="getMetaInfo"></a>getMetaInfo
 
 ```javascript
-function bridgeit.io.storage.getMetaInfo(params)
+function voyent.io.storage.getMetaInfo(params)
 ```
 
 Retrieve a list of blob meta information for the realms.
 
-The user must have the permission 'bridgeit.store.blob.readSelf' to see meta information for blobs that 
-they have created or they must have the permission 'bridgeit.store.blob.readAll' to see meta 
+The user must have the permission 'voyent.store.blob.readSelf' to see meta information for blobs that
+they have created or they must have the permission 'voyent.store.blob.readAll' to see meta
 information for blobs that all users have created.
 
 #### Parameters
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | scope |  'all' or 'self', return meta information for blobs belonging to all users, or only those belonging to the current user | String | 'self'  | false |
 
@@ -38,7 +38,7 @@ Promise with a list of blob meta information.
 #### Example
 
 ```javascript
-bridgeit.io.storage.getMetaInfo({
+voyent.io.storage.getMetaInfo({
 	scope: 'all',
 	realm: 'myrealm'
 }).then(function(list){
@@ -51,7 +51,7 @@ bridgeit.io.storage.getMetaInfo({
 ### <a name="uploadBlob"></a>uploadBlob
 
 ```javascript
-function bridgeit.io.storage.uploadBlob(params)
+function voyent.io.storage.uploadBlob(params)
 ```
 
 Upload a [W3C Blob](https://developer.mozilla.org/en/docs/Web/API/Blob) object to the storage service.
@@ -60,10 +60,10 @@ Upload a [W3C Blob](https://developer.mozilla.org/en/docs/Web/API/Blob) object t
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | blob |  The blob object to upload | Object |  | true |
 | progressCallback | A callback for upload progress updates | Function | | false |
@@ -89,7 +89,7 @@ for(var i = 0; i < byteString.length ; i++ ){
 }
 var blob = new Blob([ia], {type:mimeType});
 
-bridgeit.io.storage.uploadBlob({
+voyent.io.storage.uploadBlob({
 	blob: blob,
 	realm: 'myrealm',
 	progressCallback: function(progress, xhr){
@@ -105,7 +105,7 @@ bridgeit.io.storage.uploadBlob({
 ### <a name="uploadFile"></a>uploadFile
 
 ```javascript
-function bridgeit.io.storage.uploadFile(params)
+function voyent.io.storage.uploadFile(params)
 ```
 
 Upload a file to the storage service.
@@ -116,10 +116,10 @@ A progressCallback can also be specified for listening to upload progress events
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | file |  The file object to upload | Object |  | true |
 | progressCallback | A callback for upload progress updates | Function | | false |
@@ -133,7 +133,7 @@ Promise with a resource URI for the uploaded blob.
 ```javascript
 var file = document.getElementById('fileInput').files[0];
 
-bridgeit.io.storage.uploadFile({
+voyent.io.storage.uploadFile({
 	file: file,
 	realm: 'myrealm',
 	progressCallback: function(progress, xhr){
@@ -150,7 +150,7 @@ bridgeit.io.storage.uploadFile({
 ### <a name="getBlob"></a>getBlob
 
 ```javascript
-function bridgeit.io.storage.getBlob(params)
+function voyent.io.storage.getBlob(params)
 ```
 
 Fetch a blob from the storage service by id.
@@ -159,10 +159,10 @@ Fetch a blob from the storage service by id.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id |  The id of the blob | String |  | true |
 
@@ -173,7 +173,7 @@ Promise with a Uint8Array.
 #### Example
 
 ```javascript
-bridgeit.io.storage.getBlob({
+voyent.io.storage.getBlob({
 	id: 'myblobId',
 	realm: 'myrealm'
 }).then(function(blob){
@@ -186,7 +186,7 @@ bridgeit.io.storage.getBlob({
 ### <a name="deleteBlob"></a>deleteBlob
 
 ```javascript
-function bridgeit.io.storage.deleteBlob(params)
+function voyent.io.storage.deleteBlob(params)
 ```
 
 Delete a blob from the storage service by id.
@@ -195,10 +195,10 @@ Delete a blob from the storage service by id.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | -------- |
-| account | BridgeIt Services account name. If not provided, the last known BridgeIt Account will be used. | String | The last used account name | false |
-| realm | The BridgeIt Services realm. If not provided, the last known BridgeIt Realm name will be used. | String | The last used realm name | false |
-| accessToken | The BridgeIt authentication token. If not provided, the stored token from bridgeit.io.auth.connect() will be used | String | | false |
-| host | The BridgeIt Services host url. If not supplied, the last used BridgeIt host, or the default will be used. | String | api.bridgeit.io | false |
+| account | Voyent Services account name. If not provided, the last known Voyent Account will be used. | String | The last used account name | false |
+| realm | The Voyent Services realm. If not provided, the last known Voyent Realm name will be used. | String | The last used realm name | false |
+| accessToken | The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used | String | | false |
+| host | The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used. | String | api.voyent.io | false |
 | ssl | Whether to use SSL for network traffic | Boolean | false | false |
 | id |  The id of the blob | String |  | true |
 
@@ -209,7 +209,7 @@ Promise with no arguments.
 #### Example
 
 ```javascript
-bridgeit.io.storage.deleteBlob({
+voyent.io.storage.deleteBlob({
 	id: 'myblobId',
 	realm: 'myrealm'
 }).then(function(){

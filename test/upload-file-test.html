@@ -12,8 +12,8 @@
                 window.Promise = ES6Promise.Promise;
             }
         </script>
-        <script src="http://bridgeit.github.io/bridgeit.js/src/bridgeit.js"></script>
-        <script src="../lib/bridgeit.io.js"></script>
+        <script src="http://voyent.github.io/voyent.js/src/voyent.js"></script>
+        <script src="../lib/voyent.io.js"></script>
 
         <script src="test-settings.js"></script>
         <script>
@@ -23,7 +23,7 @@
                     alert('Please select a file');
                     return;
                 }
-                bridgeit.io.auth.login({
+                voyent.io.auth.login({
                     account: accountId,
                     realm: realmId,
                     username: userId,
@@ -31,7 +31,7 @@
                     host: host
                 }).then(function(){
                     var percentCompleteSpan = document.getElementById('percentComplete');
-                    return bridgeit.io.storage.uploadFile({
+                    return voyent.io.storage.uploadFile({
                         account: accountId,
                         realm: realmId,
                         host: host,
@@ -41,9 +41,9 @@
                         }
                     })
                 }).then(function(uri){
-                    console.log('uploadFile new URI: ' + uri + '?access_token=' + bridgeit.io.auth.getLastAccessToken());
+                    console.log('uploadFile new URI: ' + uri + '?access_token=' + voyent.io.auth.getLastAccessToken());
                     document.getElementById('result').innerHTML = "File Uploaded: <a href='" + 
-                        uri + '?access_token=' + bridgeit.io.auth.getLastAccessToken() + 
+                        uri + '?access_token=' + voyent.io.auth.getLastAccessToken() +
                         "'>Click Here</a>";
                 }).catch(function(response){
                     console.log('uploadFile failed ' + JSON.stringify(response));
@@ -51,7 +51,7 @@
             }
         </script>
 
-        <h2>bridgeit.io.storage.uploadFile() Test</h2>
+        <h2>voyent.io.storage.uploadFile() Test</h2>
         <input id="fileInput" type="file"/>
 
         <a onclick="uploadFile()">Upload File</a>

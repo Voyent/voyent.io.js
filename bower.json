@@ -1,7 +1,7 @@
 {
-	"name": "bridgeit.io.js",
+	"name": "voyent.io.js",
 	"version": "0.1.0",
-	"main": "lib/bridgeit.io.js",
+	"main": "lib/voyent.io.js",
 	"ignore": [
 		"docs",
 		"bower.json",
@@ -11,7 +11,7 @@
 		".gitignore"
 	],
 	"dependencies":{
-		"bridgeit.js": "#gh-pages"
+		"voyent.js": "#gh-pages"
 	},
 	"devDependencies":{},
 	"keywords":[

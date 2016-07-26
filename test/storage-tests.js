@@ -9,19 +9,19 @@ for(var i = 0; i < byteString.length ; i++ ){
 //phantomJS may not support Blobs
 var catBlob = new Blob([ia], {type:mimeType});
 
-describe('bridgeit.io.storage', function () {
+describe('voyent.io.storage', function () {
 	this.timeout(10000);
 	describe('#getMetaInfo()', function(){
 
 		it('should return the meta info for the blobs in the realm belonging to the user', function (done) {
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: userId,
 				password: userPassword,
 				realm: realmId,
 				host: host
 			}).then(function(){
-				return bridgeit.io.storage.getMetaInfo({
+				return voyent.io.storage.getMetaInfo({
 					account: accountId,
 					realm: realmId,
 					host: host
@@ -35,13 +35,13 @@ describe('bridgeit.io.storage', function () {
 		});
 
 		it('should return the meta info for the blobs in the realm belonging to the user', function (done) {
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.io.storage.getMetaInfo({
+				return voyent.io.storage.getMetaInfo({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -56,13 +56,13 @@ describe('bridgeit.io.storage', function () {
 		});
 
 		it('should return the meta info for the blobs in the realm belonging to all users', function (done) {
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.io.storage.getMetaInfo({
+				return voyent.io.storage.getMetaInfo({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -81,13 +81,13 @@ describe('bridgeit.io.storage', function () {
 
 		it('should create and store a new blob', function (done) {
 
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.io.storage.uploadBlob({
+				return voyent.io.storage.uploadBlob({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -95,7 +95,7 @@ describe('bridgeit.io.storage', function () {
 				})
 			}).then(function(uri){
 				if( uri ){
-					console.log('uploadBlob new cat image URI: ' + uri + '?access_token=' + bridgeit.io.auth.getLastAccessToken());
+					console.log('uploadBlob new cat image URI: ' + uri + '?access_token=' + voyent.io.auth.getLastAccessToken());
 					done();
 				}
 			}).catch(function(response){
@@ -109,13 +109,13 @@ describe('bridgeit.io.storage', function () {
 
 		it('should create and fetch blob', function (done) {
 
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: adminId,
 				password: adminPassword,
 				host: host
 			}).then(function(){
-				return bridgeit.io.storage.uploadBlob({
+				return voyent.io.storage.uploadBlob({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -123,7 +123,7 @@ describe('bridgeit.io.storage', function () {
 				})
 			}).then(function(uri){
 				var uriparts = uri.split('/');
-				return bridgeit.io.storage.getBlob({id: uriparts[uriparts.length-1]});
+				return voyent.io.storage.getBlob({id: uriparts[uriparts.length-1]});
 			}).then(function(blob){
 				console.log('getBlob fetched blob: ' + blob);
 				done();
@@ -138,14 +138,14 @@ describe('bridgeit.io.storage', function () {
 
 		it('should create and then delete a blob', function (done) {
 
-			bridgeit.io.auth.login({
+			voyent.io.auth.login({
 				account: accountId,
 				username: userId,
 				password: userPassword,
 				realm: realmId,
 				host: host
 			}).then(function(){
-				return bridgeit.io.storage.uploadBlob({
+				return voyent.io.storage.uploadBlob({
 					account: accountId,
 					realm: realmId,
 					host: host,
@@ -153,7 +153,7 @@ describe('bridgeit.io.storage', function () {
 				})
 			}).then(function(uri){
 				var uriparts = uri.split('/');
-				return bridgeit.io.storage.deleteBlob({id: uriparts[uriparts.length-1]});
+				return voyent.io.storage.deleteBlob({id: uriparts[uriparts.length-1]});
 			}).then(function(){
 				console.log('deleteBlob successful');
 				done();

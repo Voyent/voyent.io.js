@@ -1,4 +1,4 @@
-describe('bridgeit.io.admin', function(){
+describe('voyent.io.admin', function(){
 
 	var assert = chai.assert;
 
@@ -11,7 +11,7 @@ describe('bridgeit.io.admin', function(){
 
 	before(function (done) {
 		console.log('********* setting up tests ****************');
-        bridgeit.io.auth.login({
+        voyent.io.auth.login({
 			account: accountId,
 			username: adminId,
 			password: adminPassword,
@@ -26,7 +26,7 @@ describe('bridgeit.io.admin', function(){
 				accessToken: adminAuthToken
 			};
 
-			return bridgeit.io.auth.login({
+			return voyent.io.auth.login({
 				account: accountId,
 				username: userId,
 				password: userPassword,
@@ -48,9 +48,9 @@ describe('bridgeit.io.admin', function(){
 
 	describe('#getServiceDefinitions()', function(done){
 
-		it('should return the BridgeIt service definition JSON', function (done) {
+		it('should return the Voyent service definition JSON', function (done) {
 
-			bridgeit.io.admin.getServiceDefinitions(adminAuthBlock).then(function(json){
+			voyent.io.admin.getServiceDefinitions(adminAuthBlock).then(function(json){
 				console.log('service defintions: ' + JSON.stringify(json));
 				done();
 			}).catch(function(error){
@@ -64,7 +64,7 @@ describe('bridgeit.io.admin', function(){
 
 		it('should return the account JSON', function (done) {
 
-			bridgeit.io.admin.getAccount(adminAuthBlock).then(function(json){
+			voyent.io.admin.getAccount(adminAuthBlock).then(function(json){
 				console.log('account: ' + JSON.stringify(json));
 				done();
 			}).catch(function(error){
@@ -89,12 +89,12 @@ describe('bridgeit.io.admin', function(){
 				email: 'test@email.com'
 			};
 
-			bridgeit.io.admin.createAccount(account).then(function(token){
+			voyent.io.admin.createAccount(account).then(function(token){
 				console.log('token: ' + JSON.stringify(token));
 				if( !token ){
 					assert(false, 'createAccount() failed, no token returned');
 				}
-				if( !bridgeit.io.auth.isLoggedIn()){
+				if( !voyent.io.auth.isLoggedIn()){
 					assert(false, 'createAccount() failed, did not automatically log in');
 				}
 				else{
@@ -110,7 +110,7 @@ describe('bridgeit.io.admin', function(){
 	describe('#getLogs()', function(done){
 		it('should return a list of service logs for the account', function (done) {
 
-			bridgeit.io.admin.getLogs(adminAuthBlock).then(function(json){
+			voyent.io.admin.getLogs(adminAuthBlock).then(function(json){
 				console.log('logs: ' + JSON.stringify(json));
 				done();
 			}).catch(function(error){
@@ -125,7 +125,7 @@ describe('bridgeit.io.admin', function(){
 		describe('#getRealms()', function(done){
 			it('should return a list of realms for the account', function (done) {
 
-				bridgeit.io.admin.getRealms(adminAuthBlock).then(function(json){
+				voyent.io.admin.getRealms(adminAuthBlock).then(function(json){
 					console.log('getRealms: ' + JSON.stringify(json));
 					done();
 				}).catch(function(error){
@@ -139,7 +139,7 @@ describe('bridgeit.io.admin', function(){
 			it('should return a single realm for the account', function (done) {
 				var params = _.clone(adminAuthBlock);
 				params.realm = realmId;
-				bridgeit.io.admin.getRealm(params).then(function(json){
+				voyent.io.admin.getRealm(params).then(function(json){
 					console.log('getRealm: ' + JSON.stringify(json));
 					done();
 				}).catch(function(error){
@@ -154,7 +154,7 @@ describe('bridgeit.io.admin', function(){
 		var newRealm = {
 			name: newRealmName,
 			origins: ['*'],
-			services: ["bridgeit.doc","bridgeit.locate","bridgeit.store"]
+			services: ["voyent.doc","voyent.locate","voyent.store"]
 		};
 
 		describe('#createRealm()', function(done){
@@ -162,7 +162,7 @@ describe('bridgeit.io.admin', function(){
 				var params = _.clone(adminAuthBlock);
 				params.realmName = newRealmName;
 				params.realm = newRealm;
-				bridgeit.io.admin.createRealm(params).then(function(resp){
+				voyent.io.admin.createRealm(params).then(function(resp){
 					console.log('createRealm: ' + resp);
 					done();
 				}).catch(function(error){
@@ -178,14 +178,14 @@ describe('bridgeit.io.admin', function(){
 				params.realmName = newRealmName;
 				params.realm = newRealm;
 				newRealm.custom = "{'test':true}";
-				newRealm.services.push("bridgeit.event");
-				bridgeit.io.admin.updateRealm(params).then(function(){
+				newRealm.services.push("voyent.event");
+				voyent.io.admin.updateRealm(params).then(function(){
 					var params2 = _.clone(adminAuthBlock);
 					params2.realmName = newRealmName;
-					return bridgeit.io.admin.getRealm(params2);
+					return voyent.io.admin.getRealm(params2);
 				}).then(function(realm){
 					if( realm ){
-						if( realm.services.indexOf('bridgeit.event') > -1 ){
+						if( realm.services.indexOf('voyent.event') > -1 ){
 							//http://jira.icesoft.org/browse/NTFY-313
 							if( realm.custom === "{'test':true}" ){
 								done();
@@ -211,7 +211,7 @@ describe('bridgeit.io.admin', function(){
 				var params = _.clone(adminAuthBlock);
 				params.realmName = 'invalid_realm';
 				params.realm = newRealm;
-				bridgeit.io.admin.updateRealm(params).catch(function(error){
+				voyent.io.admin.updateRealm(params).catch(function(error){
 					if( error.status === 404 ){
 						console.log('updating invalid realm returned correct 404');
 						done();
@@ -228,7 +228,7 @@ describe('bridgeit.io.admin', function(){
 			it('should delete the new realm', function (done) {
 				var params = _.clone(adminAuthBlock);
 				params.realmName = newRealmName;
-				bridgeit.io.admin.deleteRealm(params).then(function(){
+				voyent.io.admin.deleteRealm(params).then(function(){
 					done();
 				}).catch(function(error){
 					assert(false, 'deleteRealm failed ' + error);
@@ -237,10 +237,10 @@ describe('bridgeit.io.admin', function(){
 
 			it('should fail to delete an invalid realm and return a 404', function (done) {
 				//http://jira.icesoft.org/browse/NTFY-294
-				newRealm.services.push("bridgeit.event");
+				newRealm.services.push("voyent.event");
 				var params = _.clone(adminAuthBlock);
 				params.realmName = 'invalid_realm';
-				bridgeit.io.admin.deleteRealm(params).catch(function(error){
+				voyent.io.admin.deleteRealm(params).catch(function(error){
 					if( error.status === 404 ){
 						console.log('deleting invalid realm returned correct 404');
 						done();
@@ -260,7 +260,7 @@ describe('bridgeit.io.admin', function(){
 			it('should return a list of realm users', function (done) {
 				var params = _.clone(adminAuthBlock);
 				params.realmName = realmId;
-				bridgeit.io.admin.getRealmUsers(params).then(function(json){
+				voyent.io.admin.getRealmUsers(params).then(function(json){
 					console.log('getRealmUsers: ' + JSON.stringify(json));
 					done();
 				}).catch(function(error){
@@ -274,7 +274,7 @@ describe('bridgeit.io.admin', function(){
 				var params = _.clone(adminAuthBlock);
 				params.realmName = realmId;
 				params.username = userId;
-				bridgeit.io.admin.getRealmUser(params).then(function(json){
+				voyent.io.admin.getRealmUser(params).then(function(json){
 					console.log('getRealmUser: ' + JSON.stringify(json));
 					done();
 				}).catch(function(error){
@@ -298,7 +298,7 @@ describe('bridgeit.io.admin', function(){
 				params.user = user;
 				params.realmName = realmId;
 				console.log('params: ' + JSON.stringify(params));
-				bridgeit.io.admin.createRealmUser(params).then(function(resp){
+				voyent.io.admin.createRealmUser(params).then(function(resp){
 					console.log('createRealmUser: ' + resp);
 					done();
 				}).catch(function(error){
@@ -321,11 +321,11 @@ describe('bridgeit.io.admin', function(){
 				params.user = user;
 				params.realmName = realmId;
 
-				bridgeit.io.admin.createRealmUser(params).then(function(resp){
+				voyent.io.admin.createRealmUser(params).then(function(resp){
 					user.firstname = 'newtest';
 					var params2 = _.clone(adminAuthBlock);
 					params2.user = user;
-					return bridgeit.io.admin.updateRealmUser(params2);
+					return voyent.io.admin.updateRealmUser(params2);
 				}).then(function(){
 					done();
 				}).catch(function(error){
@@ -349,10 +349,10 @@ describe('bridgeit.io.admin', function(){
 				params.user = user;
 				params.realmName = realmId;
 
-				bridgeit.io.admin.createRealmUser(params).then(function(resp){
+				voyent.io.admin.createRealmUser(params).then(function(resp){
 					var params2 = _.clone(adminAuthBlock);
 					params.username = user.username;
-					return bridgeit.io.admin.deleteRealmUser(params2)
+					return voyent.io.admin.deleteRealmUser(params2)
 				}).then(function(){
 					done();
 				}).catch(function(error){
@@ -367,10 +367,10 @@ describe('bridgeit.io.admin', function(){
 		var newRole = {
 			name: 'my_role',
 			permissions: [
-				'bridgeit.doc.saveDocument',
-				'bridgeit.doc.getDocument',
-				'bridgeit.doc.deleteDocument',
-				'bridgeit.doc.updateDocument'
+				'services.doc.saveDocument',
+				'services.doc.getDocument',
+				'services.doc.deleteDocument',
+				'services.doc.updateDocument'
 			]
 		}
 		describe('#createRealmRole()', function(done){
@@ -378,7 +378,7 @@ describe('bridgeit.io.admin', function(){
 				var params = _.clone(adminAuthBlock);
 				params.realmName = realmId;
 				params.role = newRole;
-				bridgeit.io.admin.createRealmRole(params).then(function(json){
+				voyent.io.admin.createRealmRole(params).then(function(json){
 					console.log('createRealmRole: ' + JSON.stringify(json));
 					done();
 				}).catch(function(error){
@@ -391,7 +391,7 @@ describe('bridgeit.io.admin', function(){
 			it('should return a list of roles for the realm', function (done) {
 				var params = _.clone(adminAuthBlock);
 				params.realmName = realmId;
-				bridgeit.io.admin.getRealmRoles(params).then(function(json){
+				voyent.io.admin.getRealmRoles(params).then(function(json){
 					console.log('getRealmRoles: ' + JSON.stringify(json));
 					done();
 				}).catch(function(error){
@@ -402,12 +402,12 @@ describe('bridgeit.io.admin', function(){
 		describe('#updateRealmRole()', function(done){
 			it('should update a realm role', function (done) {
 
-				newRole.permissions.push('bridgeit.event.doGet');
+				newRole.permissions.push('services.event.doGet');
 				var params = _.clone(adminAuthBlock);
 				params.realmName = realmId;
 				params.role = newRole;
 
-				bridgeit.io.admin.updateRealmRole(params).then(function(json){
+				voyent.io.admin.updateRealmRole(params).then(function(json){
 					console.log('updateRealmRole: ' + JSON.stringify(json));
 					done();
 				}).catch(function(error){
@@ -418,12 +418,12 @@ describe('bridgeit.io.admin', function(){
 		describe('#deleteRealmRole()', function(done){
 			it('should delete a realm role', function (done) {
 
-				newRole.permissions.push('bridgeit.event.doGet');
+				newRole.permissions.push('services.event.doGet');
 				var params = _.clone(adminAuthBlock);
 				params.realmName = realmId;
 				params.id = newRole.name;
 
-				bridgeit.io.admin.deleteRealmRole(params).then(function(){
+				voyent.io.admin.deleteRealmRole(params).then(function(){
 					done();
 				}).catch(function(error){
 					assert(false, 'deleteRealmRole failed ' + error);
@@ -443,10 +443,10 @@ describe('bridgeit.io.admin', function(){
 					password: 'password',
 					email: 'test@test.com'
 				};
-				bridgeit.io.admin.createAdministrator(params).then(function(json){
+				voyent.io.admin.createAdministrator(params).then(function(json){
 					console.log('createAdministrator: ' + JSON.stringify(json));
 					params.username = params.admin.username;
-					bridgeit.io.admin.deleteAdministrator(params); //clean up
+					voyent.io.admin.deleteAdministrator(params); //clean up
 					done();
 				}).catch(function(error){
 					console.log('createAdministrator failed ' + error);
@@ -465,12 +465,12 @@ describe('bridgeit.io.admin', function(){
 					password: 'password',
 					email: 'test@test.com'
 				};
-				bridgeit.io.admin.createAdministrator(params).then(function(json){
+				voyent.io.admin.createAdministrator(params).then(function(json){
 					console.log('createAdministrator: ' + JSON.stringify(json));
 					params.admin.lastname = 'Updated';
-					return bridgeit.io.admin.updateAdministrator(params); 
+					return voyent.io.admin.updateAdministrator(params);
 				}).then(function(response){
-					bridgeit.io.admin.deleteAdministrator(params); //clean up
+					voyent.io.admin.deleteAdministrator(params); //clean up
 					done();
 				}).catch(function(error){
 					console.log('updateAdministrator failed ' + error);
@@ -488,11 +488,11 @@ describe('bridgeit.io.admin', function(){
 					password: 'password',
 					email: 'test@test.com'
 				};
-				bridgeit.io.admin.createAdministrator(params).then(function(json){
+				voyent.io.admin.createAdministrator(params).then(function(json){
 					console.log('deleteAdministrator: ' + JSON.stringify(json));
 					params.username = params.admin.username;
 					delete params.admin;
-					return bridgeit.io.admin.deleteAdministrator(params);
+					return voyent.io.admin.deleteAdministrator(params);
 				}).then(function(response){
 					done();
 				}).catch(function(error){

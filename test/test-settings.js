@@ -4,5 +4,5 @@ var adminId 		= 'admin';
 var adminPassword 	= 'secretest';
 var userId 			= 'user';
 var userPassword 	= 'secretest';
-var host 			= 'dev.bridgeit.io';
+var host 			= 'dev.voyent.io';
 var deleteTimeout 	= 3000; //deletes are taking longer

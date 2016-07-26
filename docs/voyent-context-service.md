@@ -1,4 +1,4 @@
-#BridgeIt Context Service JavaScript API
+#Voyent Context Service JavaScript API
 
 ## Context API
 
