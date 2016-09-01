@@ -20,7 +20,7 @@
     "encoding": "utf8",
     "destination": "./docs/",
     "package": "./package.json",
-    "readme": "./voyent.io.readme.md"
+    "readme": "./docs/voyent.io.readme.md"
   },
   "source": {
     "include": "./lib"
