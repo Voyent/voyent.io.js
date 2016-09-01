@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3>voyent.io.js 1.0.0</h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>Voyent Services Client JavaScript API (DEV BRANCH)</h1><h2>Using</h2><p>The Voyent Services Client (voyent.io.js) is an easy-to-use JavaScript API for Voyent Services. To take advantage of it, include both the voyent.io.js library and it's parent, voyent.js:</p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;voyent.js&quot;>&lt;/script>
+&lt;script src=&quot;voyent.io.js&quot;>&lt;/script></code></pre><h2>ES6 Promise Support</h2><p>The Voyent Services Client API is written with ECMAScript 6 Promise/A+ support. All API functions that use asynchronous network io will return a Promise. If your application already supports ES6 Promises, you can continue using those. ES6 Promises are supported in all modern browsers except IE11 (http://caniuse.com/#search=promise). To support older browsers, you can use a shim, such as <code>es6-promises</code>, like so:</p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;https://es6-promises.s3.amazonaws.com/es6-promise-2.0.1.js&quot;>&lt;/script>
+&lt;script>
+    if( !(&quot;Promise&quot; in window)){
+        window.Promise = ES6Promise.Promise;
+    }
+&lt;/script>
+&lt;script src=&quot;voyent.js&quot;>&lt;/script>
+&lt;script src=&quot;voyent.io.js&quot;>&lt;/script></code></pre><h2>Tests</h2><p>The BridgetIt JS API Mocha integration tests can be run from the test directory either through the HTML files or with PhantomJS.</p>
+<pre class="prettyprint source"><code>mocha-phantomjs all-tests.html</code></pre><p>Mocha and PhantomJS are both required.</p>
+<h2>Global voyent.io Functions</h2><ul>
+<li><a href="#getResourcePermissions">getResourcePermissions</a></li>
+<li><a href="#updateResourcePermissions">updateResourcePermissions</a></li>
+</ul>
+<h4>Example</h4><h3><a name="getResourcePermissions"></a>getResourcePermissions</h3><pre class="prettyprint source lang-javascript"><code>function voyent.io.getResourcePermissions()</code></pre><p>Return the permissions block for a resource.</p>
+<p>A permissions block has the following structure:</p>
+<pre class="prettyprint source lang-javascript"><code>{
+    &quot;_id&quot;: &quot;de6959d0-a885-425c-847a-3289d07321ae&quot;,
+    &quot;owner&quot;: &quot;steve.maryka&quot;,
+    &quot;rights&quot;: {
+        &quot;owner&quot;: [&quot;r&quot;,&quot;u&quot;,&quot;d&quot;,&quot;x&quot;,&quot;pr&quot;,&quot;pu&quot;],
+        &quot;realm&quot;: [&quot;r&quot;,&quot;x&quot;],
+        &quot;roles&quot;: {
+            &quot;demoAdmin&quot;: [&quot;r&quot;,&quot;u&quot;,&quot;d&quot;,&quot;x&quot;,&quot;pu&quot;]
+        }
+    }
+}</code></pre><p>The permissions block contains granular permissions for the owner, the realm users, and 0 or more defined roles.</p>
+<p>A permissions list contains the following codes:</p>
+<ul>
+<li><em>r</em>: Read</li>
+<li><em>u</em>: Update</li>
+<li><em>d</em>: Delete</li>
+<li><em>x</em>: Execute</li>
+<li><em>pr</em>: Permissions Read</li>
+<li><em>pu</em>: Permissions Update</li>
+<li><em>mu</em>: Client Metadata Update</li>
+</ul>
+<p>The following services and paths are currently supported:</p>
+<ul>
+<li>'documents'<ul>
+<li>'documents'</li>
+<li>The name of any other document collection</li>
+</ul>
+</li>
+<li>'action'<ul>
+<li>'actions'</li>
+</ul>
+</li>
+<li>'eventhub'<ul>
+<li>'handlers'</li>
+<li>'recognizers'</li>
+</ul>
+</li>
+<li>'query'<ul>
+<li>'queries'</li>
+</ul>
+</li>
+<li>'storage'<ul>
+<li>'blobs'</li>
+</ul>
+</li>
+<li>'mailbox'<ul>
+<li>'mailboxes'</li>
+</ul>
+</li>
+<li>'location'<ul>
+<li>'regions'</li>
+<li>'poi'</li>
+</ul>
+</li>
+</ul>
+<p>The following service-specific convenience functions are also available:</p>
+<ul>
+<li>voyent.io.action.getResourcePermissions()</li>
+<li>voyent.io.documents.getResourcePermissions()</li>
+<li>voyent.io.eventhub.getHandlerResourcePermissions()</li>
+<li>voyent.io.eventhub.getRecognizerResourcePermissions()</li>
+<li>voyent.io.location.getPOIResourcePermissions()</li>
+<li>voyent.io.location.getRegionResourcePermissions()</li>
+<li>voyent.io.location.getPOIResourcePermissions()</li>
+<li>voyent.io.mailbox.getResourcePermissions()</li>
+</ul>
+<h4>Parameters</h4><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>account</td>
+<td>Voyent Services account name. If not provided, the last known Voyent Account will be used.</td>
+<td>String</td>
+<td>The last used account name</td>
+<td>false</td>
+</tr>
+<tr>
+<td>realm</td>
+<td>The Voyent Services realm. If not provided, the last known Voyent Realm name will be used.</td>
+<td>String</td>
+<td>The last used realm name</td>
+<td>false</td>
+</tr>
+<tr>
+<td>accessToken</td>
+<td>The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used</td>
+<td>String</td>
+<td></td>
+<td>false</td>
+</tr>
+<tr>
+<td>host</td>
+<td>The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used.</td>
+<td>String</td>
+<td>api.voyent.io</td>
+<td>false</td>
+</tr>
+<tr>
+<td>ssl</td>
+<td>Whether to use SSL for network traffic</td>
+<td>Boolean</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr>
+<td>service</td>
+<td>The service to query</td>
+<td>String</td>
+<td></td>
+<td>true</td>
+</tr>
+<tr>
+<td>path</td>
+<td>The path of the resource</td>
+<td>String</td>
+<td></td>
+<td>true</td>
+</tr>
+<tr>
+<td>id</td>
+<td>The id of the resource</td>
+<td>String</td>
+<td></td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<h4>Example</h4><pre class="prettyprint source lang-javascript"><code></code></pre><h3><a name="updateResourcePermissions"></a>updateResourcePermissions</h3><pre class="prettyprint source lang-javascript"><code>function voyent.io.updateResourcePermissions()</code></pre><p>Update the permissions block for a resource.</p>
+<p>A permissions block has the following structure:</p>
+<pre class="prettyprint source lang-javascript"><code>{
+    &quot;_id&quot;: &quot;de6959d0-a885-425c-847a-3289d07321ae&quot;,
+    &quot;owner&quot;: &quot;steve.maryka&quot;,
+    &quot;rights&quot;: {
+        &quot;owner&quot;: [&quot;r&quot;,&quot;u&quot;,&quot;d&quot;,&quot;x&quot;,&quot;pr&quot;,&quot;pu&quot;],
+        &quot;realm&quot;: [&quot;r&quot;,&quot;x&quot;],
+        &quot;roles&quot;: {
+            &quot;demoAdmin&quot;: [&quot;r&quot;,&quot;u&quot;,&quot;d&quot;,&quot;x&quot;,&quot;pu&quot;]
+        }
+    }
+}</code></pre><p>The permissions block contains granular permissions for the owner, the realm users, and 0 or more defined roles.</p>
+<p>A permissions list contains the following codes:</p>
+<ul>
+<li><em>r</em>: Read</li>
+<li><em>u</em>: Update</li>
+<li><em>d</em>: Delete</li>
+<li><em>x</em>: Execute</li>
+<li><em>pr</em>: Permissions Read</li>
+<li><em>pu</em>: Permissions Update</li>
+<li><em>mu</em>: Client Metadata Update</li>
+</ul>
+<p>The following services and paths are currently supported:</p>
+<ul>
+<li>'documents'<ul>
+<li>'documents'</li>
+<li>The name of any other document collection</li>
+</ul>
+</li>
+<li>'action'<ul>
+<li>'actions'</li>
+</ul>
+</li>
+<li>'eventhub'<ul>
+<li>'handlers'</li>
+<li>'recognizers'</li>
+</ul>
+</li>
+<li>'query'<ul>
+<li>'queries'</li>
+</ul>
+</li>
+<li>'storage'<ul>
+<li>'blobs'</li>
+</ul>
+</li>
+<li>'mailbox'<ul>
+<li>'mailboxes'</li>
+</ul>
+</li>
+<li>'location'<ul>
+<li>'regions'</li>
+<li>'poi'</li>
+</ul>
+</li>
+</ul>
+<p>The following service-specific convenience functions are also available:</p>
+<ul>
+<li>voyent.io.action.updateResourcePermissions()</li>
+<li>voyent.io.documents.updateResourcePermissions()</li>
+<li>voyent.io.eventhub.updateHandlerResourcePermissions()</li>
+<li>voyent.io.eventhub.updateRecognizerResourcePermissions()</li>
+<li>voyent.io.location.updatePOIResourcePermissions()</li>
+<li>voyent.io.location.updateRegionResourcePermissions()</li>
+<li>voyent.io.location.updatePOIResourcePermissions()</li>
+<li>voyent.io.mailbox.updateResourcePermissions()</li>
+</ul>
+<h4>Parameters</h4><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>account</td>
+<td>Voyent Services account name. If not provided, the last known Voyent Account will be used.</td>
+<td>String</td>
+<td>The last used account name</td>
+<td>false</td>
+</tr>
+<tr>
+<td>realm</td>
+<td>The Voyent Services realm. If not provided, the last known Voyent Realm name will be used.</td>
+<td>String</td>
+<td>The last used realm name</td>
+<td>false</td>
+</tr>
+<tr>
+<td>accessToken</td>
+<td>The Voyent authentication token. If not provided, the stored token from voyent.io.auth.connect() will be used</td>
+<td>String</td>
+<td></td>
+<td>false</td>
+</tr>
+<tr>
+<td>host</td>
+<td>The Voyent Services host url. If not supplied, the last used Voyent host, or the default will be used.</td>
+<td>String</td>
+<td>api.voyent.io</td>
+<td>false</td>
+</tr>
+<tr>
+<td>ssl</td>
+<td>Whether to use SSL for network traffic</td>
+<td>Boolean</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr>
+<td>service</td>
+<td>The service to query</td>
+<td>String</td>
+<td></td>
+<td>true</td>
+</tr>
+<tr>
+<td>path</td>
+<td>The path of the resource</td>
+<td>String</td>
+<td></td>
+<td>true</td>
+</tr>
+<tr>
+<td>id</td>
+<td>The id of the resource</td>
+<td>String</td>
+<td></td>
+<td>true</td>
+</tr>
+<tr>
+<td>permissions</td>
+<td>The permissions block</td>
+<td>String</td>
+<td></td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<h4>Example</h4><pre class="prettyprint source lang-javascript"><code>var permissionsBlock == {
+    &quot;_id&quot;: &quot;de6959d0-a885-425c-847a-3289d07321ae&quot;,
+    &quot;owner&quot;: &quot;steve.maryka&quot;,
+    &quot;rights&quot;: {
+        &quot;owner&quot;: [&quot;r&quot;,&quot;u&quot;,&quot;d&quot;,&quot;x&quot;,&quot;pr&quot;,&quot;pu&quot;],
+        &quot;realm&quot;: [&quot;r&quot;,&quot;x&quot;],
+        &quot;roles&quot;: {
+            &quot;demoAdmin&quot;: [&quot;r&quot;,&quot;u&quot;,&quot;d&quot;,&quot;x&quot;,&quot;pu&quot;]
+        }
+    }
+};
+
+voyent.io.updateResourcePermissions({
+    account: accountId,
+    username: adminId,
+    password: adminPassword,
+    host: host,
+    service: 'documents',
+    path: 'documents',
+    id: 'resourceId',
+    permissions: permissionsBlock
+}).then(function(permissions){
+    console.log('permissions', permissions);
+});</code></pre></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="voyent.html">voyent</a></li><li><a href="voyent.io.html">io</a></li><li><a href="voyent.io.action.html">action</a></li><li><a href="voyent.io.admin.html">admin</a></li><li><a href="voyent.io.auth.html">auth</a></li><li><a href="voyent.io.device.html">device</a></li><li><a href="voyent.io.documents.html">documents</a></li><li><a href="voyent.io.event.html">event</a></li><li><a href="voyent.io.eventhub.html">eventhub</a></li><li><a href="voyent.io.location.html">location</a></li><li><a href="voyent.io.mailbox.html">mailbox</a></li><li><a href="voyent.io.metrics.html">metrics</a></li><li><a href="voyent.io.push.html">push</a></li><li><a href="voyent.io.query.html">query</a></li><li><a href="voyent.io.storage.html">storage</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getResourcePermissions">getResourcePermissions</a></li><li><a href="global.html#setCurrentRealm">setCurrentRealm</a></li><li><a href="global.html#updateResourcePermissions">updateResourcePermissions</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Sep 01 2016 15:45:48 GMT-0700 (PDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

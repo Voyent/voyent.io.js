@@ -1,0 +1,23 @@
+{
+  "name": "voyent.io.js",
+  "version": "1.0.0",
+  "description": "Voyent IO: Client API for Voyent Services",
+  "main": "lib/voyent.io.js",
+  "directories": {
+    "doc": "docs-gen",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Voyent/voyent.io.js/tree/dev"
+  },
+  "keywords": [
+    "voyent",
+    "services"
+  ],
+  "author": "ICEsoft Technologies, Inc. <voyent@icesoft.com> (http://icesoft.com/)",
+  "license": "ISC",
+  "devDependencies": {
+    "jsdoc": "^3.4.0"
+  }
+}

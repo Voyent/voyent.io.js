@@ -1,11 +1,4 @@
-# Voyent Services Client JavaScript API (DEV BRANCH)
-
-## API Documentation
-
-The Voyent Services Client (voyent.io.js) is an easy-to-use JavaScript API for Voyent Services.  Detailed API documentation can be found here:
-
-[Voyent Services API Documentation](docs/voyent.io.js/1.0.0/index.html)
-
+# Voyent Services Client
 
 ## Getting Started
 
