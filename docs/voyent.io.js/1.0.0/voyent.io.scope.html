@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: eventhub</title>
+    <title>JSDoc: Namespace: scope</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: eventhub</h1>
+    <h1 class="page-title">Namespace: scope</h1>
 
     
 
@@ -29,7 +29,7 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="voyent.html">voyent</a><a href="voyent.io.html">.io</a>.</span>eventhub</h2>
+            <span class="ancestors"><a href="voyent.html">voyent</a><a href="voyent.io.html">.io</a>.</span>scope</h2>
         
     
 </header>
@@ -71,7 +71,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line3131">line 3131</a>
+        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line4943">line 4943</a>
     </li></ul></dd>
     
 
@@ -107,14 +107,14 @@
 
     
 
-    <h4 class="name" id=".createHandler"><span class="type-signature">(static) </span>createHandler<span class="signature">(params)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id=".createProcessData"><span class="type-signature">(static) </span>createProcessData<span class="signature">(params)</span><span class="type-signature"> &rarr; {String}</span></h4>
 
     
 
 
 
 <div class="description">
-    Create a new event handler
+    Create or update data stored within a process scope.
 </div>
 
 
@@ -198,7 +198,7 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Object</span>
 
 
             
@@ -208,14 +208,14 @@
 
             
 
-            <td class="description last">The handler id</td>
+            <td class="description last">The process id, the process scope to create data in.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>handler</code></td>
+                <td class="name"><code>data</code></td>
             
 
             <td class="type">
@@ -231,7 +231,8 @@
 
             
 
-            <td class="description last">The event handler to be created</td>
+            <td class="description last">The object containing one or more properties to be inserted into the process
+scope.</td>
         </tr>
 
     
@@ -255,7 +256,7 @@
             
 
             <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
-    will be used.</td>
+will be used.</td>
         </tr>
 
     
@@ -279,7 +280,7 @@
             
 
             <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
-    will be used.</td>
+will be used.</td>
         </tr>
 
     
@@ -303,7 +304,7 @@
             
 
             <td class="description last">The Voyent authentication token. If not provided, the stored token from
-    voyent.io.auth.connect() will be used</td>
+voyent.io.auth.connect() will be used.</td>
         </tr>
 
     
@@ -326,8 +327,8 @@
 
             
 
-            <td class="description last">The Voyent Services host url. If not supplied, the last used Voyent host, or the
-    default will be used. (optional)</td>
+            <td class="description last">The Voyent Services host url. If not provided, the last used Voyent host, or the
+default will be used.</td>
         </tr>
 
     
@@ -398,7 +399,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line3155">line 3155</a>
+        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line5332">line 5332</a>
     </li></ul></dd>
     
 
@@ -425,7 +426,7 @@
 
         
 <div class="param-desc">
-    The resource URI
+    The resource URI.
 </div>
 
 
@@ -451,14 +452,14 @@
 
     
 
-    <h4 class="name" id=".createRecognizer"><span class="type-signature">(static) </span>createRecognizer<span class="signature">(params)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id=".createRealmData"><span class="type-signature">(static) </span>createRealmData<span class="signature">(params)</span><span class="type-signature"> &rarr; {String}</span></h4>
 
     
 
 
 
 <div class="description">
-    Create a new event recognizer
+    Create or update data stored within a realm scope.
 </div>
 
 
@@ -536,30 +537,7 @@
 
         <tr>
             
-                <td class="name"><code>id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The recognizer id</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>recognizer</code></td>
+                <td class="name"><code>data</code></td>
             
 
             <td class="type">
@@ -575,7 +553,7 @@
 
             
 
-            <td class="description last">The event recognizer to be created</td>
+            <td class="description last">The object containing one or more properties to be inserted into the realm scope.</td>
         </tr>
 
     
@@ -599,7 +577,7 @@
             
 
             <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
-    will be used.</td>
+will be used.</td>
         </tr>
 
     
@@ -623,7 +601,7 @@
             
 
             <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
-    will be used.</td>
+will be used.</td>
         </tr>
 
     
@@ -647,7 +625,7 @@
             
 
             <td class="description last">The Voyent authentication token. If not provided, the stored token from
-    voyent.io.auth.connect() will be used</td>
+voyent.io.auth.connect() will be used.</td>
         </tr>
 
     
@@ -670,8 +648,8 @@
 
             
 
-            <td class="description last">The Voyent Services host url. If not supplied, the last used Voyent host, or the
-    default will be used. (optional)</td>
+            <td class="description last">The Voyent Services host url. If not provided, the last used Voyent host, or the
+default will be used.</td>
         </tr>
 
     
@@ -742,7 +720,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line3426">line 3426</a>
+        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line4966">line 4966</a>
     </li></ul></dd>
     
 
@@ -769,7 +747,7 @@
 
         
 <div class="param-desc">
-    The resource URI
+    The resource URI.
 </div>
 
 
@@ -795,14 +773,14 @@
 
     
 
-    <h4 class="name" id=".deleteHandler"><span class="type-signature">(static) </span>deleteHandler<span class="signature">(params)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".createTransactionData"><span class="type-signature">(static) </span>createTransactionData<span class="signature">(params)</span><span class="type-signature"> &rarr; {String}</span></h4>
 
     
 
 
 
 <div class="description">
-    Delete an event handler
+    Create or update data stored within a transaction scope.
 </div>
 
 
@@ -886,7 +864,7 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Object</span>
 
 
             
@@ -896,7 +874,31 @@
 
             
 
-            <td class="description last">The handler id, the event handler to be deleted</td>
+            <td class="description last">The transaction id, the transaction scope to create data in.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The object containing one or more properties to be inserted into the transaction
+scope.</td>
         </tr>
 
     
@@ -920,7 +922,7 @@
             
 
             <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
-    will be used.</td>
+will be used.</td>
         </tr>
 
     
@@ -944,7 +946,7 @@
             
 
             <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
-    will be used.</td>
+will be used.</td>
         </tr>
 
     
@@ -968,7 +970,7 @@
             
 
             <td class="description last">The Voyent authentication token. If not provided, the stored token from
-    voyent.io.auth.connect() will be used</td>
+voyent.io.auth.connect() will be used.</td>
         </tr>
 
     
@@ -991,8 +993,8 @@
 
             
 
-            <td class="description last">The Voyent Services host url. If not supplied, the last used Voyent host, or the
-    default will be used. (optional)</td>
+            <td class="description last">The Voyent Services host url. If not provided, the last used Voyent host, or the
+default will be used.</td>
         </tr>
 
     
@@ -1063,1341 +1065,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line3335">line 3335</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".deleteHandlers"><span class="type-signature">(static) </span>deleteHandlers<span class="signature">(params)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Delete event handlers in a realm based on a query
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">params
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>account</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
-    will be used.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>realm</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
-    will be used.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>accessToken</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Voyent authentication token. If not provided, the stored token from
-    voyent.io.auth.connect() will be used</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>host</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Voyent Services host url. If not supplied, the last used Voyent host, or the
-    default will be used. (optional)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ssl</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">(default false) Whether to use SSL for network traffic.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>query</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">A mongo query for the event handlers</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>fields</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Specify the inclusion or exclusion of fields to return in the result set</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Additional query options such as limit and sort</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line3379">line 3379</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".deleteRecognizer"><span class="type-signature">(static) </span>deleteRecognizer<span class="signature">(params)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Delete an event recognizer
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">params
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The recognizer id, the event recognizer to be deleted</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>account</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
-    will be used.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>realm</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
-    will be used.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>accessToken</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Voyent authentication token. If not provided, the stored token from
-    voyent.io.auth.connect() will be used</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>host</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Voyent Services host url. If not supplied, the last used Voyent host, or the
-    default will be used. (optional)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ssl</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">(default false) Whether to use SSL for network traffic.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line3606">line 3606</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".deleteRecognizers"><span class="type-signature">(static) </span>deleteRecognizers<span class="signature">(params)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Delete event recognizers in a realm based on a query
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">params
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>account</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
-    will be used.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>realm</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
-    will be used.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>accessToken</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Voyent authentication token. If not provided, the stored token from
-    voyent.io.auth.connect() will be used</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>host</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Voyent Services host url. If not supplied, the last used Voyent host, or the
-    default will be used. (optional)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ssl</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">(default false) Whether to use SSL for network traffic.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>query</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">A mongo query for the event recognizers</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>fields</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Specify the inclusion or exclusion of fields to return in the result set</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Additional query options such as limit and sort</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line3650">line 3650</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".findHandlers"><span class="type-signature">(static) </span>findHandlers<span class="signature">(params)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Searches for event handlers in a realm based on a query
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">params
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>account</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
-    will be used.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>realm</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
-    will be used.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>accessToken</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Voyent authentication token. If not provided, the stored token from
-    voyent.io.auth.connect() will be used</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>host</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Voyent Services host url. If not supplied, the last used Voyent host, or the
-    default will be used. (optional)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ssl</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">(default false) Whether to use SSL for network traffic.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>query</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">A mongo query for the event handlers</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>fields</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Specify the inclusion or exclusion of fields to return in the result set</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Additional query options such as limit and sort</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line3288">line 3288</a>
+        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line5519">line 5519</a>
     </li></ul></dd>
     
 
@@ -2424,7 +1092,7 @@
 
         
 <div class="param-desc">
-    The results
+    The resource URI.
 </div>
 
 
@@ -2435,7 +1103,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type">String</span>
 
 
     </dd>
@@ -2450,14 +1118,14 @@
 
     
 
-    <h4 class="name" id=".findRecognizers"><span class="type-signature">(static) </span>findRecognizers<span class="signature">(params)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id=".createUserData"><span class="type-signature">(static) </span>createUserData<span class="signature">(params)</span><span class="type-signature"> &rarr; {String}</span></h4>
 
     
 
 
 
 <div class="description">
-    Searches for event recognizers in a realm based on a query
+    Create or update data stored within a user scope.
 </div>
 
 
@@ -2535,6 +1203,52 @@
 
         <tr>
             
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The user id, the user scope to create data in.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The object containing one or more properties to be inserted into the user scope.</td>
+        </tr>
+
+    
+
+        <tr>
+            
                 <td class="name"><code>account</code></td>
             
 
@@ -2552,7 +1266,7 @@
             
 
             <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
-    will be used.</td>
+will be used.</td>
         </tr>
 
     
@@ -2576,7 +1290,7 @@
             
 
             <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
-    will be used.</td>
+will be used.</td>
         </tr>
 
     
@@ -2600,7 +1314,7 @@
             
 
             <td class="description last">The Voyent authentication token. If not provided, the stored token from
-    voyent.io.auth.connect() will be used</td>
+voyent.io.auth.connect() will be used.</td>
         </tr>
 
     
@@ -2623,8 +1337,8 @@
 
             
 
-            <td class="description last">The Voyent Services host url. If not supplied, the last used Voyent host, or the
-    default will be used. (optional)</td>
+            <td class="description last">The Voyent Services host url. If not provided, the last used Voyent host, or the
+default will be used.</td>
         </tr>
 
     
@@ -2648,75 +1362,6 @@
             
 
             <td class="description last">(default false) Whether to use SSL for network traffic.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>query</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">A mongo query for the event recognizers</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>fields</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Specify the inclusion or exclusion of fields to return in the result set</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Additional query options such as limit and sort</td>
         </tr>
 
     
@@ -2764,7 +1409,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line3559">line 3559</a>
+        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line5145">line 5145</a>
     </li></ul></dd>
     
 
@@ -2791,7 +1436,7 @@
 
         
 <div class="param-desc">
-    The results
+    The resource URI.
 </div>
 
 
@@ -2802,7 +1447,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type">String</span>
 
 
     </dd>
@@ -2817,14 +1462,14 @@
 
     
 
-    <h4 class="name" id=".getHandler"><span class="type-signature">(static) </span>getHandler<span class="signature">(params)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id=".deleteProcessData"><span class="type-signature">(static) </span>deleteProcessData<span class="signature">(params)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Fetch an event handler
+    Delete a single property stored in process scope.
 </div>
 
 
@@ -2908,6 +1553,29 @@
             <td class="type">
             
                 
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The process id, the process scope to delete data from.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>property</code></td>
+            
+
+            <td class="type">
+            
+                
 <span class="param-type">String</span>
 
 
@@ -2918,7 +1586,7 @@
 
             
 
-            <td class="description last">The handler id, the event handler to fetch</td>
+            <td class="description last">The name of the data property to delete from process scope. Required.</td>
         </tr>
 
     
@@ -2942,7 +1610,7 @@
             
 
             <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
-    will be used.</td>
+will be used.</td>
         </tr>
 
     
@@ -2966,7 +1634,7 @@
             
 
             <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
-    will be used.</td>
+will be used.</td>
         </tr>
 
     
@@ -2990,7 +1658,7 @@
             
 
             <td class="description last">The Voyent authentication token. If not provided, the stored token from
-    voyent.io.auth.connect() will be used</td>
+voyent.io.auth.connect() will be used.</td>
         </tr>
 
     
@@ -3013,8 +1681,8 @@
 
             
 
-            <td class="description last">The Voyent Services host url. If not supplied, the last used Voyent host, or the
-    default will be used. (optional)</td>
+            <td class="description last">The Voyent Services host url. If not provided, the last used Voyent host, or the
+default will be used.</td>
         </tr>
 
     
@@ -3085,7 +1753,2446 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line3243">line 3243</a>
+        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line5426">line 5426</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".deleteProcessScope"><span class="type-signature">(static) </span>deleteProcessScope<span class="signature">(params)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Delete an entire process scope and all of it's data. Use with care, this action cannot be undone.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">params
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The process id, the process scope to delete.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>account</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
+will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>realm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
+will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>accessToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent authentication token. If not provided, the stored token from
+voyent.io.auth.connect() will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>host</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent Services host url. If not provided, the last used Voyent host, or the
+default will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ssl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">(default false) Whether to use SSL for network traffic.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line5472">line 5472</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".deleteRealmData"><span class="type-signature">(static) </span>deleteRealmData<span class="signature">(params)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Delete a single property stored in realm scope.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">params
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>property</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the data property to delete from realm scope. Required.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>account</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
+will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>realm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
+will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>accessToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent authentication token. If not provided, the stored token from
+voyent.io.auth.connect() will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>host</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent Services host url. If not provided, the last used Voyent host, or the
+default will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ssl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">(default false) Whether to use SSL for network traffic.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line5056">line 5056</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".deleteRealmScope"><span class="type-signature">(static) </span>deleteRealmScope<span class="signature">(params)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Delete an entire realm scope and all of it's data. Use with care, this action cannot be undone.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">params
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>account</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
+will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>realm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
+will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>accessToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent authentication token. If not provided, the stored token from
+voyent.io.auth.connect() will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>host</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent Services host url. If not provided, the last used Voyent host, or the
+default will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ssl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">(default false) Whether to use SSL for network traffic.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line5100">line 5100</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".deleteTransactionData"><span class="type-signature">(static) </span>deleteTransactionData<span class="signature">(params)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Delete a single property stored in transaction scope.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">params
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The transaction id, the transaction scope to delete data from.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>property</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the data property to delete from transaction scope. Required.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>account</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
+will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>realm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
+will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>accessToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent authentication token. If not provided, the stored token from
+voyent.io.auth.connect() will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>host</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent Services host url. If not provided, the last used Voyent host, or the
+default will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ssl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">(default false) Whether to use SSL for network traffic.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line5614">line 5614</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".deleteTransactionScope"><span class="type-signature">(static) </span>deleteTransactionScope<span class="signature">(params)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Delete an entire transaction scope and all of it's data. Use with care, this action cannot be undone.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">params
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The transaction id, the transaction scope to delete.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>account</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
+will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>realm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
+will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>accessToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent authentication token. If not provided, the stored token from
+voyent.io.auth.connect() will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>host</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent Services host url. If not provided, the last used Voyent host, or the
+default will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ssl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">(default false) Whether to use SSL for network traffic.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line5660">line 5660</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".deleteUserData"><span class="type-signature">(static) </span>deleteUserData<span class="signature">(params)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Delete a single property stored in user scope.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">params
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The user id, the user scope to delete data from.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>property</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the data property to delete from user scope. Required.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>account</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
+will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>realm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
+will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>accessToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent authentication token. If not provided, the stored token from
+voyent.io.auth.connect() will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>host</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent Services host url. If not provided, the last used Voyent host, or the
+default will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ssl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">(default false) Whether to use SSL for network traffic.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line5239">line 5239</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".deleteUserScope"><span class="type-signature">(static) </span>deleteUserScope<span class="signature">(params)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Delete an entire user scope and all of it's data. Use with care, this action cannot be undone.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">params
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The user id, the user scope to delete.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>account</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
+will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>realm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
+will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>accessToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent authentication token. If not provided, the stored token from
+voyent.io.auth.connect() will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>host</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent Services host url. If not provided, the last used Voyent host, or the
+default will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ssl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">(default false) Whether to use SSL for network traffic.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line5285">line 5285</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".getProcessData"><span class="type-signature">(static) </span>getProcessData<span class="signature">(params)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Retrieve a single property stored in process scope or the entire process scope if no property is provided.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">params
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The process id, the process scope to get data from.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>property</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the data property to retrieve from process scope. If not
+provided, all data for the scope will be retrieved.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>account</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
+will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>realm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
+will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>accessToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent authentication token. If not provided, the stored token from
+voyent.io.auth.connect() will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>host</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent Services host url. If not provided, the last used Voyent host, or the
+default will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ssl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">(default false) Whether to use SSL for network traffic.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line5378">line 5378</a>
     </li></ul></dd>
     
 
@@ -3112,7 +4219,7 @@
 
         
 <div class="param-desc">
-    The event handler
+    The scoped data.
 </div>
 
 
@@ -3138,14 +4245,14 @@
 
     
 
-    <h4 class="name" id=".getRecognizer"><span class="type-signature">(static) </span>getRecognizer<span class="signature">(params)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id=".getRealmData"><span class="type-signature">(static) </span>getRealmData<span class="signature">(params)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
 
 
 <div class="description">
-    Fetch an event recognizer
+    Retrieve a single property stored in realm scope or the entire realm scope if no property is provided.
 </div>
 
 
@@ -3223,7 +4330,7 @@
 
         <tr>
             
-                <td class="name"><code>id</code></td>
+                <td class="name"><code>property</code></td>
             
 
             <td class="type">
@@ -3239,7 +4346,8 @@
 
             
 
-            <td class="description last">The recognizer id, the event recognizer to fetch</td>
+            <td class="description last">The name of the data property to retrieve from realm scope. If not provided,
+all data for the scope will be retrieved.</td>
         </tr>
 
     
@@ -3263,7 +4371,7 @@
             
 
             <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
-    will be used.</td>
+will be used.</td>
         </tr>
 
     
@@ -3287,7 +4395,7 @@
             
 
             <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
-    will be used.</td>
+will be used.</td>
         </tr>
 
     
@@ -3311,7 +4419,7 @@
             
 
             <td class="description last">The Voyent authentication token. If not provided, the stored token from
-    voyent.io.auth.connect() will be used</td>
+voyent.io.auth.connect() will be used.</td>
         </tr>
 
     
@@ -3334,8 +4442,8 @@
 
             
 
-            <td class="description last">The Voyent Services host url. If not supplied, the last used Voyent host, or the
-    default will be used. (optional)</td>
+            <td class="description last">The Voyent Services host url. If not provided, the last used Voyent host, or the
+default will be used.</td>
         </tr>
 
     
@@ -3406,7 +4514,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line3514">line 3514</a>
+        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line5010">line 5010</a>
     </li></ul></dd>
     
 
@@ -3433,7 +4541,7 @@
 
         
 <div class="param-desc">
-    The event recognizer
+    The scoped data.
 </div>
 
 
@@ -3459,14 +4567,15 @@
 
     
 
-    <h4 class="name" id=".updateHandler"><span class="type-signature">(static) </span>updateHandler<span class="signature">(params)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".getTransactionData"><span class="type-signature">(static) </span>getTransactionData<span class="signature">(params)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
 
 
 <div class="description">
-    Update an event handler
+    Retrieve a single property stored in transaction scope or the entire transaction scope if no property is
+provided.
 </div>
 
 
@@ -3550,29 +4659,6 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The handler id, the event handler to be updated</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>handler</code></td>
-            
-
-            <td class="type">
-            
-                
 <span class="param-type">Object</span>
 
 
@@ -3583,7 +4669,31 @@
 
             
 
-            <td class="description last">The new event handler</td>
+            <td class="description last">The transaction id, the transaction scope to get data from.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>property</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the data property to retrieve from transaction scope. If not
+provided, all data for the scope will be retrieved.</td>
         </tr>
 
     
@@ -3607,7 +4717,7 @@
             
 
             <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
-    will be used.</td>
+will be used.</td>
         </tr>
 
     
@@ -3631,7 +4741,7 @@
             
 
             <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
-    will be used.</td>
+will be used.</td>
         </tr>
 
     
@@ -3655,7 +4765,7 @@
             
 
             <td class="description last">The Voyent authentication token. If not provided, the stored token from
-    voyent.io.auth.connect() will be used</td>
+voyent.io.auth.connect() will be used.</td>
         </tr>
 
     
@@ -3678,8 +4788,8 @@
 
             
 
-            <td class="description last">The Voyent Services host url. If not supplied, the last used Voyent host, or the
-    default will be used. (optional)</td>
+            <td class="description last">The Voyent Services host url. If not provided, the last used Voyent host, or the
+default will be used.</td>
         </tr>
 
     
@@ -3750,7 +4860,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line3199">line 3199</a>
+        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line5566">line 5566</a>
     </li></ul></dd>
     
 
@@ -3773,6 +4883,28 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The scoped data.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -3781,14 +4913,359 @@
 
     
 
-    <h4 class="name" id=".updateRecognizer"><span class="type-signature">(static) </span>updateRecognizer<span class="signature">(params)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".getUserData"><span class="type-signature">(static) </span>getUserData<span class="signature">(params)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
 
 
 <div class="description">
-    Update an event recognizer
+    Retrieve a single property stored in user scope or the entire user scope if no property is provided.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">params
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The user id, the user scope to get data from.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>property</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the data property to retrieve from user scope. If not provided,
+all data for the scope will be retrieved.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>account</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
+will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>realm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
+will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>accessToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent authentication token. If not provided, the stored token from
+voyent.io.auth.connect() will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>host</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Voyent Services host url. If not provided, the last used Voyent host, or the
+default will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ssl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">(default false) Whether to use SSL for network traffic.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line5191">line 5191</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The scoped data.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".touchTransactionScope"><span class="type-signature">(static) </span>touchTransactionScope<span class="signature">(params)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Touch a transaction scope. Touching a scope updates the last accessed time without changing anything else.
 </div>
 
 
@@ -3882,30 +5359,7 @@
 
             
 
-            <td class="description last">The recognizer id, the event recognizer to be updated</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>recognizer</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The new event recognizer</td>
+            <td class="description last">The transaction id, the transaction scope to touch.</td>
         </tr>
 
     
@@ -3929,7 +5383,7 @@
             
 
             <td class="description last">Voyent Services account name. If not provided, the last known Voyent Account
-    will be used.</td>
+will be used.</td>
         </tr>
 
     
@@ -3953,7 +5407,7 @@
             
 
             <td class="description last">The Voyent Services realm. If not provided, the last known Voyent Realm name
-    will be used.</td>
+will be used.</td>
         </tr>
 
     
@@ -3977,7 +5431,7 @@
             
 
             <td class="description last">The Voyent authentication token. If not provided, the stored token from
-    voyent.io.auth.connect() will be used</td>
+voyent.io.auth.connect() will be used.</td>
         </tr>
 
     
@@ -4000,8 +5454,8 @@
 
             
 
-            <td class="description last">The Voyent Services host url. If not supplied, the last used Voyent host, or the
-    default will be used. (optional)</td>
+            <td class="description last">The Voyent Services host url. If not provided, the last used Voyent host, or the
+default will be used.</td>
         </tr>
 
     
@@ -4072,7 +5526,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line3470">line 3470</a>
+        <a href="voyent.io.js.html">voyent.io.js</a>, <a href="voyent.io.js.html#line5704">line 5704</a>
     </li></ul></dd>
     
 

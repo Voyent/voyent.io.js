@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: voyent.io.js</title>
+    <title>JSDoc: Source: voyent.io copy.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: voyent.io.js</h1>
+    <h1 class="page-title">Source: voyent.io copy.js</h1>
 
     
 
@@ -298,10 +298,14 @@
 		validateParameter('event', 'The event parameter is required', params, reject);
 	}
 
-	/* Mailbox */
-	function validateRequiredMailbox(params, reject){
-		validateParameter('mailbox', 'The mailbox parameter is required', params, reject);
-	}
+    /* Mailbox */
+    function validateRequiredMessages(params, reject){
+        validateParameter('mailbox', 'The messages parameter is required', params, reject);
+    }
+
+    function validateRequiredConfig(params, reject){
+        validateParameter('config', 'The config parameter is required', params, reject);
+    }
 
 	/* Storage */
 	function validateRequiredBlob(params, reject){
@@ -4623,350 +4627,414 @@
      * @namespace mailbox
      * @memberOf voyent.io
      */
-	v.io.mailbox = {
-		/**
-		 * Create a new mailbox
-		 *
+    v.io.mailbox = {
+        /**
+         * Create one or more messages for one or more users.
+         *
          * @memberOf voyent.io.mailbox
-		 * @alias createMailbox
-		 * @param {Object} params params
-		 * @param {String} params.id The user id
-		 * @param {Object} params.mailbox The mailbox to be created
-		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
-		 *     will be used.
-		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
-		 *     will be used.
-		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
-		 *     voyent.io.auth.connect() will be used
-		 * @param {String} params.host The Voyent Services host url. If not supplied, the last used Voyent host, or the
-		 *     default will be used. (optional)
-		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
-		 * @returns {String} The resource URI
-		 */
-		createMailbox: function (params) {
-			return new Promise(
-				function (resolve, reject) {
-					params = params ? params : {};
-					v.io.checkHost(params);
+         * @alias createMultiUserMessages
+         * @param {Object} params params
+         * @param {Object || Array} params.messages The message(s) to be created.
+         * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+         * will be used.
+         * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+         * will be used.
+         * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+         * voyent.io.auth.connect() will be used.
+         * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+         * default will be used.
+         * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+         * @returns {String} The resource URI(s).
+         */
+        createMultiUserMessages: function (params) {
+            return new Promise(
+                function (resolve, reject) {
+                    params = params ? params : {};
+                    v.io.checkHost(params);
 
-					//validate
-					var account = validateAndReturnRequiredAccount(params, reject);
-					var realm = validateAndReturnRequiredRealm(params, reject);
-					var token = validateAndReturnRequiredAccessToken(params, reject);
-					validateRequiredMailbox(params, reject);
+                    //validate
+                    var account = validateAndReturnRequiredAccount(params, reject);
+                    var realm = validateAndReturnRequiredRealm(params, reject);
+                    var token = validateAndReturnRequiredAccessToken(params, reject);
+                    validateRequiredMessages(params, reject);
 
-					var url = getRealmResourceURL(v.io.mailboxURL, account, realm,
-						'mailboxes/' + (params.id ? params.id : ''), token, params.ssl);
+                    var url = getRealmResourceURL(v.io.mailboxURL, account, realm,
+                        'mailboxes', token, params.ssl);
 
-					v.$.post(url, params.mailbox).then(function (response) {
-						v.io.auth.updateLastActiveTimestamp();
-						resolve(response.uri);
-					})['catch'](function (error) {
-						reject(error);
-					});
+                    v.$.post(url, params.messages).then(function (response) {
+                        v.io.auth.updateLastActiveTimestamp();
+                        resolve(response.uris);
+                    })['catch'](function (error) {
+                        reject(error);
+                    });
 
-				}
-			);
-		},
+                }
+            );
+        },
 
-		/**
-		 * Update a mailbox
-		 *
+        /**
+         * Create one or more messages for a specific user.
+         *
          * @memberOf voyent.io.mailbox
-		 * @alias updateMailbox
-		 * @param {Object} params params
-		 * @param {String} params.id The user id, the user's mailbox to be updated
-		 * @param {Object} params.mailbox The new mailbox
-		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
-		 *     will be used.
-		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
-		 *     will be used.
-		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
-		 *     voyent.io.auth.connect() will be used
-		 * @param {String} params.host The Voyent Services host url. If not supplied, the last used Voyent host, or the
-		 *     default will be used. (optional)
-		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
-		 */
-		updateMailbox: function (params) {
-			return new Promise(
-				function (resolve, reject) {
-					params = params ? params : {};
-					v.io.checkHost(params);
+         * @alias createMessages
+         * @param {Object} params params
+         * @param {Object || Array} params.messages The message(s) to be created.
+         * @param {String} params.username The user to create the message(s) for.
+         * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+         * will be used.
+         * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+         * will be used.
+         * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+         * voyent.io.auth.connect() will be used.
+         * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+         * default will be used.
+         * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+         * @returns {String} The resource URI(s).
+         */
+        createMessages: function (params) {
+            return new Promise(
+                function (resolve, reject) {
+                    params = params ? params : {};
+                    v.io.checkHost(params);
 
-					//validate
-					var account = validateAndReturnRequiredAccount(params, reject);
-					var realm = validateAndReturnRequiredRealm(params, reject);
-					var token = validateAndReturnRequiredAccessToken(params, reject);
-					validateRequiredId(params, reject);
-					validateRequiredMailbox(params, reject);
+                    //validate
+                    var account = validateAndReturnRequiredAccount(params, reject);
+                    var realm = validateAndReturnRequiredRealm(params, reject);
+                    var token = validateAndReturnRequiredAccessToken(params, reject);
+                    validateRequiredMessages(params, reject);
+                    validateRequiredUsername(params, reject);
 
-					var url = getRealmResourceURL(v.io.mailboxURL, account, realm,
-						'mailboxes/' + params.id, token, params.ssl);
+                    var url = getRealmResourceURL(v.io.mailboxURL, account, realm,
+                        'mailboxes/' + params.username + '/messages', token, params.ssl);
 
-					v.$.put(url, params.mailbox).then(function () {
-						v.io.auth.updateLastActiveTimestamp();
-						resolve();
-					})['catch'](function (error) {
-						reject(error);
-					});
-				}
-			);
-		},
+                    v.$.post(url, params.messages).then(function (response) {
+                        v.io.auth.updateLastActiveTimestamp();
+                        resolve(response.uris);
+                    })['catch'](function (error) {
+                        reject(error);
+                    });
 
-		/**
-		 * Fetch a mailbox
-		 *
+                }
+            );
+        },
+
+        /**
+         * Retrieve a single specific message for a specific user.
+         *
          * @memberOf voyent.io.mailbox
-		 * @alias getMailbox
-		 * @param {Object} params params
-		 * @param {String} params.id The user id, the user's mailbox to fetch
-		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
-		 *     will be used.
-		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
-		 *     will be used.
-		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
-		 *     voyent.io.auth.connect() will be used
-		 * @param {String} params.host The Voyent Services host url. If not supplied, the last used Voyent host, or the
-		 *     default will be used. (optional)
-		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
-		 * @returns {Object} The mailbox
-		 */
-		getMailbox: function (params) {
-			return new Promise(
-				function (resolve, reject) {
-					params = params ? params : {};
-					v.io.checkHost(params);
+         * @alias getMessage
+         * @param {Object} params params
+         * @param {String} params.id The message id, the message to fetch.
+         * @param {String} params.username The user to create the message(s) for.
+         * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+         * will be used.
+         * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+         * will be used.
+         * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+         * voyent.io.auth.connect() will be used.
+         * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+         * default will be used.
+         * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+         * @returns {Object} The message.
+         */
+        getMessage: function (params) {
+            return new Promise(
+                function (resolve, reject) {
+                    params = params ? params : {};
+                    v.io.checkHost(params);
 
-					//validate
-					var account = validateAndReturnRequiredAccount(params, reject);
-					var realm = validateAndReturnRequiredRealm(params, reject);
-					var token = validateAndReturnRequiredAccessToken(params, reject);
-					validateRequiredId(params, reject);
+                    //validate
+                    var account = validateAndReturnRequiredAccount(params, reject);
+                    var realm = validateAndReturnRequiredRealm(params, reject);
+                    var token = validateAndReturnRequiredAccessToken(params, reject);
+                    validateRequiredId(params, reject);
+                    validateRequiredUsername(params, reject);
 
-					var url = getRealmResourceURL(v.io.mailboxURL, account, realm,
-						'mailboxes/' + params.id, token, params.ssl);
+                    var url = getRealmResourceURL(v.io.mailboxURL, account, realm,
+                        'mailboxes/'+params.username+'/messages/'+params.id, token, params.ssl);
 
-					v.$.getJSON(url).then(function (mailbox) {
-						v.io.auth.updateLastActiveTimestamp();
-						resolve(mailbox);
-					})['catch'](function (error) {
-						reject(error);
-					});
-				}
-			);
-		},
+                    v.$.getJSON(url).then(function (message) {
+                        v.io.auth.updateLastActiveTimestamp();
+                        resolve(message);
+                    })['catch'](function (error) {
+                        reject(error);
+                    });
+                }
+            );
+        },
 
-		/**
-		 * Searches for mailboxes in a realm based on a query
-		 *
+        /**
+         * Retrieve messages for a specific user based on the results returned from query parameters. Optionally include
+         * a type property to further refine the search.
+         *
          * @memberOf voyent.io.mailbox
-		 * @alias findMailboxes
-		 * @param {Object} params params
-		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
-		 *     will be used.
-		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
-		 *     will be used.
-		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
-		 *     voyent.io.auth.connect() will be used
-		 * @param {String} params.host The Voyent Services host url. If not supplied, the last used Voyent host, or the
-		 *     default will be used. (optional)
-		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
-		 * @param {Object} params.query A mongo query for the mailboxes
-		 * @param {Object} params.fields Specify the inclusion or exclusion of fields to return in the result set
-		 * @param {Object} params.options Additional query options such as limit and sort
-		 * @returns {Object} The results
-		 */
-		findMailboxes: function (params) {
-			return new Promise(
-				function (resolve, reject) {
+         * @alias findMessages
+         * @param {Object} params params
+         * @param {String} params.username The user to find message(s) for.
+         * @param {String} params.type The type of messages to get. Valid options are "read" or "unread". Not required.
+         * @param {Object} params.query A mongo query for the messages.
+         * @param {Object} params.fields Specify the inclusion or exclusion of fields to return in the result set.
+         * @param {Object} params.options Additional query options such as limit and sort.
+         * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+         * will be used.
+         * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+         * will be used.
+         * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+         * voyent.io.auth.connect() will be used.
+         * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+         * default will be used.
+         * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+         * @returns {Object} The results.
+         */
+        findMessages: function (params) {
+            return new Promise(
+                function (resolve, reject) {
 
-					params = params ? params : {};
-					v.io.checkHost(params);
+                    params = params ? params : {};
+                    v.io.checkHost(params);
 
-					//validate
-					var account = validateAndReturnRequiredAccount(params, reject);
-					var realm = validateAndReturnRequiredRealm(params, reject);
-					var token = validateAndReturnRequiredAccessToken(params, reject);
+                    //validate
+                    var account = validateAndReturnRequiredAccount(params, reject);
+                    var realm = validateAndReturnRequiredRealm(params, reject);
+                    var token = validateAndReturnRequiredAccessToken(params, reject);
+                    validateRequiredUsername(params, reject);
 
-					var url = getRealmResourceURL(v.io.mailboxURL, account, realm,
-						'mailboxes/', token, params.ssl, {
-							'query': params.query ? encodeURIComponent(JSON.stringify(params.query)) : {},
-							'fields': params.fields ? encodeURIComponent(JSON.stringify(params.fields)) : {},
-							'options': params.options ? encodeURIComponent(JSON.stringify(params.options)) : {}
-						});
+                    var url = getRealmResourceURL(v.io.mailboxURL, account, realm,
+                        'mailboxes/'+params.username+'/messages'+(params.type ? ('/type/'+params.type) : ''),
+                        token, params.ssl, {
+                            'query': params.query ? encodeURIComponent(JSON.stringify(params.query)) : {},
+                            'fields': params.fields ? encodeURIComponent(JSON.stringify(params.fields)) : {},
+                            'options': params.options ? encodeURIComponent(JSON.stringify(params.options)) : {}
+                        });
 
-					v.$.getJSON(url).then(function (mailboxes) {
-						v.io.auth.updateLastActiveTimestamp();
-						resolve(mailboxes);
-					})['catch'](function (response) {
-						reject(response);
-					});
+                    v.$.getJSON(url).then(function (messages) {
+                        v.io.auth.updateLastActiveTimestamp();
+                        resolve(messages);
+                    })['catch'](function (response) {
+                        reject(response);
+                    });
 
-				}
-			);
-		},
+                }
+            );
+        },
 
-		/**
-		 * Delete a mailbox
-		 *
+        /**
+         * Remove a single specific message for a specific user.
+         *
          * @memberOf voyent.io.mailbox
-		 * @alias deleteMailbox
-		 * @param {Object} params params
-		 * @param {String} params.id The user id, the user's mailbox to be deleted
-		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
-		 *     will be used.
-		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
-		 *     will be used.
-		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
-		 *     voyent.io.auth.connect() will be used
-		 * @param {String} params.host The Voyent Services host url. If not supplied, the last used Voyent host, or the
-		 *     default will be used. (optional)
-		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
-		 */
-		deleteMailbox: function (params) {
-			return new Promise(
-				function (resolve, reject) {
-					params = params ? params : {};
-					v.io.checkHost(params);
+         * @alias deleteMessage
+         * @param {Object} params params
+         * @param {String} params.id The message id, the message to delete.
+         * @param {String} params.username The user to create the message(s) for.
+         * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+         * will be used.
+         * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+         * will be used.
+         * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+         * voyent.io.auth.connect() will be used.
+         * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+         * default will be used.
+         * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+         */
+        deleteMessage: function (params) {
+            return new Promise(
+                function (resolve, reject) {
+                    params = params ? params : {};
+                    v.io.checkHost(params);
 
-					//validate
-					var account = validateAndReturnRequiredAccount(params, reject);
-					var realm = validateAndReturnRequiredRealm(params, reject);
-					var token = validateAndReturnRequiredAccessToken(params, reject);
-					validateRequiredId(params, reject);
+                    //validate
+                    var account = validateAndReturnRequiredAccount(params, reject);
+                    var realm = validateAndReturnRequiredRealm(params, reject);
+                    var token = validateAndReturnRequiredAccessToken(params, reject);
+                    validateRequiredId(params, reject);
+                    validateRequiredUsername(params, reject);
 
-					var url = getRealmResourceURL(v.io.mailboxURL, account, realm,
-						'mailboxes/' + params.id, token, params.ssl);
+                    var url = getRealmResourceURL(v.io.mailboxURL, account, realm,
+                        'mailboxes/'+params.username+'/messages/'+params.id, token, params.ssl);
 
-					v.$.doDelete(url).then(function () {
-						v.io.auth.updateLastActiveTimestamp();
-						resolve();
-					})['catch'](function (error) {
-						reject(error);
-					});
-				}
-			);
-		},
+                    v.$.doDelete(url).then(function () {
+                        v.io.auth.updateLastActiveTimestamp();
+                        resolve();
+                    })['catch'](function (error) {
+                        reject(error);
+                    });
+                }
+            );
+        },
 
-		/**
-		 * Delete mailboxes in a realm based on a query
-		 *
+        /**
+         * Remove messages for a specific user based on the results returned from query parameters. Optionally include a
+         * type property to further refine the search.
+         *
          * @memberOf voyent.io.mailbox
-		 * @alias deleteMailboxes
-		 * @param {Object} params params
-		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
-		 *     will be used.
-		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
-		 *     will be used.
-		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
-		 *     voyent.io.auth.connect() will be used
-		 * @param {String} params.host The Voyent Services host url. If not supplied, the last used Voyent host, or the
-		 *     default will be used. (optional)
-		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
-		 * @param {Object} params.query A mongo query for the mailboxes
-		 * @param {Object} params.fields Specify the inclusion or exclusion of fields to return in the result set
-		 * @param {Object} params.options Additional query options such as limit and sort
-		 */
-		deleteMailboxes: function (params) {
-			return new Promise(
-				function (resolve, reject) {
-					params = params ? params : {};
-					v.io.checkHost(params);
+         * @alias deleteMessages
+         * @param {Object} params params
+         * @param {String} params.username The user to find message(s) for.
+         * @param {String} params.type The type of messages to get. Valid options are "read" or "unread". Not required.
+         * @param {Object} params.query A mongo query for the messages.
+         * @param {Object} params.fields Specify the inclusion or exclusion of fields to return in the result set.
+         * @param {Object} params.options Additional query options such as limit and sort.
+         * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+         * will be used.
+         * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+         * will be used.
+         * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+         * voyent.io.auth.connect() will be used.
+         * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+         * default will be used.
+         * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+         * @returns {Object} The results
+         */
+        deleteMessages: function (params) {
+            return new Promise(
+                function (resolve, reject) {
 
-					//validate
-					var account = validateAndReturnRequiredAccount(params, reject);
-					var realm = validateAndReturnRequiredRealm(params, reject);
-					var token = validateAndReturnRequiredAccessToken(params, reject);
+                    params = params ? params : {};
+                    v.io.checkHost(params);
 
-					var url = getRealmResourceURL(v.io.mailboxURL, account, realm,
-						'mailboxes/', token, params.ssl, {
-							'query': params.query ? encodeURIComponent(JSON.stringify(params.query)) : {},
-							'fields': params.fields ? encodeURIComponent(JSON.stringify(params.fields)) : {},
-							'options': params.options ? encodeURIComponent(JSON.stringify(params.options)) : {}
-						});
+                    //validate
+                    var account = validateAndReturnRequiredAccount(params, reject);
+                    var realm = validateAndReturnRequiredRealm(params, reject);
+                    var token = validateAndReturnRequiredAccessToken(params, reject);
+                    validateRequiredUsername(params, reject);
 
-					v.$.doDelete(url).then(function () {
-						v.io.auth.updateLastActiveTimestamp();
-						resolve();
-					})['catch'](function (error) {
-						reject(error);
-					});
-				}
-			);
-		},
+                    var url = getRealmResourceURL(v.io.mailboxURL, account, realm,
+                        'mailboxes/'+params.username+'/messages'+(params.type ? ('/type/'+params.type) : ''),
+                        token, params.ssl, {
+                            'query': params.query ? encodeURIComponent(JSON.stringify(params.query)) : {},
+                            'fields': params.fields ? encodeURIComponent(JSON.stringify(params.fields)) : {},
+                            'options': params.options ? encodeURIComponent(JSON.stringify(params.options)) : {}
+                        });
 
-		/**
-		 * Searches for mail in a user's mailbox based on a query
-		 *
+                    v.$.doDelete(url).then(function () {
+                        v.io.auth.updateLastActiveTimestamp();
+                        resolve();
+                    })['catch'](function (error) {
+                        reject(error);
+                    });
+                }
+            );
+        },
+
+        /**
+         * Retrieve the configuration options for this service.
+         *
          * @memberOf voyent.io.mailbox
-		 * @alias findMail
-		 * @param {Object} params params
-		 * @param {String} params.id The user id, the user's mail to search
-		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
-		 *     will be used.
-		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
-		 *     will be used.
-		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
-		 *     voyent.io.auth.connect() will be used
-		 * @param {String} params.host The Voyent Services host url. If not supplied, the last used Voyent host, or the
-		 *     default will be used. (optional)
-		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
-		 * @param {Object} params.query A mongo query for the mail
-		 * @param {Object} params.fields Specify the inclusion or exclusion of fields to return in the result set
-		 * @param {Object} params.options Additional query options such as limit and sort
-		 * @returns {Object} Matching mail records
-		 */
-		findMail: function (params) {
-			return new Promise(
-				function (resolve, reject) {
+         * @alias getConfig
+         * @param {Object} params params
+         * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+         * will be used.
+         * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+         * will be used.
+         * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+         * voyent.io.auth.connect() will be used.
+         * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+         * default will be used.
+         * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+         * @returns {Object} The config
+         */
+        getConfig: function (params) {
+            return new Promise(
+                function (resolve, reject) {
+                    params = params ? params : {};
+                    v.io.checkHost(params);
 
-					params = params ? params : {};
-					v.io.checkHost(params);
+                    //validate
+                    var account = validateAndReturnRequiredAccount(params, reject);
+                    var realm = validateAndReturnRequiredRealm(params, reject);
+                    var token = validateAndReturnRequiredAccessToken(params, reject);
 
-					//validate
-					var account = validateAndReturnRequiredAccount(params, reject);
-					var realm = validateAndReturnRequiredRealm(params, reject);
-					var token = validateAndReturnRequiredAccessToken(params, reject);
-					validateRequiredId(params, reject);
+                    var url = getRealmResourceURL(v.io.mailboxURL, account, realm,
+                        'config', token, params.ssl);
 
-					var url = getRealmResourceURL(v.io.mailboxURL, account, realm,
-						'mailboxes/' + params.id + '/mail', token, params.ssl, {
-							'query': params.query ? encodeURIComponent(JSON.stringify(params.query)) : {},
-							'fields': params.fields ? encodeURIComponent(JSON.stringify(params.fields)) : {},
-							'options': params.options ? encodeURIComponent(JSON.stringify(params.options)) : {}
-						});
+                    v.$.getJSON(url).then(function (config) {
+                        v.io.auth.updateLastActiveTimestamp();
+                        resolve(config);
+                    })['catch'](function (error) {
+                        reject(error);
+                    });
+                }
+            );
+        },
 
-					v.$.getJSON(url).then(function (mail) {
-						v.io.auth.updateLastActiveTimestamp();
-						resolve(mail);
-					})['catch'](function (response) {
-						reject(response);
-					});
+        /**
+         * Update the configuration options for this service.
+         *
+         * @memberOf voyent.io.mailbox
+         * @alias updateConfig
+         * @param {Object} params params
+         * @param {Object} params.config The new config.
+         * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+         * will be used.
+         * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+         * will be used.
+         * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+         * voyent.io.auth.connect() will be used.
+         * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+         * default will be used.
+         * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+         */
+        updateConfig: function(params){
+            return new Promise(
+                function(resolve, reject) {
+                    params = params ? params : {};
+                    v.io.checkHost(params);
 
-				}
-			);
-		},
+                    //validate
+                    var account = validateAndReturnRequiredAccount(params, reject);
+                    var realm = validateAndReturnRequiredRealm(params, reject);
+                    var token = validateAndReturnRequiredAccessToken(params, reject);
+                    validateRequiredConfig(params, reject);
 
-		getMailboxResourcePermissions: function(params){
-			params.path = 'mailboxes';
-			return v.io.mailbox.getResourcePermissions(params);
-		},
+                    var url = getRealmResourceURL(v.io.mailboxURL, account, realm,
+                        'config', token, params.ssl);
 
-		updateMailboxResourcePermissions: function(params){
-			params.path = 'mailboxes';
-			return v.io.mailbox.getResourcePermissions(params);
-		},
+                    v.$.put(url, params.config).then(function(){
+                        v.io.auth.updateLastActiveTimestamp();
+                        resolve();
+                    })['catch'](function(error){
+                        reject(error);
+                    });
+                }
+            );
+        },
 
-		getResourcePermissions: function(params){
-			params.service = 'mailbox';
-			return v.io.getResourcePermissions(params);
-		},
+        getMailboxResourcePermissions: function(params){
+            if (!params.username || params.username.length === 0) {
+                return;
+            }
+            params.path = 'mailboxes/'+params.username+'/messages';
+            return v.io.mailbox.getResourcePermissions(params);
+        },
 
-		updateResourcePermissions: function(params){
-			params.service = 'mailbox';
-			return v.io.updateResourcePermissions(params);
-		},
-	};
+        updateMailboxResourcePermissions: function(params){
+            if (!params.username || params.username.length === 0) {
+                return;
+            }
+            params.path = 'mailboxes/'+params.username+'/messages';
+            return v.io.mailbox.getResourcePermissions(params);
+        },
+
+        getConfigResourcePermissions: function(params){
+            params.path = 'config';
+            return v.io.mailbox.getResourcePermissions(params);
+        },
+
+        updateConfigResourcePermissions: function(params){
+            params.path = 'config';
+            return v.io.mailbox.getResourcePermissions(params);
+        },
+
+        getResourcePermissions: function(params){
+            params.service = 'mailbox';
+            return v.io.getResourcePermissions(params);
+        },
+
+        updateResourcePermissions: function(params){
+            params.service = 'mailbox';
+            return v.io.updateResourcePermissions(params);
+        }
+    };
 
 	/**
 	 * @namespace scope
@@ -4974,7 +5042,7 @@
 	 */
 	v.io.scope = {
 		/**
-		 * Create or update data stored within a realm scope.
+		 * Create or update data stored within realm scope.
 		 *
 		 * @memberOf voyent.io.scope
 		 * @alias createRealmData
@@ -5152,7 +5220,7 @@
 		},
 
 		/**
-		 * Create or update data stored within a user scope.
+		 * Create or update data stored within user scope.
 		 *
 		 * @memberOf voyent.io.scope
 		 * @alias createUserData
@@ -5338,7 +5406,7 @@
 		},
 
 		/**
-		 * Create or update data stored within a process scope.
+		 * Create or update data stored within process scope.
 		 *
 		 * @memberOf voyent.io.scope
 		 * @alias createProcessData
@@ -5525,7 +5593,7 @@
 		},
 
 		/**
-		 * Create or update data stored within a transaction scope.
+		 * Create or update data stored within transaction scope.
 		 *
 		 * @memberOf voyent.io.scope
 		 * @alias createTransactionData
@@ -7686,7 +7754,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Sep 06 2016 14:16:50 GMT-0600 (MDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Sep 06 2016 14:14:35 GMT-0600 (MDT)
 </footer>
 
 <script> prettyPrint(); </script>
