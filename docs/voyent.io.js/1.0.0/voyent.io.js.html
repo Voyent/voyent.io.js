@@ -345,13 +345,18 @@
 		validateParameter('group', 'The callback parameter is required', params, reject);
 	}
 
-	/* Misc */
-	function validateRequiredId(params, reject){
-		validateParameter('id', 'The id is required', params, reject);
+	/* Scope */
+	function validateRequiredProperty(params, reject){
+		validateParameter('property', 'The property parameter is required', params, reject);
 	}
 
 	function validateRequiredData(params, reject){
 		validateParameter('data', 'The data parameter is required', params, reject);
+	}
+
+	/* Misc */
+	function validateRequiredId(params, reject){
+		validateParameter('id', 'The id is required', params, reject);
 	}
 
 	function validateParameter(name, msg, params, reject){
@@ -742,6 +747,7 @@
 		v.io.eventhubURL = baseURL + (isLocal ? ':55200' : '') + '/eventhub';
 		v.io.mailboxURL = baseURL + (isLocal ? ':55120' : '') + '/mailbox';
 		v.io.deviceURL = baseURL + (isLocal ? ':55160' : '') + '/device';
+		v.io.scopeURL = baseURL + (isLocal ? ':55400' : '') + '/scope';
 	};
 
 	v.io.checkHost = function(params){
@@ -3070,7 +3076,6 @@
           var account = validateAndReturnRequiredAccount(params, reject);
           var realm = validateAndReturnRequiredRealm(params, reject);
           var token = validateAndReturnRequiredAccessToken(params, reject);
-          validateRequiredId(params, reject);
 
           var url = getRealmResourceURL(v.io.documentsURL, account, realm,
             "collections", token, params.ssl, {
@@ -4963,6 +4968,793 @@
 		},
 	};
 
+	/**
+	 * @namespace scope
+	 * @memberOf voyent.io
+	 */
+	v.io.scope = {
+		/**
+		 * Create or update data stored within a realm scope.
+		 *
+		 * @memberOf voyent.io.scope
+		 * @alias createRealmData
+		 * @param {Object} params params
+		 * @param {Object} params.data The object containing one or more properties to be inserted into the realm scope.
+		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+		 * will be used.
+		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+		 * will be used.
+		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+		 * voyent.io.auth.connect() will be used.
+		 * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+		 * default will be used.
+		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+		 * @returns {String} The resource URI.
+		 */
+		createRealmData: function(params) {
+			return new Promise(
+				function (resolve, reject) {
+					params = params ? params : {};
+					v.io.checkHost(params);
+
+					//validate
+					var account = validateAndReturnRequiredAccount(params, reject);
+					var realm = validateAndReturnRequiredRealm(params, reject);
+					var token = validateAndReturnRequiredAccessToken(params, reject);
+					validateRequiredData(params, reject);
+
+					var url = getRealmResourceURL(v.io.scopeURL, account, realm,
+						'scopes/realm', token, params.ssl);
+
+					v.$.post(url, params.data).then(function (response) {
+						v.io.auth.updateLastActiveTimestamp();
+						resolve(response.uri);
+					})['catch'](function (error) {
+						reject(error);
+					});
+				}
+			);
+		},
+
+		/**
+		 * Retrieve a single property stored in realm scope or the entire realm scope if no property is provided.
+		 *
+		 * @memberOf voyent.io.scope
+		 * @alias getRealmData
+		 * @param {Object} params params
+		 * @param {String} params.property The name of the data property to retrieve from realm scope. If not provided,
+		 * all data for the scope will be retrieved.
+		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+		 * will be used.
+		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+		 * will be used.
+		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+		 * voyent.io.auth.connect() will be used.
+		 * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+		 * default will be used.
+		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+		 * @returns {Object} The scoped data.
+		 */
+		getRealmData: function(params) {
+			return new Promise(
+				function (resolve, reject) {
+					params = params ? params : {};
+					v.io.checkHost(params);
+
+					//validate
+					var account = validateAndReturnRequiredAccount(params, reject);
+					var realm = validateAndReturnRequiredRealm(params, reject);
+					var token = validateAndReturnRequiredAccessToken(params, reject);
+
+					var queryParams = {};
+					if (params.property) {
+						queryParams[params.property] = '';
+					}
+
+					var url = getRealmResourceURL(v.io.scopeURL, account, realm,
+						'scopes/realm', token, params.ssl, queryParams);
+
+					v.$.getJSON(url).then(function (data) {
+						v.io.auth.updateLastActiveTimestamp();
+						resolve(data);
+					})['catch'](function (error) {
+						reject(error);
+					});
+				}
+			);
+		},
+
+		/**
+		 * Delete a single property stored in realm scope.
+		 *
+		 * @memberOf voyent.io.scope
+		 * @alias deleteRealmData
+		 * @param {Object} params params
+		 * @param {String} params.property The name of the data property to delete from realm scope. Required.
+		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+		 * will be used.
+		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+		 * will be used.
+		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+		 * voyent.io.auth.connect() will be used.
+		 * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+		 * default will be used.
+		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+		 */
+		deleteRealmData: function(params) {
+			return new Promise(
+				function (resolve, reject) {
+					params = params ? params : {};
+					v.io.checkHost(params);
+
+					//validate
+					var account = validateAndReturnRequiredAccount(params, reject);
+					var realm = validateAndReturnRequiredRealm(params, reject);
+					var token = validateAndReturnRequiredAccessToken(params, reject);
+					validateRequiredProperty(params, reject);
+
+					var queryParams = {};
+					queryParams[params.property] = '';
+
+					var url = getRealmResourceURL(v.io.scopeURL, account, realm,
+						'scopes/realm', token, params.ssl, queryParams);
+
+					v.$.doDelete(url).then(function () {
+						v.io.auth.updateLastActiveTimestamp();
+						resolve();
+					})['catch'](function (error) {
+						reject(error);
+					});
+				}
+			);
+		},
+
+		/**
+		 * Delete an entire realm scope and all of it's data. Use with care, this action cannot be undone.
+		 *
+		 * @memberOf voyent.io.scope
+		 * @alias deleteRealmScope
+		 * @param {Object} params params
+		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+		 * will be used.
+		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+		 * will be used.
+		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+		 * voyent.io.auth.connect() will be used.
+		 * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+		 * default will be used.
+		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+		 */
+		deleteRealmScope: function(params) {
+			return new Promise(
+				function (resolve, reject) {
+					params = params ? params : {};
+					v.io.checkHost(params);
+
+					//validate
+					var account = validateAndReturnRequiredAccount(params, reject);
+					var realm = validateAndReturnRequiredRealm(params, reject);
+					var token = validateAndReturnRequiredAccessToken(params, reject);
+
+					var queryParams = {"_invalidate":''};
+
+					var url = getRealmResourceURL(v.io.scopeURL, account, realm,
+						'scopes/realm', token, params.ssl, queryParams);
+
+					v.$.doDelete(url).then(function () {
+						v.io.auth.updateLastActiveTimestamp();
+						resolve();
+					})['catch'](function (error) {
+						reject(error);
+					});
+				}
+			);
+		},
+
+		/**
+		 * Create or update data stored within a user scope.
+		 *
+		 * @memberOf voyent.io.scope
+		 * @alias createUserData
+		 * @param {Object} params params
+		 * @param {Object} params.id The user id, the user scope to create data in.
+		 * @param {Object} params.data The object containing one or more properties to be inserted into the user scope.
+		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+		 * will be used.
+		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+		 * will be used.
+		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+		 * voyent.io.auth.connect() will be used.
+		 * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+		 * default will be used.
+		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+		 * @returns {String} The resource URI.
+		 */
+		createUserData: function(params) {
+			return new Promise(
+				function (resolve, reject) {
+					params = params ? params : {};
+					v.io.checkHost(params);
+
+					//validate
+					var account = validateAndReturnRequiredAccount(params, reject);
+					var realm = validateAndReturnRequiredRealm(params, reject);
+					var token = validateAndReturnRequiredAccessToken(params, reject);
+					validateRequiredId(params, reject);
+					validateRequiredData(params, reject);
+
+					var url = getRealmResourceURL(v.io.scopeURL, account, realm,
+						'scopes/user/' + params.id, token, params.ssl);
+
+					v.$.post(url, params.data).then(function (response) {
+						v.io.auth.updateLastActiveTimestamp();
+						resolve(response.uri);
+					})['catch'](function (error) {
+						reject(error);
+					});
+				}
+			);
+		},
+
+		/**
+		 * Retrieve a single property stored in user scope or the entire user scope if no property is provided.
+		 *
+		 * @memberOf voyent.io.scope
+		 * @alias getUserData
+		 * @param {Object} params params
+		 * @param {Object} params.id The user id, the user scope to get data from.
+		 * @param {String} params.property The name of the data property to retrieve from user scope. If not provided,
+		 * all data for the scope will be retrieved.
+		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+		 * will be used.
+		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+		 * will be used.
+		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+		 * voyent.io.auth.connect() will be used.
+		 * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+		 * default will be used.
+		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+		 * @returns {Object} The scoped data.
+		 */
+		getUserData: function(params) {
+			return new Promise(
+				function (resolve, reject) {
+					params = params ? params : {};
+					v.io.checkHost(params);
+
+					//validate
+					var account = validateAndReturnRequiredAccount(params, reject);
+					var realm = validateAndReturnRequiredRealm(params, reject);
+					var token = validateAndReturnRequiredAccessToken(params, reject);
+					validateRequiredId(params, reject);
+
+					var queryParams = {};
+					if (params.property) {
+						queryParams[params.property] = '';
+					}
+
+					var url = getRealmResourceURL(v.io.scopeURL, account, realm,
+						'scopes/user/' + params.id, token, params.ssl, queryParams);
+
+					v.$.getJSON(url).then(function (data) {
+						v.io.auth.updateLastActiveTimestamp();
+						resolve(data);
+					})['catch'](function (error) {
+						reject(error);
+					});
+				}
+			);
+		},
+
+		/**
+		 * Delete a single property stored in user scope.
+		 *
+		 * @memberOf voyent.io.scope
+		 * @alias deleteUserData
+		 * @param {Object} params params
+		 * @param {Object} params.id The user id, the user scope to delete data from.
+		 * @param {String} params.property The name of the data property to delete from user scope. Required.
+		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+		 * will be used.
+		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+		 * will be used.
+		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+		 * voyent.io.auth.connect() will be used.
+		 * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+		 * default will be used.
+		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+		 */
+		deleteUserData: function(params) {
+			return new Promise(
+				function (resolve, reject) {
+					params = params ? params : {};
+					v.io.checkHost(params);
+
+					//validate
+					var account = validateAndReturnRequiredAccount(params, reject);
+					var realm = validateAndReturnRequiredRealm(params, reject);
+					var token = validateAndReturnRequiredAccessToken(params, reject);
+					validateRequiredId(params, reject);
+					validateRequiredProperty(params, reject);
+
+					var queryParams = {};
+					queryParams[params.property] = '';
+
+					var url = getRealmResourceURL(v.io.scopeURL, account, realm,
+						'scopes/user/' + params.id, token, params.ssl, queryParams);
+
+					v.$.doDelete(url).then(function () {
+						v.io.auth.updateLastActiveTimestamp();
+						resolve();
+					})['catch'](function (error) {
+						reject(error);
+					});
+				}
+			);
+		},
+
+		/**
+		 * Delete an entire user scope and all of it's data. Use with care, this action cannot be undone.
+		 *
+		 * @memberOf voyent.io.scope
+		 * @alias deleteUserScope
+		 * @param {Object} params params
+		 * @param {Object} params.id The user id, the user scope to delete.
+		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+		 * will be used.
+		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+		 * will be used.
+		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+		 * voyent.io.auth.connect() will be used.
+		 * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+		 * default will be used.
+		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+		 */
+		deleteUserScope: function(params) {
+			return new Promise(
+				function (resolve, reject) {
+					params = params ? params : {};
+					v.io.checkHost(params);
+
+					//validate
+					var account = validateAndReturnRequiredAccount(params, reject);
+					var realm = validateAndReturnRequiredRealm(params, reject);
+					var token = validateAndReturnRequiredAccessToken(params, reject);
+					validateRequiredId(params, reject);
+
+					var queryParams = {"_invalidate":''};
+
+					var url = getRealmResourceURL(v.io.scopeURL, account, realm,
+						'scopes/user/' + params.id, token, params.ssl, queryParams);
+
+					v.$.doDelete(url).then(function () {
+						v.io.auth.updateLastActiveTimestamp();
+						resolve();
+					})['catch'](function (error) {
+						reject(error);
+					});
+				}
+			);
+		},
+
+		/**
+		 * Create or update data stored within a process scope.
+		 *
+		 * @memberOf voyent.io.scope
+		 * @alias createProcessData
+		 * @param {Object} params params
+		 * @param {Object} params.id The process id, the process scope to create data in.
+		 * @param {Object} params.data The object containing one or more properties to be inserted into the process
+		 * scope.
+		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+		 * will be used.
+		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+		 * will be used.
+		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+		 * voyent.io.auth.connect() will be used.
+		 * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+		 * default will be used.
+		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+		 * @returns {String} The resource URI.
+		 */
+		createProcessData: function(params) {
+			return new Promise(
+				function (resolve, reject) {
+					params = params ? params : {};
+					v.io.checkHost(params);
+
+					//validate
+					var account = validateAndReturnRequiredAccount(params, reject);
+					var realm = validateAndReturnRequiredRealm(params, reject);
+					var token = validateAndReturnRequiredAccessToken(params, reject);
+					validateRequiredId(params, reject);
+					validateRequiredData(params, reject);
+
+					var url = getRealmResourceURL(v.io.scopeURL, account, realm,
+						'scopes/process/' + params.id, token, params.ssl);
+
+					v.$.post(url, params.data).then(function (response) {
+						v.io.auth.updateLastActiveTimestamp();
+						resolve(response.uri);
+					})['catch'](function (error) {
+						reject(error);
+					});
+				}
+			);
+		},
+
+		/**
+		 * Retrieve a single property stored in process scope or the entire process scope if no property is provided.
+		 *
+		 * @memberOf voyent.io.scope
+		 * @alias getProcessData
+		 * @param {Object} params params
+		 * @param {Object} params.id The process id, the process scope to get data from.
+		 * @param {String} params.property The name of the data property to retrieve from process scope. If not
+		 * provided, all data for the scope will be retrieved.
+		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+		 * will be used.
+		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+		 * will be used.
+		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+		 * voyent.io.auth.connect() will be used.
+		 * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+		 * default will be used.
+		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+		 * @returns {Object} The scoped data.
+		 */
+		getProcessData: function(params) {
+			return new Promise(
+				function (resolve, reject) {
+					params = params ? params : {};
+					v.io.checkHost(params);
+
+					//validate
+					var account = validateAndReturnRequiredAccount(params, reject);
+					var realm = validateAndReturnRequiredRealm(params, reject);
+					var token = validateAndReturnRequiredAccessToken(params, reject);
+					validateRequiredId(params, reject);
+
+					var queryParams = {};
+					if (params.property) {
+						queryParams[params.property] = '';
+					}
+
+					var url = getRealmResourceURL(v.io.scopeURL, account, realm,
+						'scopes/process/' + params.id, token, params.ssl, queryParams);
+
+					v.$.getJSON(url).then(function (data) {
+						v.io.auth.updateLastActiveTimestamp();
+						resolve(data);
+					})['catch'](function (error) {
+						reject(error);
+					});
+				}
+			);
+		},
+
+		/**
+		 * Delete a single property stored in process scope.
+		 *
+		 * @memberOf voyent.io.scope
+		 * @alias deleteProcessData
+		 * @param {Object} params params
+		 * @param {Object} params.id The process id, the process scope to delete data from.
+		 * @param {String} params.property The name of the data property to delete from process scope. Required.
+		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+		 * will be used.
+		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+		 * will be used.
+		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+		 * voyent.io.auth.connect() will be used.
+		 * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+		 * default will be used.
+		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+		 */
+		deleteProcessData: function(params) {
+			return new Promise(
+				function (resolve, reject) {
+					params = params ? params : {};
+					v.io.checkHost(params);
+
+					//validate
+					var account = validateAndReturnRequiredAccount(params, reject);
+					var realm = validateAndReturnRequiredRealm(params, reject);
+					var token = validateAndReturnRequiredAccessToken(params, reject);
+					validateRequiredId(params, reject);
+					validateRequiredProperty(params, reject);
+
+					var queryParams = {};
+					queryParams[params.property] = '';
+
+					var url = getRealmResourceURL(v.io.scopeURL, account, realm,
+						'scopes/process/' + params.id, token, params.ssl, queryParams);
+
+					v.$.doDelete(url).then(function () {
+						v.io.auth.updateLastActiveTimestamp();
+						resolve();
+					})['catch'](function (error) {
+						reject(error);
+					});
+				}
+			);
+		},
+
+		/**
+		 * Delete an entire process scope and all of it's data. Use with care, this action cannot be undone.
+		 *
+		 * @memberOf voyent.io.scope
+		 * @alias deleteProcessScope
+		 * @param {Object} params params
+		 * @param {Object} params.id The process id, the process scope to delete.
+		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+		 * will be used.
+		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+		 * will be used.
+		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+		 * voyent.io.auth.connect() will be used.
+		 * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+		 * default will be used.
+		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+		 */
+		deleteProcessScope: function(params) {
+			return new Promise(
+				function (resolve, reject) {
+					params = params ? params : {};
+					v.io.checkHost(params);
+
+					//validate
+					var account = validateAndReturnRequiredAccount(params, reject);
+					var realm = validateAndReturnRequiredRealm(params, reject);
+					var token = validateAndReturnRequiredAccessToken(params, reject);
+					validateRequiredId(params, reject);
+
+					var queryParams = {"_invalidate":''};
+
+					var url = getRealmResourceURL(v.io.scopeURL, account, realm,
+						'scopes/process/' + params.id, token, params.ssl, queryParams);
+
+					v.$.doDelete(url).then(function () {
+						v.io.auth.updateLastActiveTimestamp();
+						resolve();
+					})['catch'](function (error) {
+						reject(error);
+					});
+				}
+			);
+		},
+
+		/**
+		 * Create or update data stored within a transaction scope.
+		 *
+		 * @memberOf voyent.io.scope
+		 * @alias createTransactionData
+		 * @param {Object} params params
+		 * @param {Object} params.id The transaction id, the transaction scope to create data in.
+		 * @param {Object} params.data The object containing one or more properties to be inserted into the transaction
+		 * scope.
+		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+		 * will be used.
+		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+		 * will be used.
+		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+		 * voyent.io.auth.connect() will be used.
+		 * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+		 * default will be used.
+		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+		 * @returns {String} The resource URI.
+		 */
+		createTransactionData: function(params) {
+			return new Promise(
+				function (resolve, reject) {
+					params = params ? params : {};
+					v.io.checkHost(params);
+
+					//validate
+					var account = validateAndReturnRequiredAccount(params, reject);
+					var realm = validateAndReturnRequiredRealm(params, reject);
+					var token = validateAndReturnRequiredAccessToken(params, reject);
+					validateRequiredId(params, reject);
+					validateRequiredData(params, reject);
+
+					var url = getRealmResourceURL(v.io.scopeURL, account, realm,
+						'scopes/transaction/' + params.id, token, params.ssl);
+
+					v.$.post(url, params.data).then(function (response) {
+						v.io.auth.updateLastActiveTimestamp();
+						resolve(response.uri);
+					})['catch'](function (error) {
+						reject(error);
+					});
+				}
+			);
+		},
+
+		/**
+		 * Retrieve a single property stored in transaction scope or the entire transaction scope if no property is
+		 * provided.
+		 *
+		 * @memberOf voyent.io.scope
+		 * @alias getTransactionData
+		 * @param {Object} params params
+		 * @param {Object} params.id The transaction id, the transaction scope to get data from.
+		 * @param {String} params.property The name of the data property to retrieve from transaction scope. If not
+		 * provided, all data for the scope will be retrieved.
+		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+		 * will be used.
+		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+		 * will be used.
+		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+		 * voyent.io.auth.connect() will be used.
+		 * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+		 * default will be used.
+		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+		 * @returns {Object} The scoped data.
+		 */
+		getTransactionData: function(params) {
+			return new Promise(
+				function (resolve, reject) {
+					params = params ? params : {};
+					v.io.checkHost(params);
+
+					//validate
+					var account = validateAndReturnRequiredAccount(params, reject);
+					var realm = validateAndReturnRequiredRealm(params, reject);
+					var token = validateAndReturnRequiredAccessToken(params, reject);
+					validateRequiredId(params, reject);
+
+					var queryParams = {};
+					if (params.property) {
+						queryParams[params.property] = '';
+					}
+
+					var url = getRealmResourceURL(v.io.scopeURL, account, realm,
+						'scopes/transaction/' + params.id, token, params.ssl, queryParams);
+
+					v.$.getJSON(url).then(function (data) {
+						v.io.auth.updateLastActiveTimestamp();
+						resolve(data);
+					})['catch'](function (error) {
+						reject(error);
+					});
+				}
+			);
+		},
+
+		/**
+		 * Delete a single property stored in transaction scope.
+		 *
+		 * @memberOf voyent.io.scope
+		 * @alias deleteTransactionData
+		 * @param {Object} params params
+		 * @param {Object} params.id The transaction id, the transaction scope to delete data from.
+		 * @param {String} params.property The name of the data property to delete from transaction scope. Required.
+		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+		 * will be used.
+		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+		 * will be used.
+		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+		 * voyent.io.auth.connect() will be used.
+		 * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+		 * default will be used.
+		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+		 */
+		deleteTransactionData: function(params) {
+			return new Promise(
+				function (resolve, reject) {
+					params = params ? params : {};
+					v.io.checkHost(params);
+
+					//validate
+					var account = validateAndReturnRequiredAccount(params, reject);
+					var realm = validateAndReturnRequiredRealm(params, reject);
+					var token = validateAndReturnRequiredAccessToken(params, reject);
+					validateRequiredId(params, reject);
+					validateRequiredProperty(params, reject);
+
+					var queryParams = {};
+					queryParams[params.property] = '';
+
+					var url = getRealmResourceURL(v.io.scopeURL, account, realm,
+						'scopes/transaction/' + params.id, token, params.ssl, queryParams);
+
+					v.$.doDelete(url).then(function () {
+						v.io.auth.updateLastActiveTimestamp();
+						resolve();
+					})['catch'](function (error) {
+						reject(error);
+					});
+				}
+			);
+		},
+
+		/**
+		 * Delete an entire transaction scope and all of it's data. Use with care, this action cannot be undone.
+		 *
+		 * @memberOf voyent.io.scope
+		 * @alias deleteTransactionScope
+		 * @param {Object} params params
+		 * @param {Object} params.id The transaction id, the transaction scope to delete.
+		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+		 * will be used.
+		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+		 * will be used.
+		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+		 * voyent.io.auth.connect() will be used.
+		 * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+		 * default will be used.
+		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+		 */
+		deleteTransactionScope: function(params) {
+			return new Promise(
+				function (resolve, reject) {
+					params = params ? params : {};
+					v.io.checkHost(params);
+
+					//validate
+					var account = validateAndReturnRequiredAccount(params, reject);
+					var realm = validateAndReturnRequiredRealm(params, reject);
+					var token = validateAndReturnRequiredAccessToken(params, reject);
+					validateRequiredId(params, reject);
+
+					var queryParams = {"_invalidate":''};
+
+					var url = getRealmResourceURL(v.io.scopeURL, account, realm,
+						'scopes/transaction/' + params.id, token, params.ssl, queryParams);
+
+					v.$.doDelete(url).then(function () {
+						v.io.auth.updateLastActiveTimestamp();
+						resolve();
+					})['catch'](function (error) {
+						reject(error);
+					});
+				}
+			);
+		},
+
+		/**
+		 * Touch a transaction scope. Touching a scope updates the last accessed time without changing anything else.
+		 *
+		 * @memberOf voyent.io.scope
+		 * @alias touchTransactionScope
+		 * @param {Object} params params
+		 * @param {String} params.id The transaction id, the transaction scope to touch.
+		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
+		 * will be used.
+		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
+		 * will be used.
+		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
+		 * voyent.io.auth.connect() will be used.
+		 * @param {String} params.host The Voyent Services host url. If not provided, the last used Voyent host, or the
+		 * default will be used.
+		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
+		 */
+		touchTransactionScope: function(params) {
+			return new Promise(
+				function (resolve, reject) {
+					params = params ? params : {};
+					v.io.checkHost(params);
+
+					//validate
+					var account = validateAndReturnRequiredAccount(params, reject);
+					var realm = validateAndReturnRequiredRealm(params, reject);
+					var token = validateAndReturnRequiredAccessToken(params, reject);
+					validateRequiredId(params, reject);
+
+					var url = getRealmResourceURL(v.io.scopeURL, account, realm,
+						'scopes/transaction/' + params.id, token, params.ssl);
+
+					v.$.put(url).then(function(){
+						v.io.auth.updateLastActiveTimestamp();
+						resolve();
+					})['catch'](function(error){
+						reject(error);
+					});
+				}
+			);
+		}
+	};
+
 	/* METRICS SERVICE. Left in for backwards-compatibility. */
     /**
      * @namespace metrics
@@ -6741,7 +7533,6 @@
 				var account = validateAndReturnRequiredAccount(params, reject);
 				var realm = validateAndReturnRequiredRealm(params, reject);
 				var token = validateAndReturnRequiredAccessToken(params, reject);
-				validateRequiredId(params, reject);
 
 				var url = getRealmResourceURL(v.io.deviceURL, account, realm,
 					params.macAddress + '/start', token, params.ssl);
@@ -6780,7 +7571,6 @@
 				var account = validateAndReturnRequiredAccount(params, reject);
 				var realm = validateAndReturnRequiredRealm(params, reject);
 				var token = validateAndReturnRequiredAccessToken(params, reject);
-				validateRequiredId(params, reject);
 
 				var url = getRealmResourceURL(v.io.deviceURL, account, realm,
 					params.macAddress + '/stop', token, params.ssl);
@@ -6818,7 +7608,6 @@
 				var account = validateAndReturnRequiredAccount(params, reject);
 				var realm = validateAndReturnRequiredRealm(params, reject);
 				var token = validateAndReturnRequiredAccessToken(params, reject);
-				validateRequiredId(params, reject);
 
 				var url = getRealmResourceURL(v.io.deviceURL, account, realm,
 					'/stop', token, params.ssl);
@@ -6891,13 +7680,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="voyent.html">voyent</a></li><li><a href="voyent.io.html">io</a></li><li><a href="voyent.io.action.html">action</a></li><li><a href="voyent.io.admin.html">admin</a></li><li><a href="voyent.io.auth.html">auth</a></li><li><a href="voyent.io.device.html">device</a></li><li><a href="voyent.io.documents.html">documents</a></li><li><a href="voyent.io.event.html">event</a></li><li><a href="voyent.io.eventhub.html">eventhub</a></li><li><a href="voyent.io.location.html">location</a></li><li><a href="voyent.io.mailbox.html">mailbox</a></li><li><a href="voyent.io.metrics.html">metrics</a></li><li><a href="voyent.io.push.html">push</a></li><li><a href="voyent.io.query.html">query</a></li><li><a href="voyent.io.storage.html">storage</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getResourcePermissions">getResourcePermissions</a></li><li><a href="global.html#setCurrentRealm">setCurrentRealm</a></li><li><a href="global.html#updateResourcePermissions">updateResourcePermissions</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="voyent.html">voyent</a></li><li><a href="voyent.io.html">io</a></li><li><a href="voyent.io.action.html">action</a></li><li><a href="voyent.io.admin.html">admin</a></li><li><a href="voyent.io.auth.html">auth</a></li><li><a href="voyent.io.device.html">device</a></li><li><a href="voyent.io.documents.html">documents</a></li><li><a href="voyent.io.event.html">event</a></li><li><a href="voyent.io.eventhub.html">eventhub</a></li><li><a href="voyent.io.location.html">location</a></li><li><a href="voyent.io.mailbox.html">mailbox</a></li><li><a href="voyent.io.metrics.html">metrics</a></li><li><a href="voyent.io.push.html">push</a></li><li><a href="voyent.io.query.html">query</a></li><li><a href="voyent.io.scope.html">scope</a></li><li><a href="voyent.io.storage.html">storage</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getResourcePermissions">getResourcePermissions</a></li><li><a href="global.html#setCurrentRealm">setCurrentRealm</a></li><li><a href="global.html#updateResourcePermissions">updateResourcePermissions</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Sep 01 2016 16:02:44 GMT-0700 (PDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Sep 06 2016 14:16:50 GMT-0600 (MDT)
 </footer>
 
 <script> prettyPrint(); </script>

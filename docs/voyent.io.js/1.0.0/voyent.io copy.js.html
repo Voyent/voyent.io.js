@@ -1,4 +1,32 @@
-if( ! ('voyent' in window)){
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: voyent.io copy.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: voyent.io copy.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>if( ! ('voyent' in window)){
 	throw new Error('voyent.io.js requires voyent.js, please include voyent.js before voyent.io.js');
 }
 
@@ -23,18 +51,18 @@ if( ! ('voyent' in window)){
 		if( 'CustomEvent' in window ){
 			event = new CustomEvent(eventName, { 'detail': detail });
 		}
-		else if(document.createEvent){//IE 10 & other older browsers
+		else if(document.createEvent){//IE 10 &amp; other older browsers
 			event = document.createEvent('HTMLEvents');
 			event.initEvent(eventName, true, true);
 		}
-		else if(document.createEventObject){// IE < 9
+		else if(document.createEventObject){// IE &lt; 9
 			event = document.createEventObject();
 			event.eventType = eventName;
 		}
 		event.eventName = eventName;
 		if(el.dispatchEvent){
 			el.dispatchEvent(event);
-		}else if(el.fireEvent && htmlEvents['on'+eventName]){// IE < 9
+		}else if(el.fireEvent &amp;&amp; htmlEvents['on'+eventName]){// IE &lt; 9
 			el.fireEvent('on'+event.eventType, event);// can trigger only real event (e.g. 'click')
 		}else if(el[eventName]){
 			el[eventName]();
@@ -245,10 +273,6 @@ if( ! ('voyent' in window)){
 		validateParameter('region', 'The region parameter is required', params, reject);
 	}
 
-	function validateRequiredTracker(params, reject){
-		validateParameter('tracker', 'The tracker parameter is required', params, reject);
-	}
-
 	function validateRequiredMonitor(params, reject){
 		validateParameter('monitor', 'The monitor parameter is required', params, reject);
 	}
@@ -362,7 +386,7 @@ if( ! ('voyent' in window)){
 		var url = protocol + servicePath +
 			'/' + account + '/realms/' + realm + '/' + resourcePath + '?' +
 			(token ? 'access_token=' + token : '') +
-			(txParam ? '&' + txParam : '');
+			(txParam ? '&amp;' + txParam : '');
 		if( params ){
 			for( var key in params ){
 				var param = params[key];
@@ -374,7 +398,7 @@ if( ! ('voyent' in window)){
 						param = params[key];
 					}
 				}
-				url += ('&' + key + '=' + param);
+				url += ('&amp;' + key + '=' + param);
 			}
 		}
 		return url;
@@ -407,7 +431,7 @@ if( ! ('voyent' in window)){
 			functionName = fn;
 			var parts = functionName.split(".");
 			var theObject = window;
-			for (var i = 0; i < parts.length; i++) {
+			for (var i = 0; i &lt; parts.length; i++) {
 				theObject = theObject[parts[i]];
 				if (!theObject) {
 					return null;
@@ -465,7 +489,7 @@ if( ! ('voyent' in window)){
 				}
 				request.onreadystatechange = function() {
 					if (this.readyState === 4) {
-						if (this.status >= 200 && this.status < 400) {
+						if (this.status >= 200 &amp;&amp; this.status &lt; 400) {
 							resolve(this.responseText);
 						} else {
 							reject(extractResponseValues(this));
@@ -494,7 +518,7 @@ if( ! ('voyent' in window)){
 				}
 				request.onreadystatechange = function() {
 					if (this.readyState === 4) {
-						if (this.status >= 200 && this.status < 400) {
+						if (this.status >= 200 &amp;&amp; this.status &lt; 400) {
 							resolve(JSON.parse(this.responseText));
 						} else {
 							reject(extractResponseValues(this));
@@ -582,7 +606,7 @@ if( ! ('voyent' in window)){
 
 				request.onreadystatechange = function() {
 					if (this.readyState === 4) {
-						if (this.status >= 200 && this.status < 400) {
+						if (this.status >= 200 &amp;&amp; this.status &lt; 400) {
 							if( this.responseText ){
 								var json = null;
 								try{
@@ -628,7 +652,7 @@ if( ! ('voyent' in window)){
 				//request.setRequestHeader("Connection", "close");
 				request.onreadystatechange = function() {
 					if (this.readyState === 4) {
-						if (this.status >= 200 && this.status < 400) {
+						if (this.status >= 200 &amp;&amp; this.status &lt; 400) {
 							if( this.responseText ){
 								var json = null;
 								try{
@@ -676,7 +700,7 @@ if( ! ('voyent' in window)){
 				}
 				request.onreadystatechange = function() {
 					if (this.readyState === 4) {
-						if (this.status >= 200 && this.status < 400) {
+						if (this.status >= 200 &amp;&amp; this.status &lt; 400) {
 							v.io.auth.updateLastActiveTimestamp();
 							resolve();
 						} else {
@@ -697,7 +721,7 @@ if( ! ('voyent' in window)){
 
 		newUUID: function()  {
 			return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-				var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+				var r = Math.random()*16|0, v = c == 'x' ? r : (r&amp;0x3|0x8);
 				return v.toString(16);
 			});
 		}
@@ -705,36 +729,34 @@ if( ! ('voyent' in window)){
 
 	};
 
-	v.io.configureHosts = function(url) {
-		if (!url) {
-			v.io.baseURL = window.location.hostname || 'dev.voyent.cloud';
+	v.io.configureHosts = function(url){
+		var isLocal = ['localhost','127.0.0.1'].indexOf(url) > -1;
+		if( !url ){
+			v.io.baseURL = 'dev.voyent.cloud';
 		}
-		else {
+		else{
 			v.io.baseURL = url;
 		}
-		//remove any trailing '/'
-		if (v.io.baseURL.substr(v.io.baseURL.length - 1) === '/') {
-			v.io.baseURL = v.io.baseURL.slice(0,-1);
-		}
 		var baseURL = v.io.baseURL;
-		v.io.authURL = baseURL + '/auth';
-		v.io.authAdminURL = baseURL + '/authadmin';
-		v.io.locateURL = baseURL + '/locate';
-		v.io.docsURL = baseURL + '/docs';
-		v.io.storageURL = baseURL + '/storage';
-		v.io.eventURL = baseURL + '/event';
-		v.io.pushURL = baseURL + '/push';
+		v.io.authURL = baseURL + (isLocal ? ':55010' : '') + '/auth';
+		v.io.authAdminURL = baseURL + (isLocal ? ':55010' : '') + '/authadmin';
+		v.io.locateURL = baseURL + (isLocal ? ':55020' : '') + '/locate';
+		v.io.documentsURL = baseURL + (isLocal ? ':55080' : '') + '/docs';
+		v.io.storageURL = baseURL + (isLocal ? ':55030' : '') + '/storage';
+		v.io.eventURL = baseURL + (isLocal ? ':55050' : '') + '/event';
+		v.io.pushURL = baseURL + (isLocal ? ':8080' : '') + '/push';
 		v.io.pushRESTURL = v.io.pushURL + '/rest';
-		v.io.queryURL = baseURL + '/query';
-		v.io.actionURL = baseURL + '/action';
-		v.io.eventhubURL = baseURL + '/eventhub';
-		v.io.mailboxURL = baseURL + '/mailbox';
-		v.io.deviceURL = baseURL + '/device';
-		v.io.scopeURL = baseURL + '/scope';
+		v.io.queryURL = baseURL + (isLocal ? ':55110' : '') + '/query';
+		v.io.actionURL = baseURL + (isLocal ? ':55130' : '') + '/action';
+		v.io.eventhubURL = baseURL + (isLocal ? ':55200' : '') + '/eventhub';
+		v.io.mailboxURL = baseURL + (isLocal ? ':55120' : '') + '/mailbox';
+		v.io.deviceURL = baseURL + (isLocal ? ':55160' : '') + '/device';
+		v.io.scopeURL = baseURL + (isLocal ? ':55400' : '') + '/scope';
 	};
 
-	v.io.checkHost = function(params) {
-		if (params.host) {
+	v.io.checkHost = function(params){
+		//TODO use last configured host if available
+		if( params.host ){
 			v.io.configureHosts(params.host);
 		}
 	};
@@ -759,7 +781,7 @@ if( ! ('voyent' in window)){
      *       password: adminPassword,
      *       host: host
      *   }).then(function (authResponse) {
-     *       return voyent.io.docs.createDocument({
+     *       return voyent.io.documents.createDocument({
      *           document: newDoc,
      *           realm: realmId
      *       });
@@ -767,7 +789,7 @@ if( ! ('voyent' in window)){
      *       newDocURI = docURI;
      *       var uriParts = docURI.split('/');
      *       var docId = uriParts[uriParts.length - 1];
-     *       return voyent.io.docs.deleteDocument({
+     *       return voyent.io.documents.deleteDocument({
      *           account: accountId,
      *           realm: realmId,
      *           host: host,
@@ -827,14 +849,14 @@ if( ! ('voyent' in window)){
      *    }).then(function(authResponse){
      *    	voyent.io.setCurrentRealm('myRealm');
      *    	//realm is no longer required for all subsequent operations
-     *    	return voyent.io.docs.createDocument({
+     *    	return voyent.io.documents.createDocument({
      *    		document: newDoc
      *    	});
      *    }).then(function(docURI){
      *    	newDocURI = docURI;
      *    	var uriParts = docURI.split('/');
      *    	var docId = uriParts[uriParts.length-1];
-     *    	return voyent.io.docs.deleteDocument({
+     *    	return voyent.io.documents.deleteDocument({
      *    		account: accountId,
      *    		host: host,
      *    		id: docId
@@ -884,7 +906,7 @@ if( ! ('voyent' in window)){
      *    	username: adminId,
      *    	password: adminPassword,
      *    	host: host,
-     *    	service: 'docs',
+     *    	service: 'documents',
      *    	path: 'documents',
      *    	id: 'resourceId'
      *    }).then(function(permissions){
@@ -922,13 +944,13 @@ if( ! ('voyent' in window)){
 
 				var serviceURL;
 				switch(params.service){
-					case 'docs': serviceURL = v.io.docsURL; break;
+					case 'documents': serviceURL = v.io.documentsURL; break;
 					case 'action': serviceURL = v.io.actionURL; break;
 					case 'eventhub': serviceURL = v.io.eventhubURL; break;
 					case 'query': serviceURL = v.io.queryURL; break;
 					case 'storage': serviceURL = v.io.storageURL; break;
 					case 'mailbox': serviceURL = v.io.mailboxURL; break;
-					case 'locate': serviceURL = v.io.locateURL; break;
+					case 'location': serviceURL = v.io.locateURL; break;
 				}
 
 				var url = getRealmResourceURL(serviceURL, account, realm, params.path + '/' + params.id + '/permissions', token, params.ssl);
@@ -936,7 +958,7 @@ if( ! ('voyent' in window)){
 				v.$.getJSON(url).then(function(json){
 					v.io.auth.updateLastActiveTimestamp();
 					var permissionsBlock;
-					if( json.directory && json.directory.length > 0 ){
+					if( json.directory &amp;&amp; json.directory.length > 0 ){
 						permissionsBlock = json.directory[0];
 					}
 					else{
@@ -972,7 +994,7 @@ if( ! ('voyent' in window)){
      *    	username: adminId,
      *    	password: adminPassword,
      *    	host: host,
-     *    	service: 'docs',
+     *    	service: 'documents',
      *    	path: 'documents',
      *    	id: 'resourceId',
      *    	permissions: permissionsBlock
@@ -1013,7 +1035,7 @@ if( ! ('voyent' in window)){
 
 				var serviceURL;
 				switch(params.service){
-					case 'docs': serviceURL = v.io.docsURL; break;
+					case 'documents': serviceURL = v.io.documentsURL; break;
 					case 'action': serviceURL = v.io.actionURL; break;
 				}
 
@@ -1428,7 +1450,7 @@ if( ! ('voyent' in window)){
 					var protocol = params.ssl ? 'https://' : 'http://';
 					var txParam = getTransactionURLParam();
 					var url = protocol + v.io.authAdminURL + '/system/services/?access_token=' + token +
-						(txParam ? '&' + txParam : '');
+						(txParam ? '&amp;' + txParam : '');
 
 					v.$.getJSON(url).then(function(json){
 						v.io.auth.updateLastActiveTimestamp();
@@ -1453,7 +1475,7 @@ if( ! ('voyent' in window)){
 				var protocol = params.ssl ? 'https://' : 'http://';
 				var txParam = getTransactionURLParam();
 				var url = protocol + v.io.authAdminURL + '/' + account + '?access_token=' + token +
-					(txParam ? '&' + txParam : '');
+					(txParam ? '&amp;' + txParam : '');
 
 				v.$.getJSON(url).then(function(json){
 					v.io.auth.updateLastActiveTimestamp();
@@ -1507,11 +1529,28 @@ if( ! ('voyent' in window)){
 				admin.email = validateAndReturnRequiredEmail(params, reject);
 				admin.firstname = validateAndReturnRequiredFirstname(params, reject);
 				admin.lastname = validateAndReturnRequiredLastname(params, reject);
+
+				admin.permissions = [
+					'bridgeit.auth.viewAccount',
+				    'bridgeit.auth.createAccount',
+				    'bridgeit.auth.editAccount',
+				    'bridgeit.auth.deleteAccount',
+
+				    'bridgeit.auth.createUser',
+				    'bridgeit.auth.viewUser',
+				    'bridgeit.auth.editUser',
+				    'bridgeit.auth.deleteUser',
+
+				    'bridgeit.auth.viewServices',
+				    'bridgeit.auth.registerContext',
+				    'bridgeit.auth.createContext',
+				    'bridgeit.auth.deleteContext',
+				    'bridgeit.auth.editContext'];
 				account.admins.push(admin);
 
 				var protocol = params.ssl ? 'https://' : 'http://';
 				var txParam = getTransactionURLParam();
-				var url = protocol + v.io.authAdminURL + '/' + (txParam ? '&' + txParam : '');
+				var url = protocol + v.io.authAdminURL + '/' + (txParam ? '&amp;' + txParam : '');
 				var loggedInAt = new Date().getTime();
 				v.$.post(url, {account: account}).then(function(json){
 					v.io.auth.updateLastActiveTimestamp();
@@ -1544,7 +1583,7 @@ if( ! ('voyent' in window)){
 				var protocol = params.ssl ? 'https://' : 'http://';
 				var txparam = getTransactionURLParam();
 				var url = protocol + v.io.authAdminURL + '/' + account + '/realms/'
-						+ '?access_token=' + token + '&' + getTransactionURLParam();
+						+ '?access_token=' + token + '&amp;' + getTransactionURLParam();
 
 				v.$.getJSON(url).then(function(json){
 					v.io.auth.updateLastActiveTimestamp();
@@ -1613,7 +1652,7 @@ if( ! ('voyent' in window)){
 				var protocol = params.ssl ? 'https://' : 'http://';
 				var txParam = getTransactionURLParam();
 				var url = protocol + v.io.authAdminURL + '/' + account + '/realms?access_token=' + token +
-					(txParam ? '&' + txParam : '');
+					(txParam ? '&amp;' + txParam : '');
 
 				v.$.post(url, {realm: params.realm}).then(function(json){
 					v.io.auth.updateLastActiveTimestamp();
@@ -1638,7 +1677,7 @@ if( ! ('voyent' in window)){
 				var protocol = params.ssl ? 'https://' : 'http://';
 				var txParam = getTransactionURLParam();
 				var url = protocol + v.io.authAdminURL + '/' + account + '/realms/' + originRealmName + '/clone/' +
-					destRealmName + '?access_token=' + token + (txParam ? '&' + txParam : '');
+					destRealmName + '?access_token=' + token + (txParam ? '&amp;' + txParam : '');
 
 				v.$.post(url, {realm: params.realm}).then(function(json){
 					v.io.auth.updateLastActiveTimestamp();
@@ -1904,7 +1943,7 @@ if( ! ('voyent' in window)){
 				var options = params.options ? encodeURIComponent(JSON.stringify(params.options)) : '{}';
 
 				var url = protocol + v.io.authAdminURL + '/' + account + '/logging/?access_token=' +
-						token + '&query=' + query + '&fields=' + fields + '&options=' + options;
+						token + '&amp;query=' + query + '&amp;fields=' + fields + '&amp;options=' + options;
 
 				v.$.getJSON(url).then(function(logs){
 					v.io.auth.updateLastActiveTimestamp();
@@ -1931,7 +1970,7 @@ if( ! ('voyent' in window)){
 				var options = params.options ? encodeURIComponent(JSON.stringify(params.options)) : '{}';
 
 				var url = protocol + v.io.authAdminURL + '/' + account + '/realms/' + realm +
-					'/debugLogging/?access_token=' + token + '&query=' + query + '&fields=' + fields + '&options=' + options;
+					'/debugLogging/?access_token=' + token + '&amp;query=' + query + '&amp;fields=' + fields + '&amp;options=' + options;
 
 				v.$.getJSON(url).then(function(logs){
 					v.io.auth.updateLastActiveTimestamp();
@@ -1955,7 +1994,7 @@ if( ! ('voyent' in window)){
 				var protocol = params.ssl ? 'https://' : 'http://';
 				var txParam = getTransactionURLParam();
 				var url = protocol + v.io.authAdminURL + '/' + account + '/admins/?access_token=' + token +
-					(txParam ? '&' + txParam : '');
+					(txParam ? '&amp;' + txParam : '');
 
 				v.$.post(url, {admin: admin}).then(function(response){
 					v.io.auth.updateLastActiveTimestamp();
@@ -1978,7 +2017,7 @@ if( ! ('voyent' in window)){
 				var protocol = params.ssl ? 'https://' : 'http://';
 				var txParam = getTransactionURLParam();
 				var url = protocol + v.io.authAdminURL + '/' + account + '/admins/' + admin.username +
-					'/?access_token=' + token + (txParam ? '&' + txParam : '');
+					'/?access_token=' + token + (txParam ? '&amp;' + txParam : '');
 
 				v.$.put(url, {admin: admin}).then(function(response){
 					v.io.auth.updateLastActiveTimestamp();
@@ -2003,7 +2042,7 @@ if( ! ('voyent' in window)){
 				var protocol = params.ssl ? 'https://' : 'http://';
 				var txParam = getTransactionURLParam();
 				var url = protocol + v.io.authAdminURL + '/' + account + '/admins/' + username + '/?access_token=' + token +
-					(txParam ? '&' + txParam : '');
+					(txParam ? '&amp;' + txParam : '');
 
 				v.$.doDelete(url).then(function(response){
 					v.io.auth.updateLastActiveTimestamp();
@@ -2211,6 +2250,8 @@ if( ! ('voyent' in window)){
 		 *           password: 'secret'})
 		 *   .then( function(){
 		 *      console.log("successfully connnected to Voyent Services");
+		 *      //now we can fetch some docs
+		 *      return v.io.docService.get('documents');
 		 *   })
 		 *   .then( function(docs){
 		 *      for( var d in docs ){ ... };
@@ -2312,7 +2353,7 @@ if( ! ('voyent' in window)){
 							}
 							if( expiredCallbackFunction ){
 								var expiredCallbackPromise = expiredCallbackFunction();
-								if( expiredCallbackPromise && expiredCallbackPromise.then ){
+								if( expiredCallbackPromise &amp;&amp; expiredCallbackPromise.then ){
 									expiredCallbackPromise.then(v.io.auth.disconnect)
 									['catch'](v.io.auth.disconnect);
 								}
@@ -2531,7 +2572,7 @@ if( ! ('voyent' in window)){
 		getTimeRemainingBeforeExpiry: function(){
 			var expiresIn = v.io.auth.getExpiresIn();
 			var token = v.io.auth.getExpiresIn();
-			if( expiresIn && token ){
+			if( expiresIn &amp;&amp; token ){
 				var now = new Date().getTime();
 				return (v.io.auth.getTokenSetAtTime() + expiresIn) - now;
 			}
@@ -2554,8 +2595,8 @@ if( ! ('voyent' in window)){
 				scopeToPath = scopeToPathCipher ? atob(scopeToPathCipher) : '/',
 				isDev = window.location.port !== '',
 				currentPath = window.location.pathname;
-			//console.log('v.io.auth.isLoggedIn: token=' + token + ' tokenExpiresIn=' + tokenExpiresIn + 'tokenSetAt=' + tokenSetAt + ' (new Date().getTime() < (tokenExpiresIn + tokenSetAt))=' + (new Date().getTime() < (tokenExpiresIn + tokenSetAt)) + ' (currentPath.indexOf(scopeToPath) === 0)=' + (currentPath.indexOf(scopeToPath) === 0));
-			var result = token && tokenExpiresIn && tokenSetAt && (new Date().getTime() < (tokenExpiresIn + tokenSetAt) ) && (isDev || currentPath.indexOf(scopeToPath) === 0);
+			//console.log('v.io.auth.isLoggedIn: token=' + token + ' tokenExpiresIn=' + tokenExpiresIn + 'tokenSetAt=' + tokenSetAt + ' (new Date().getTime() &lt; (tokenExpiresIn + tokenSetAt))=' + (new Date().getTime() &lt; (tokenExpiresIn + tokenSetAt)) + ' (currentPath.indexOf(scopeToPath) === 0)=' + (currentPath.indexOf(scopeToPath) === 0));
+			var result = token &amp;&amp; tokenExpiresIn &amp;&amp; tokenSetAt &amp;&amp; (new Date().getTime() &lt; (tokenExpiresIn + tokenSetAt) ) &amp;&amp; (isDev || currentPath.indexOf(scopeToPath) === 0);
 			return !!result;
 		},
 
@@ -2805,15 +2846,15 @@ if( ! ('voyent' in window)){
 
 	/* DOC SERVICE */
     /**
-     * @namespace docs
+     * @namespace documents
      * @memberOf voyent.io
      */
-	v.io.docs = {
+	v.io.documents = {
 
 		/**
 		 * Create a new document
 		 *
-         * @memberOf voyent.io.docs
+         * @memberOf voyent.io.documents
 		 * @alias createDocument
 		 * @param {Object} params params
 		 * @param {String} params.collection The name of the document collection.  Defaults to 'documents'.
@@ -2842,7 +2883,7 @@ if( ! ('voyent' in window)){
 					var collection = validateCollection(params);
 					var token = validateAndReturnRequiredAccessToken(params, reject);
 
-					var url = getRealmResourceURL(v.io.docsURL, account, realm,
+					var url = getRealmResourceURL(v.io.documentsURL, account, realm,
 						collection + '/' + (params.id ? params.id : ''), token, params.ssl);
 
 					v.$.post(url, params.document).then(function(response){
@@ -2859,7 +2900,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Update a document
 		 *
-         * @memberOf voyent.io.docs
+         * @memberOf voyent.io.documents
 		 * @alias updateDocument
 		 * @param {Object} params params
 		 * @param {String} params.collection The name of the document collection.  Defaults to 'documents'.
@@ -2889,7 +2930,7 @@ if( ! ('voyent' in window)){
 					var token = validateAndReturnRequiredAccessToken(params, reject);
 					validateRequiredId(params, reject);
 
-					var url = getRealmResourceURL(v.io.docsURL, account, realm,
+					var url = getRealmResourceURL(v.io.documentsURL, account, realm,
 						collection + '/' + params.id, token, params.ssl);
 
 					v.$.put(url, params.document).then(function(){
@@ -2905,7 +2946,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Fetch a document
 		 *
-         * @memberOf voyent.io.docs
+         * @memberOf voyent.io.documents
 		 * @alias getDocument
 		 * @param {Object} params params
 		 * @param {String} params.collection The name of the document collection.  Defaults to 'documents'.
@@ -2934,14 +2975,14 @@ if( ! ('voyent' in window)){
 					var token = validateAndReturnRequiredAccessToken(params, reject);
 					validateRequiredId(params, reject);
 
-					var url = getRealmResourceURL(v.io.docsURL, account, realm,
+					var url = getRealmResourceURL(v.io.documentsURL, account, realm,
 						collection + '/' + params.id, token, params.ssl);
 
 					v.$.getJSON(url).then(function(doc){
 						v.io.auth.updateLastActiveTimestamp();
 						//the document service always returns a list, so
 						//check if we have a list of one, and if so, return the single item
-						if( doc.length && doc.length === 1 ){
+						if( doc.length &amp;&amp; doc.length === 1 ){
 							resolve(doc[0]);
 						}
 						else{
@@ -2957,7 +2998,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Searches for documents in a realm based on a query
 		 *
-         * @memberOf voyent.io.docs
+         * @memberOf voyent.io.documents
 		 * @alias findDocuments
 		 * @param {Object} params params
 		 * @param {String} params.collection The name of the document collection.  Defaults to 'documents'.
@@ -2988,7 +3029,7 @@ if( ! ('voyent' in window)){
 					var collection = validateCollection(params);
 					var token = validateAndReturnRequiredAccessToken(params, reject);
 
-					var url = getRealmResourceURL(v.io.docsURL, account, realm,
+					var url = getRealmResourceURL(v.io.documentsURL, account, realm,
 						collection, token, params.ssl, {
 							'query': params.query ? encodeURIComponent(JSON.stringify(params.query)) : {},
 							'fields': params.fields ? encodeURIComponent(JSON.stringify(params.fields)) : {},
@@ -3015,7 +3056,7 @@ if( ! ('voyent' in window)){
     /**
      * Get all document collections
      *
-     * @memberOf voyent.io.docs
+     * @memberOf voyent.io.documents
      * @alias deleteDocument
      * @param {Object} params params
      * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account will
@@ -3040,7 +3081,7 @@ if( ! ('voyent' in window)){
           var realm = validateAndReturnRequiredRealm(params, reject);
           var token = validateAndReturnRequiredAccessToken(params, reject);
 
-          var url = getRealmResourceURL(v.io.docsURL, account, realm,
+          var url = getRealmResourceURL(v.io.documentsURL, account, realm,
             "collections", token, params.ssl, {
 
             });
@@ -3064,7 +3105,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Delete a new document
 		 *
-         * @memberOf voyent.io.docs
+         * @memberOf voyent.io.documents
 		 * @alias deleteDocument
 		 * @param {Object} params params
 		 * @param {String} params.collection The name of the document collection.  Defaults to 'documents'.
@@ -3092,7 +3133,7 @@ if( ! ('voyent' in window)){
 					var token = validateAndReturnRequiredAccessToken(params, reject);
 					validateRequiredId(params, reject);
 
-					var url = getRealmResourceURL(v.io.docsURL, account, realm,
+					var url = getRealmResourceURL(v.io.documentsURL, account, realm,
 						collection + '/' + params.id, token, params.ssl);
 
 					v.$.doDelete(url).then(function(response){
@@ -3106,20 +3147,18 @@ if( ! ('voyent' in window)){
 		},
 
 		getResourcePermissions: function(params){
-			params.service = 'docs';
+			params.service = 'documents';
 			params.path = 'documents';
 			return v.io.getResourcePermissions(params);
 		},
 
 		updateResourcePermissions: function(params){
-			params.service = 'docs';
+			params.service = 'documents';
 			params.path = 'documents';
 			return v.io.updateResourcePermissions(params);
-		}
-	};
+		},
 
-	//allow using "documents" for backward compatibility
-	v.io.documents = v.io.docs;
+	};
 
     /**
      * @namespace eventhub
@@ -3701,15 +3740,15 @@ if( ! ('voyent' in window)){
 
 	/* LOCATE SERVICE */
     /**
-     * @namespace locate
+     * @namespace location
      * @memberOf voyent.io
      */
-	v.io.locate = {
+	v.io.location = {
 
 		/**
 		 * Create a new region
 		 *
-         * @memberOf voyent.io.locate
+         * @memberOf voyent.io.location
 		 * @alias createRegion
 		 * @param {Object} params params
 		 * @param {String} params.id The region id. If not provided, the service will return a new id
@@ -3753,7 +3792,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Update a region
 		 *
-         * @memberOf voyent.io.locate
+         * @memberOf voyent.io.location
 		 * @alias updateRegion
 		 * @param {Object} params params
 		 * @param {String} params.id The region id, the region to be updated
@@ -3797,7 +3836,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Delete a new region
 		 *
-         * @memberOf voyent.io.locate
+         * @memberOf voyent.io.location
 		 * @alias deleteRegion
 		 * @param {Object} params params
 		 * @param {String} params.id The region id.
@@ -3839,7 +3878,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Fetches all saved regions for the realm
 		 *
-         * @memberOf voyent.io.locate
+         * @memberOf voyent.io.location
 		 * @alias getAllRegions
 		 * @param {Object} params params
 		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
@@ -3881,7 +3920,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Searches for regions in a realm based on a query
 		 *
-         * @memberOf voyent.io.locate
+         * @memberOf voyent.io.location
 		 * @alias findRegions
 		 * @param {Object} params params
 		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
@@ -3934,7 +3973,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Searches for monitors in a realm based on a query
 		 *
-         * @memberOf voyent.io.locate
+         * @memberOf voyent.io.location
 		 * @alias findMonitors
 		 * @param {Object} params params
 		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
@@ -3987,7 +4026,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Create a new location monitor
 		 *
-         * @memberOf voyent.io.locate
+         * @memberOf voyent.io.location
 		 * @alias createMonitor
 		 * @param {Object} params params
 		 * @param {String} params.id The monitor id. If not provided, the service will return a new id
@@ -4031,7 +4070,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Delete a new monitor
 		 *
-         * @memberOf voyent.io.locate
+         * @memberOf voyent.io.location
 		 * @alias deleteMonitor
 		 * @param {Object} params params
 		 * @param {String} params.id The region id.
@@ -4073,7 +4112,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Fetches all saved monitors for the realm
 		 *
-         * @memberOf voyent.io.locate
+         * @memberOf voyent.io.location
 		 * @alias getAllMonitors
 		 * @param {Object} params params
 		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
@@ -4114,7 +4153,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Create a new location point of interest
 		 *
-         * @memberOf voyent.io.locate
+         * @memberOf voyent.io.location
 		 * @alias createPOI
 		 * @param {Object} params params
 		 * @param {String} params.id The POI id. If not provided, the service will return a new id
@@ -4158,7 +4197,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Update a poi
 		 *
-         * @memberOf voyent.io.locate
+         * @memberOf voyent.io.location
 		 * @alias updatePOI
 		 * @param {Object} params params
 		 * @param {String} params.id The poi id, the poi to be updated
@@ -4202,7 +4241,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Searches for POIs in a realm based on a query
 		 *
-         * @memberOf voyent.io.locate
+         * @memberOf voyent.io.location
 		 * @alias findPOIs
 		 * @param {Object} params params
 		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
@@ -4255,7 +4294,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Delete a new POI
 		 *
-         * @memberOf voyent.io.locate
+         * @memberOf voyent.io.location
 		 * @alias deletePOI
 		 * @param {Object} params params
 		 * @param {String} params.id The POI id.
@@ -4297,7 +4336,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Fetches all saved POIs for the realm
 		 *
-         * @memberOf voyent.io.locate
+         * @memberOf voyent.io.location
 		 * @alias getAllPOIs
 		 * @param {Object} params params
 		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
@@ -4338,7 +4377,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Searches for locations in a realm based on a query
 		 *
-         * @memberOf voyent.io.locate
+         * @memberOf voyent.io.location
 		 * @alias findLocations
 		 * @param {Object} params params
 		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
@@ -4391,7 +4430,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Update the location of the current user.
 		 *
-         * @memberOf voyent.io.locate
+         * @memberOf voyent.io.location
 		 * @alias updateLocation
 		 * @param {Object} params params
 		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
@@ -4433,7 +4472,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Set the current users location with a latitude and longitude
 		 *
-         * @memberOf voyent.io.locate
+         * @memberOf voyent.io.location
 		 * @alias updateLocationCoordinates
 		 * @param {Object} params params
 		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
@@ -4495,7 +4534,7 @@ if( ! ('voyent' in window)){
 		/**
 		 * Get the last known user location from the location service.
 		 *
-         * @memberOf voyent.io.locate
+         * @memberOf voyent.io.location
 		 * @alias getLastUserLocation
 		 * @param {Object} params params
 		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
@@ -4511,14 +4550,14 @@ if( ! ('voyent' in window)){
 		 * @returns {Object} The single result, if any, of the user location.
 		 http://dev.voyent.cloud/locate/bsrtests/realms/test/locations
 			?access_token=4be2fc2f-a53b-4987-9446-88d519faaa77
-			&query={%22username%22:%22user%22}
-			&options={%22sort%22:[[%22lastUpdated%22,%22desc%22]]}
-			&results=one
+			&amp;query={%22username%22:%22user%22}
+			&amp;options={%22sort%22:[[%22lastUpdated%22,%22desc%22]]}
+			&amp;results=one
 		 var locationURL = apiURL + '/locations' +
 					'?access_token=' + encodeURIComponent(bsr.auth.getCurrentToken()) +
-					'&query={"username": "' + encodeURIComponent(user) + '"} +' +
-					'&options={"sort":[["lastUpdated","desc"]]}' +
-					'&results=one';
+					'&amp;query={"username": "' + encodeURIComponent(user) + '"} +' +
+					'&amp;options={"sort":[["lastUpdated","desc"]]}' +
+					'&amp;results=one';
 		 */
 
 		 getLastUserLocation: function(params){
@@ -4553,264 +4592,36 @@ if( ! ('voyent' in window)){
 			);
 		},
 
-		/**
-		 * Create a new tracker
-		 *
-         * @memberOf voyent.io.location
-		 * @alias createTracker
-		 * @param {Object} params params
-		 * @param {String} params.id The tracker id. If not provided, the service will return a new id
-		 * @param {Object} params.tracker The tracker geoJSON document that describes the tracker to be created
-		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
-		 *     will be used.
-		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
-		 *     will be used.
-		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
-		 *     voyent.io.auth.connect() will be used
-		 * @param {String} params.host The Voyent Services host url. If not supplied, the last used Voyent host, or the
-		 *     default will be used. (optional)
-		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
-		 * @returns {String} The resource URI
-		 */
-		 createTracker: function(params){
-			return new Promise(
-				function(resolve, reject) {
-					params = params ? params : {};
-					v.io.checkHost(params);
-
-					//validate
-					var account = validateAndReturnRequiredAccount(params, reject);
-					var realm = validateAndReturnRequiredRealm(params, reject);
-					var token = validateAndReturnRequiredAccessToken(params, reject);
-					validateRequiredTracker(params, reject);
-
-					var url = getRealmResourceURL(v.io.locateURL, account, realm,
-						'trackers' + (params.id ? params.id : ''), token, params.ssl);
-
-					v.$.post(url, params.tracker).then(function(response){
-						v.io.auth.updateLastActiveTimestamp();
-						resolve(response.uri);
-					})['catch'](function(error){
-						reject(error);
-					});
-				}
-			);
-		},
-
-		/**
-		 * Update a tracker
-		 *
-         * @memberOf voyent.io.location
-		 * @alias updateTracker
-		 * @param {Object} params params
-		 * @param {String} params.id The tracker id, the tracker to be updated
-		 * @param {Object} params.tracker The new tracker
-		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
-		 *     will be used.
-		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
-		 *     will be used.
-		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
-		 *     voyent.io.auth.connect() will be used
-		 * @param {String} params.host The Voyent Services host url. If not supplied, the last used Voyent host, or the
-		 *     default will be used. (optional)
-		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
-		 */
-		updateTracker: function(params){
-			return new Promise(
-				function(resolve, reject) {
-					params = params ? params : {};
-					v.io.checkHost(params);
-
-					//validate
-					var account = validateAndReturnRequiredAccount(params, reject);
-					var realm = validateAndReturnRequiredRealm(params, reject);
-					var token = validateAndReturnRequiredAccessToken(params, reject);
-					validateRequiredId(params, reject);
-					validateRequiredTracker(params, reject);
-
-					var url = getRealmResourceURL(v.io.locateURL, account, realm,
-							'trackers' + params.id, token, params.ssl);
-
-					v.$.put(url, params.tracker).then(function(){
-						v.io.auth.updateLastActiveTimestamp();
-						resolve();
-					})['catch'](function(error){
-						reject(error);
-					});
-				}
-			);
-		},
-
-		/**
-		 * Delete an tracker
-		 *
-         * @memberOf voyent.io.location
-		 * @alias deleteTracker
-		 * @param {Object} params params
-		 * @param {String} params.id The tracker id.
-		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
-		 *     will be used.
-		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
-		 *     will be used.
-		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
-		 *     voyent.io.auth.connect() will be used
-		 * @param {String} params.host The Voyent Services host url. If not supplied, the last used Voyent host, or the
-		 *     default will be used. (optional)
-		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
-		 */
-		 deleteTracker: function(params){
-			return new Promise(
-				function(resolve, reject) {
-					params = params ? params : {};
-					v.io.checkHost(params);
-
-					//validate
-					var account = validateAndReturnRequiredAccount(params, reject);
-					var realm = validateAndReturnRequiredRealm(params, reject);
-					var token = validateAndReturnRequiredAccessToken(params, reject);
-					validateRequiredId(params, reject);
-
-					var url = getRealmResourceURL(v.io.locateURL, account, realm,
-						'trackers' + params.id, token, params.ssl);
-
-					v.$.doDelete(url).then(function(response){
-						v.io.auth.updateLastActiveTimestamp();
-						resolve();
-					})['catch'](function(error){
-						reject(error);
-					});
-				}
-			);
-		},
-
-/**
-		 * Searches for Tracker in a realm based on a query
-		 *
-         * @memberOf voyent.io.location
-		 * @alias findTracker
-		 * @param {Object} params params
-		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
-		 *     will be used.
-		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
-		 *     will be used.
-		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
-		 *     voyent.io.auth.connect() will be used
-		 * @param {String} params.host The Voyent Services host url. If not supplied, the last used Voyent host, or the
-		 *     default will be used. (optional)
-		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
-		 * @param {Object} params.query A mongo query for the points of interest
-		 * @param {Object} params.fields Specify the inclusion or exclusion of fields to return in the result set
-		 * @param {Object} params.options Additional query options such as limit and sort
-		 * @returns {Object} The results
-		 */
-		 findTracker: function(params){
-			return new Promise(
-				function(resolve, reject) {
-					params = params ? params : {};
-					v.io.checkHost(params);
-
-					//validate
-					var account = validateAndReturnRequiredAccount(params, reject);
-					var realm = validateAndReturnRequiredRealm(params, reject);
-					var token = validateAndReturnRequiredAccessToken(params, reject);
-
-					var url = getRealmResourceURL(v.io.locateURL, account, realm,
-						'tracker', token, params.ssl, {
-							'query': params.query ? encodeURIComponent(JSON.stringify(params.query)) : {},
-							'fields': params.fields ? encodeURIComponent(JSON.stringify(params.fields)) : {},
-							'options': params.options ? encodeURIComponent(JSON.stringify(params.options)) : {}
-						});
-
-					v.$.getJSON(url).then(function(response){
-						v.io.auth.updateLastActiveTimestamp();
-						resolve(response);
-					})['catch'](function(error){
-						if( error.status === 404 ){
-							resolve();
-						}
-						else{
-							reject(error);
-						}
-					});
-				}
-			);
-		},
-
-/**
-		 * Fetches all saved Trackers for the realm
-		 *
-         * @memberOf voyent.io.location
-		 * @alias getAllTrackers
-		 * @param {Object} params params
-		 * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
-		 *     will be used.
-		 * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
-		 *     will be used.
-		 * @param {String} params.accessToken The Voyent authentication token. If not provided, the stored token from
-		 *     voyent.io.auth.connect() will be used
-		 * @param {String} params.host The Voyent Services host url. If not supplied, the last used Voyent host, or the
-		 *     default will be used. (optional)
-		 * @param {Boolean} params.ssl (default false) Whether to use SSL for network traffic.
-		 * @returns {Object} The results
-		 */
-		 getAllTrackers: function(params){
-			return new Promise(
-				function(resolve, reject) {
-					params = params ? params : {};
-					v.io.checkHost(params);
-
-					//validate
-					var account = validateAndReturnRequiredAccount(params, reject);
-					var realm = validateAndReturnRequiredRealm(params, reject);
-					var token = validateAndReturnRequiredAccessToken(params, reject);
-
-					var url = getRealmResourceURL(v.io.locateURL, account, realm,
-						'trackers', token, params.ssl);
-
-					v.$.getJSON(url).then(function(response){
-						v.io.auth.updateLastActiveTimestamp();
-						resolve(response);
-					})['catch'](function(error){
-						reject(error);
-					});
-				}
-			);
-		},
-
-
 		getRegionResourcePermissions: function(params){
 			params.path = 'regions';
-			return v.io.locate.getResourcePermissions(params);
+			return v.io.location.getResourcePermissions(params);
 		},
 
 		updateRegionResourcePermissions: function(params){
 			params.path = 'regions';
-			return v.io.locate.getResourcePermissions(params);
+			return v.io.location.getResourcePermissions(params);
 		},
 
 		getPOIResourcePermissions: function(params){
 			params.path = 'poi';
-			return v.io.locate.getResourcePermissions(params);
+			return v.io.location.getResourcePermissions(params);
 		},
 
 		updatePOIResourcePermissions: function(params){
 			params.path = 'poi';
-			return v.io.locate.updateResourcePermissions(params);
+			return v.io.location.updateResourcePermissions(params);
 		},
 
 		getResourcePermissions: function(params){
-			params.service = 'locate';
+			params.service = 'location';
 			return v.io.getResourcePermissions(params);
 		},
 
 		updateResourcePermissions: function(params){
-			params.service = 'locate';
+			params.service = 'location';
 			return v.io.updateResourcePermissions(params);
-		}
+		},
 	};
-
-	//allow using "location" for backward compatibility
-	v.io.location = v.io.locate;
 
     /**
      * @namespace mailbox
@@ -4823,7 +4634,7 @@ if( ! ('voyent' in window)){
          * @memberOf voyent.io.mailbox
          * @alias createMultiUserMessages
          * @param {Object} params params
-         * @param {Array} params.messages The message(s) to be created.
+         * @param {Object || Array} params.messages The message(s) to be created.
          * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
          * will be used.
          * @param {String} params.realm The Voyent Services realm. If not provided, the last known Voyent Realm name
@@ -4867,7 +4678,7 @@ if( ! ('voyent' in window)){
          * @memberOf voyent.io.mailbox
          * @alias createMessages
          * @param {Object} params params
-         * @param {Array} params.messages The message(s) to be created.
+         * @param {Object || Array} params.messages The message(s) to be created.
          * @param {String} params.username The user to create the message(s) for.
          * @param {String} params.account Voyent Services account name. If not provided, the last known Voyent Account
          * will be used.
@@ -5231,7 +5042,7 @@ if( ! ('voyent' in window)){
 	 */
 	v.io.scope = {
 		/**
-		 * Create or update data stored within a realm scope.
+		 * Create or update data stored within realm scope.
 		 *
 		 * @memberOf voyent.io.scope
 		 * @alias createRealmData
@@ -5409,7 +5220,7 @@ if( ! ('voyent' in window)){
 		},
 
 		/**
-		 * Create or update data stored within a user scope.
+		 * Create or update data stored within user scope.
 		 *
 		 * @memberOf voyent.io.scope
 		 * @alias createUserData
@@ -5595,7 +5406,7 @@ if( ! ('voyent' in window)){
 		},
 
 		/**
-		 * Create or update data stored within a process scope.
+		 * Create or update data stored within process scope.
 		 *
 		 * @memberOf voyent.io.scope
 		 * @alias createProcessData
@@ -5782,7 +5593,7 @@ if( ! ('voyent' in window)){
 		},
 
 		/**
-		 * Create or update data stored within a transaction scope.
+		 * Create or update data stored within transaction scope.
 		 *
 		 * @memberOf voyent.io.scope
 		 * @alias createTransactionData
@@ -6589,7 +6400,7 @@ if( ! ('voyent' in window)){
 						if (!callbacks)  {
 							callbacks = " ";
 						}
-						if (callbacks.indexOf(" " + callbackName + " ") < 0)  {
+						if (callbacks.indexOf(" " + callbackName + " ") &lt; 0)  {
 							callbacks += callbackName + " ";
 						}
 						v.setLocalStorageItem(CLOUD_CALLBACKS_KEY, callbacks);
@@ -6631,7 +6442,7 @@ if( ! ('voyent' in window)){
 
 				var pushURL = (params.ssl ? 'https://' : 'http://') + v.io.pushURL + '/';
 
-				if (ice && ice.push && ice.push.configuration.contextPath) {
+				if (ice &amp;&amp; ice.push &amp;&amp; ice.push.configuration.contextPath) {
 					addPushGroupMember();
 					console.log('voyent.io.push.addPushListener() added listener ' +
 						params.callback + ' to group ' + params.group);
@@ -6676,7 +6487,7 @@ if( ! ('voyent' in window)){
 						}
 						ice.push.connection.resumeConnection();
 						var pushIds = [];
-						for( var i = 0 ; i < listeners.length ; i++ ){
+						for( var i = 0 ; i &lt; listeners.length ; i++ ){
 							ice.push.removeGroupMember(params.group, listeners[i].pushId);
 							console.log('removed push id ' + listeners[i].pushId);
 						}
@@ -6735,12 +6546,12 @@ if( ! ('voyent' in window)){
 						}
 					}
 					if (!!absoluteGoVoyentURL)  {
-						if (options && !options.url)  {
+						if (options &amp;&amp; !options.url)  {
 							options.url = absoluteGoVoyentURL;
 						}
 					}
 					*/
-					if (ice && ice.push && ice.push.configuration.contextPath) {
+					if (ice &amp;&amp; ice.push &amp;&amp; ice.push.configuration.contextPath) {
 						var post = {};
 						if( params.subject ){
 							post.subject = params.subject;
@@ -7866,7 +7677,6 @@ if( ! ('voyent' in window)){
 				var realm = validateAndReturnRequiredRealm(params, reject);
 				var token = validateAndReturnRequiredAccessToken(params, reject);
 
-
 				var url = getRealmResourceURL(v.io.deviceURL, account, realm,
 					'/stop', token, params.ssl);
 
@@ -7903,7 +7713,7 @@ if( ! ('voyent' in window)){
 				var account = validateAndReturnRequiredAccount(params, reject);
 				var realm = validateAndReturnRequiredRealm(params, reject);
 				var token = validateAndReturnRequiredAccessToken(params, reject);
-				var url = getRealmResourceURL(v.io.deviceURL, account, realm, '/running', token, params.ssl);
+				var url = getRealmResourceURL(v.io.deviceURL, account, realm, 'running', token, params.ssl);
 
 				v.$.getJSON(url).then(function (devices) {
 					v.io.auth.updateLastActiveTimestamp();
@@ -7926,5 +7736,28 @@ if( ! ('voyent' in window)){
 			v.io.auth.connect(connectSettings);
 		}
 	}
-
+	
 })(voyent);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="voyent.html">voyent</a></li><li><a href="voyent.io.html">io</a></li><li><a href="voyent.io.action.html">action</a></li><li><a href="voyent.io.admin.html">admin</a></li><li><a href="voyent.io.auth.html">auth</a></li><li><a href="voyent.io.device.html">device</a></li><li><a href="voyent.io.documents.html">documents</a></li><li><a href="voyent.io.event.html">event</a></li><li><a href="voyent.io.eventhub.html">eventhub</a></li><li><a href="voyent.io.location.html">location</a></li><li><a href="voyent.io.mailbox.html">mailbox</a></li><li><a href="voyent.io.metrics.html">metrics</a></li><li><a href="voyent.io.push.html">push</a></li><li><a href="voyent.io.query.html">query</a></li><li><a href="voyent.io.scope.html">scope</a></li><li><a href="voyent.io.storage.html">storage</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getResourcePermissions">getResourcePermissions</a></li><li><a href="global.html#setCurrentRealm">setCurrentRealm</a></li><li><a href="global.html#updateResourcePermissions">updateResourcePermissions</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Sep 06 2016 14:14:35 GMT-0600 (MDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
