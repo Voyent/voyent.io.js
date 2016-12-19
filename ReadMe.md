@@ -9,10 +9,9 @@ The Voyent Services Client (voyent.io.js) is an easy-to-use JavaScript API for V
 
 ## Getting Started
 
-The Voyent Services Client (voyent.io.js) is an easy-to-use JavaScript API for Voyent Services. To take advantage of it, include both the voyent.io.js library and it's parent, voyent.js:
+The Voyent Services Client (voyent.io.js) is an easy-to-use JavaScript API for Voyent Services. To take advantage of it, just include the voyent.io.js library:
 
 ```html
-<script src="voyent.js"></script>
 <script src="voyent.io.js"></script>
 ```
 
@@ -27,7 +26,6 @@ The Voyent Services Client API is written with ECMAScript 6 Promise/A+ support. 
         window.Promise = ES6Promise.Promise;
     }
 </script>
-<script src="voyent.js"></script>
 <script src="voyent.io.js"></script>
 ```
 

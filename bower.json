@@ -10,10 +10,6 @@
 		"favicon.ico",
 		".gitignore"
 	],
-	"dependencies":{
-		"voyent.js": "https://github.com/voyent/voyent.js.git#gh-pages"
-	},
-	"devDependencies":{},
 	"keywords":[
 		"mobile",
 		"javascript",

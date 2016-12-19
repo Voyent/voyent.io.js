@@ -1,5 +1,5 @@
 {
-  "name": "voyent.js_tests",
+  "name": "voyent.io.js_tests",
   "version": "0.0.1",
   "devDependencies": {
     "chai": "*",
