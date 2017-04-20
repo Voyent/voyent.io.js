@@ -14,6 +14,7 @@
 * [isLoggedIn](#isLoggedIn)
 * [getLastKnownAccount](#getLastKnownAccount)
 * [getLastKnownRealm](#getLastKnownRealm)
+* [getLastKnownHost](#getLastKnownHost)
 * [registerAsNewUser](#registerAsNewUser)
 * [updateLastActiveTimestamp](#updateLastActiveTimestamp)
 * [getLastActiveTimestamp](#getLastActiveTimestamp)
@@ -313,6 +314,20 @@ function voyent.io.auth.getLastKnownRealm()
 ```
 
 Return the last know realm name that was used for the `login` or `connect` functions. 
+
+This value will only be available while the current sessionStorage is still available and 
+until the `disconnect` function has been called.
+
+#### Return value
+
+A string value or null.
+
+### <a name="getLastKnownHost"></a>getLastKnownHost
+```javascript
+function voyent.io.auth.getLastKnownHost()
+```
+
+Return the last know host that was used for the `login` or `connect` functions. 
 
 This value will only be available while the current sessionStorage is still available and 
 until the `disconnect` function has been called.

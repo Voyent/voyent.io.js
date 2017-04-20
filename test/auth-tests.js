@@ -198,13 +198,14 @@ describe('voyent.io.auth', function () {
 				var isLoggedIn = voyent.io.auth.isLoggedIn();
 				var lastAccount = voyent.io.auth.getLastKnownAccount();
 				var lastRealm = voyent.io.auth.getLastKnownRealm();
+				var lastHost = voyent.io.auth.getLastKnownHost();
 				var lastToken = voyent.io.auth.getLastAccessToken();
-				if( !isLoggedIn && !lastAccount && !lastRealm && !lastToken ){
+				if( !isLoggedIn && !lastAccount && !lastRealm && && !lastHost && !lastToken ){
 					done();
 				}
 				else{
 					console.log('disconnect failed: loggedIn: ' + isloggedIn + ' account: ' + lastAccount +
-						' realm: ' + lastRealm + ' token: ' + lastToken);
+						' realm: ' + lastRealm + ' host: ' + lastHost + ' token: ' + lastToken);
 				}
 			}).catch(function(error){
 				console.log('disconnect failed ' + error);
@@ -346,6 +347,24 @@ describe('voyent.io.auth', function () {
 				}
 			}).catch(function(error){
 				console.log('getLastKnownRealm failed ' + error);
+			});
+		});
+	});
+	
+	describe('#getLastKnownHost()', function(){
+		it('should login as a realm user then return the same host', function (done) {
+			voyent.io.auth.login({
+				account: accountId,
+				realm: realmId,
+				username: userId,
+				password: userPassword,
+				host: host
+			}).then(function(authResponse){
+				if( voyent.io.auth.getLastKnownHost() === host){
+					done();
+				}
+			}).catch(function(error){
+				console.log('getLastKnownHost failed ' + error);
 			});
 		});
 	});
